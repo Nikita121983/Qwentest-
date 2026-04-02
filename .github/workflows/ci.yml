@@ -41,7 +41,7 @@ jobs:
         run: mypy .
 
       - name: Test with pytest
-        run: pytest tests/ -v --cov=src --cov-report=xml --cov-fail-under=80
+        run: pytest tests/ -v --cov=. --cov-report=xml --cov-fail-under=80
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
@@ -115,6 +115,9 @@ jobs:
   build-csharp:
     needs: test-csharp
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ./csharp
 
     steps:
       - uses: actions/checkout@v4
