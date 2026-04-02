@@ -10,6 +10,9 @@ jobs:
   # Python тесты
   test-python:
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ./python
 
     strategy:
       matrix:
@@ -29,13 +32,13 @@ jobs:
           pip install -r requirements-dev.txt
 
       - name: Lint with ruff
-        run: ruff check src/
+        run: ruff check .
 
       - name: Check formatting with black
-        run: black --check src/
+        run: black --check .
 
       - name: Type check with mypy
-        run: mypy src/
+        run: mypy .
 
       - name: Test with pytest
         run: pytest tests/ -v --cov=src --cov-report=xml --cov-fail-under=80
