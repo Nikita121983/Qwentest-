@@ -1,0 +1,17 @@
+# Автоматические ревьюверы для Pull Request
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Владелец репозитория
+* @YOUR_USERNAME
+
+# Python код требует ревью
+*.py @YOUR_USERNAME
+
+# C# код требует ревью
+*.cs @YOUR_USERNAME
+
+# Изменения в CI/CD требуют ревью
+.github/workflows/*.yml @YOUR_USERNAME
+
+# Изменения в документации не требуют обязательного ревью
+docs/** /*.md

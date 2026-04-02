@@ -1,0 +1,34 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check PR title
+        uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            docs
+            style
+            refactor
+            test
+            chore
+          requireScope: false
+      
+      - name: Check for merge conflicts
+        uses: eps1lon/actions-label-merge-conflict@v3
+        with:
+          dirtyLabel: 'merge-conflict'
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          commentOnDirty: 'Этот PR имеет конфликты слияния. Пожалуйста, разрешите их перед ревью.'
