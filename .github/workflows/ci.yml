@@ -13,7 +13,7 @@ jobs:
     defaults:
       run:
         working-directory: ./python
-    if: hashFiles('python/pyproject.toml') != ''
+    if: ${{ hashFiles('python/pyproject.toml') != '' }}
 
     strategy:
       matrix:
@@ -57,7 +57,7 @@ jobs:
     defaults:
       run:
         working-directory: ./csharp
-    if: hashFiles('csharp/*.csproj') != ''
+    if: ${{ hashFiles('csharp/*.csproj') != '' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -87,7 +87,7 @@ jobs:
   build-python:
     needs: test-python
     runs-on: windows-latest
-    if: hashFiles('python/src/gui/main.py') != ''
+    if: ${{ hashFiles('python/src/gui/main.py') != '' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -120,7 +120,7 @@ jobs:
     defaults:
       run:
         working-directory: ./csharp
-    if: hashFiles('csharp/*.csproj') != ''
+    if: ${{ hashFiles('csharp/*.csproj') != '' }}
 
     steps:
       - uses: actions/checkout@v4
