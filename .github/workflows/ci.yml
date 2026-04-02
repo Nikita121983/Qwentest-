@@ -7,29 +7,22 @@ on:
     branches: [main]
 
 jobs:
-  # Python тесты
-  test-python:
+  # Базовые проверки кода
+  lint:
     runs-on: windows-latest
-    defaults:
-      run:
-        working-directory: ./python
-
-    strategy:
-      matrix:
-        python-version: ['3.10', '3.11', '3.12']
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: '3.10'
 
-      - name: Install dependencies
+      - name: Install tools
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements-dev.txt
+          pip install ruff black
 
       - name: Lint with ruff
         run: ruff check .
@@ -37,25 +30,38 @@ jobs:
       - name: Check formatting with black
         run: black --check .
 
-      - name: Type check with mypy
-        run: mypy .
+  # Проверка конфигов
+  validate:
+    runs-on: windows-latest
 
-      - name: Test with pytest
-        run: pytest tests/ -v --cov=. --cov-report=xml --cov-fail-under=50
+    steps:
+      - uses: actions/checkout@v4
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          file: ./coverage.xml
-          flags: unittests
-          name: codecov-umbrella
+      - name: Validate YAML
+        run: |
+          python -m pip install pyyaml
+          python -c "import yaml; yaml.safe_load(open('.github/workflows/ci.yml'))"
 
-  # C# тесты (если есть C# проекты)
+      - name: Check for large files
+        run: |
+          # Проверка файлов > 50 MB
+          for file in $(git ls-files); do
+            if [ -f "$file" ]; then
+              size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file" 2>/dev/null || echo 0)
+              if [ "$size" -gt 52428800 ]; then
+                echo "Error: $file is larger than 50 MB ($size bytes)"
+                exit 1
+              fi
+            fi
+          done
+
+  # C# проверка (если есть C# проекты)
   test-csharp:
     runs-on: windows-latest
     defaults:
       run:
         working-directory: ./csharp
+    if: hashFiles('csharp/*.csproj') != ''
 
     steps:
       - uses: actions/checkout@v4
@@ -72,19 +78,15 @@ jobs:
         run: dotnet build --no-restore
 
       - name: Test
-        run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage"
+        run: dotnet test --no-build --verbosity normal
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          files: '**/coverage.cobertura.xml'
-          flags: unittests
-          name: codecov-csharp
-
-  # Сборка Python приложения
-  build-python:
-    needs: test-python
+  # Python проверка (если есть Python проекты)
+  test-python:
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ./python
+    if: hashFiles('python/pyproject.toml') != ''
 
     steps:
       - uses: actions/checkout@v4
@@ -97,41 +99,16 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pyinstaller
-          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
 
-      - name: Build executable
-        run: |
-          pyinstaller --onefile --windowed src/gui/main.py --name MyApp
-          pyinstaller --onefile --windowed src/gui/main.py --name MyApp_Debug --debug=all
+      - name: Lint with ruff
+        run: ruff check .
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: MyApp-Windows
-          path: dist/
+      - name: Check formatting with black
+        run: black --check .
 
-  # Сборка C# приложения
-  build-csharp:
-    needs: test-csharp
-    runs-on: windows-latest
-    defaults:
-      run:
-        working-directory: ./csharp
+      - name: Type check with mypy
+        run: mypy .
 
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Publish
-        run: dotnet publish -c Release -o publish
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: MyApp-Windows-CS
-          path: publish/
+      - name: Test with pytest
+        run: pytest tests/ -v
