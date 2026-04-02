@@ -6,7 +6,7 @@ body:
     attributes:
       value: |
         Спасибо за идею! Расскажите подробнее о предлагаемой функции.
-  
+
   - type: textarea
     id: problem
     attributes:
@@ -15,7 +15,7 @@ body:
       placeholder: Я всегда сталкиваюсь с...
     validations:
       required: true
-  
+
   - type: textarea
     id: solution
     attributes:
@@ -24,14 +24,14 @@ body:
       placeholder: Хотелось бы, чтобы программа могла...
     validations:
       required: true
-  
+
   - type: textarea
     id: alternatives
     attributes:
       label: Альтернативы
       description: Какие есть обходные пути?
       placeholder: Сейчас я делаю так...
-  
+
   - type: dropdown
     id: priority
     attributes:

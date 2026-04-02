@@ -19,7 +19,7 @@
 
 ### Тема: Настройка Qwen Code для Python/C# проекта
 
-**Статус:** Завершён  
+**Статус:** Завершён
 **Файлы:**
 - Полная версия: `conversations/001_2026-04-02_initial-setup_FULL.md` *(ожидает вставки)*
 - Резюме: `conversations/001_2026-04-02_initial-setup_SUMMARY.md`

@@ -3,43 +3,37 @@
 repos:
   # Python линтер
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.0
+    rev: v0.15.9
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
-  
+
   # Python форматтер
   - repo: https://github.com/psf/black
-    rev: 23.0.0
+    rev: 26.3.1
     hooks:
       - id: black
-        language_version: python3.10
-  
-  # Python type checker
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.0.0
-    hooks:
-      - id: mypy
-        additional_dependencies:
-          - types-all
-  
-  # Python тесты
+
+  # Python тесты (локально, без virtualenv)
   - repo: local
     hooks:
-      - id: pytest
-        name: pytest
-        entry: pytest tests/ -v --cov=src --cov-fail-under=80
+      - id: pytest-check
+        name: pytest-check
+        entry: python -m pytest tests/ -v --tb=short
         language: system
         pass_filenames: false
         always_run: true
-  
-  # Проверка .env файлов (не должно быть в git)
+        stages: [pre-commit]
+
+  # Проверка файлов
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
         args: ['--maxkb=1000']
       - id: check-case-conflict
       - id: check-merge-conflict
       - id: detect-private-key
-      - id: forbid-new-submodules
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace

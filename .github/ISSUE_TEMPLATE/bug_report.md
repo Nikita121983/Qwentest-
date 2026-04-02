@@ -6,7 +6,7 @@ body:
     attributes:
       value: |
         Спасибо за отчёт! Пожалуйста, заполните форму подробно.
-  
+
   - type: input
     id: version
     attributes:
@@ -15,7 +15,7 @@ body:
       placeholder: например, 0.1.0
     validations:
       required: true
-  
+
   - type: input
     id: os
     attributes:
@@ -24,7 +24,7 @@ body:
       placeholder: Windows 11, macOS 14, Ubuntu 22.04
     validations:
       required: true
-  
+
   - type: textarea
     id: what-happened
     attributes:
@@ -33,7 +33,7 @@ body:
       placeholder: Ожидал..., но произошло...
     validations:
       required: true
-  
+
   - type: textarea
     id: reproduce
     attributes:
@@ -46,7 +46,7 @@ body:
         4. Ошибка!
     validations:
       required: true
-  
+
   - type: textarea
     id: logs
     attributes:

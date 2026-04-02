@@ -83,17 +83,17 @@ def calculate_volume(width, height, depth):
 # ✅ Правильно
 def merge_layers(slices: list[Layer], factor: int) -> list[Layer]:
     """Объединяет слои для сглаживания.
-    
+
     Args:
         slices: Список слоёв для объединения.
         factor: Коэффициент объединения (сколько в один).
-    
+
     Returns:
         Новый список с объединёнными слоями.
-    
+
     Raises:
         ValueError: Если factor < 1 или slices пуст.
-    
+
     Example:
         >>> merge_layers([1,2,3,4,5,6], 3)
         [2, 5]
@@ -114,20 +114,20 @@ def merge_layers(slices, factor):
 # ✅ Правильно
 class LayerMerger:
     """Объединение слоёв."""
-    
+
     def merge(self, slices: list[Layer], factor: int) -> list[Layer]:
         ...
 
 class LayerSmoother:
     """Сглаживание слоёв."""
-    
+
     def smooth(self, layers: list[Layer]) -> list[Layer]:
         ...
 
 # ❌ Неправильно
 class LayerProcessor:
     """Всё про слои."""
-    
+
     def merge(self, ...): ...
     def smooth(self, ...): ...
     def validate(self, ...): ...
@@ -150,7 +150,7 @@ def merge_layers(slices: list[Layer], config: MergeConfig) -> list[Layer]:
     ...
 
 # ❌ Неправильно
-def merge_layers(slices, factor, method, preserve_details, 
+def merge_layers(slices, factor, method, preserve_details,
                  min_thickness, max_thickness, callback):
     ...
 ```
@@ -239,7 +239,7 @@ public class LayerMerger
 {
     private readonly ILayerValidator _validator;
     private readonly ILogger _logger;
-    
+
     public LayerMerger(ILayerValidator validator, ILogger logger)
     {
         _validator = validator;
@@ -349,10 +349,10 @@ def test_merge_layers_basic():
     # Arrange
     slices = [Layer(1), Layer(2), Layer(3), Layer(4), Layer(5), Layer(6)]
     merger = LayerMerger()
-    
+
     # Act
     result = merger.merge(slices, factor=3)
-    
+
     # Assert
     assert len(result) == 2
     assert result[0].thickness == 3  # Объединено 3 слоя

@@ -101,15 +101,15 @@ from src.core.merger import merge_layers
 
 class TestMergeLayers:
     """Тесты на объединение слоёв."""
-    
+
     def test_basic_merge(self):
         """Базовое объединение."""
         assert merge_layers([1,2,3,4,5,6], 3) == [2, 5]
-    
+
     def test_empty_input(self):
         """Пустой вход."""
         assert merge_layers([], 3) == []
-    
+
     def test_remainder(self):
         """Остаток от деления."""
         assert merge_layers([1,2,3,4], 3) == [2, 4]

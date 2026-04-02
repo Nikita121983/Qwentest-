@@ -6,7 +6,7 @@
 
 ## 📍 Место хранения архива
 
-**Текущее:** Локально в проекте  
+**Текущее:** Локально в проекте
 **Путь:** `C:\Users\Nik\SyncthingServiceAcct\Qwentest\docs\conversations\`
 
 > Чтобы изменить место хранения, см. `ARCHIVE_LOCATION.md`
