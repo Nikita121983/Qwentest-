@@ -3,6 +3,6 @@
 """
 
 
-def test_placeholder():
+def test_placeholder() -> None:
     """Тест-заглушка для проверки настройки тестирования."""
     assert True

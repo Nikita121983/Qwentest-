@@ -53,6 +53,9 @@ jobs:
   # C# тесты (если есть C# проекты)
   test-csharp:
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ./csharp
 
     steps:
       - uses: actions/checkout@v4
