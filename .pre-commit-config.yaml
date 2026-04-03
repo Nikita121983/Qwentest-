@@ -25,6 +25,15 @@ repos:
         always_run: true
         stages: [pre-commit]
 
+      # Валидация GitHub Actions workflow
+      - id: validate-workflows
+        name: validate-workflows
+        entry: python scripts/validate_workflows.py
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
+
   # Проверка файлов
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
