@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.python-version
+venv/
+ENV/
+env/
+
+# C#
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+*.pidb
+*.svd
+*.cache
+*.slnx
+
+# Android
+*.apk
+*.aab
+*.dex
+*.class
+Android/MeasuringAssistant/app/build/
+Android/MeasuringAssistant/build/
+Android/MeasuringAssistant/.gradle/
+Android/MeasuringAssistant/local.properties
+Android/MeasuringAssistant/.idea/
+Android/.gitignore-files/
+*.jks
+*.keystore
+
+# IDE
+.vscode/
+.vs/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Pre-commit cache
+.pre-commit/
