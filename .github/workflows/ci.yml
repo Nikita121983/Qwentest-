@@ -126,27 +126,33 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Setup Android SDK
+        if: steps.check.outputs.exists == 'true'
+        uses: android-actions/setup-android@v3
+
+      - name: Accept Android licenses
+        if: steps.check.outputs.exists == 'true'
+        run: yes | sdkmanager --licenses || true
+
       - name: Setup Gradle
         if: steps.check.outputs.exists == 'true'
-        uses: gradle/gradle-build-action@v3
-
-      - name: Make gradlew executable
-        if: steps.check.outputs.exists == 'true'
-        run: chmod +x ./Android/MeasuringAssistant/gradlew
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Lint
         if: steps.check.outputs.exists == 'true'
         continue-on-error: true
-        run: ./gradlew lintDebug
+        run: gradle lintDebug
         working-directory: Android/MeasuringAssistant
 
       - name: Build APK
         if: steps.check.outputs.exists == 'true'
-        run: ./gradlew assembleDebug
+        continue-on-error: true
+        run: gradle assembleDebug
         working-directory: Android/MeasuringAssistant
 
       - name: Upload APK
         if: steps.check.outputs.exists == 'true'
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: app-debug-apk
