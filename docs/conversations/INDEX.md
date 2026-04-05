@@ -33,6 +33,7 @@
 | 003 | 2026-04-03 | GlmReader разработка | [FULL](003_2026-04-03_glm-reader-development_FULL.md), [SUMMARY](003_2026-04-03_glm-reader-development_SUMMARY.md) |
 | 004 | 2026-04-06 | Исправление бага BLE сканирования | [SUMMARY](004_2026-04-06_ble-scan-fix_SUMMARY.md) |
 | 005 | 2026-04-06 | Обновление зависимостей до актуальных версий | [SUMMARY](005_2026-04-06_dependency-updates_SUMMARY.md) |
+| 006 | 2026-04-06 | Фикс UI проблем и подготовка к новой сессии | [SUMMARY](006_2026-04-06_fix-issues_SUMMARY.md) |
 
 ---
 
