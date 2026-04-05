@@ -1,5 +1,7 @@
 package com.glmreader.android.ui
 
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
 import android.content.Intent
 import android.Manifest
 import android.content.pm.PackageManager
@@ -34,6 +36,9 @@ import com.glmreader.android.ui.viewmodel.MeasurementViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.UUID
+import com.glmreader.android.ui.BleDeviceAdapter
+import com.glmreader.android.ui.BleDeviceItem
+import androidx.appcompat.app.AlertDialog
 
 class MeasurementListActivity : AppCompatActivity() {
 
@@ -169,10 +174,10 @@ class MeasurementListActivity : AppCompatActivity() {
     }
 
     private fun setupBleCallbacks() {
+        // Убрали автоматическое подключение - теперь пользователь выбирает устройство в диалоге
         bleManager.onDeviceFound = { mac, name ->
             Log.d("BLE", "Found: $name ($mac)")
-            bleManager.stopScan()
-            bleManager.connect(mac)
+            // Не подключаемся автоматически, просто логируем
         }
 
         bleManager.onConnectionStateChanged = { connected ->
@@ -243,6 +248,10 @@ class MeasurementListActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_ble -> {
+                showBleDialog()
+                true
+            }
             R.id.action_export -> {
                 if (adapter.isSelectionMode()) {
                     adapter.deleteSelected()
@@ -286,5 +295,125 @@ class MeasurementListActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         bleManager.disconnect()
+    }
+
+    private fun showBleDialog() {
+        val view = layoutInflater.inflate(R.layout.dialog_ble_connection, null)
+        val tvStatus = view.findViewById<TextView>(R.id.tvBleStatus)
+        val btnToggle = view.findViewById<Button>(R.id.btnToggleBle)
+        val btnScan = view.findViewById<Button>(R.id.btnScan)
+        val btnConnect = view.findViewById<Button>(R.id.btnConnect)
+        val tvConnStatus = view.findViewById<TextView>(R.id.tvConnectionStatus)
+        val recycler = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerDevices)
+
+        val bluetoothManager = getSystemService(BluetoothManager::class.java)
+        val bluetoothAdapter = bluetoothManager.adapter
+
+        fun updateUi() {
+            val isBleOn = bluetoothAdapter.isEnabled
+            val tvStatus = view.findViewById<TextView>(R.id.tvBleStatus)
+            val btnToggle = view.findViewById<Button>(R.id.btnToggleBle)
+            val btnScan = view.findViewById<Button>(R.id.btnScan)
+            val tvConnStatus = view.findViewById<TextView>(R.id.tvConnectionStatus)
+
+            tvStatus.text = if (isBleOn) "Bluetooth включен" else "Bluetooth выключен"
+            tvStatus.setTextColor(if (isBleOn) getColor(android.R.color.holo_green_dark) else getColor(android.R.color.holo_red_dark))
+            btnToggle.text = if (isBleOn) "Выключить" else "Включить"
+            btnScan.isEnabled = isBleOn
+
+            if (bleManager.isConnected) {
+                tvConnStatus.text = "Подключено к ${bleManager.connectedDeviceName ?: "Устройству"}"
+                tvConnStatus.setTextColor(getColor(android.R.color.holo_green_dark))
+                btnScan.text = "Остановить"
+            } else if (bleManager.isScanning) {
+                tvConnStatus.text = "Сканирование..."
+                tvConnStatus.setTextColor(getColor(android.R.color.holo_blue_dark))
+                btnScan.text = "Стоп"
+            } else {
+                tvConnStatus.text = "Не подключено"
+                tvConnStatus.setTextColor(getColor(android.R.color.darker_gray))
+                btnScan.text = "Сканировать"
+            }
+        }
+
+        // Список для динамического отображения найденных устройств
+        val foundDevices = mutableListOf<BleDeviceItem>()
+        val deviceAdapter = BleDeviceAdapter(foundDevices) { selectedDevice ->
+            // При выборе устройства в списке
+            runOnUiThread {
+                btnConnect.isEnabled = selectedDevice != null
+                if (selectedDevice != null) {
+                    tvConnStatus.text = "Выбрано: ${selectedDevice.name}"
+                }
+            }
+        }
+        recycler.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        recycler.adapter = deviceAdapter
+
+        // Подписываемся на поиск устройств для обновления списка
+        // ВАЖНО: Сохраняем ссылку на callback для последующей очистки
+        val scanCallback: (String, String) -> Unit = { mac, name ->
+            runOnUiThread {
+                Log.d("BLE_DIALOG", "Found in dialog: $name ($mac)")
+
+                // Добавляем устройство, если его еще нет
+                if (foundDevices.none { it.mac == mac }) {
+                    foundDevices.add(BleDeviceItem(name, mac, false))
+                    deviceAdapter.notifyDataSetChanged()
+                    Log.d("BLE_DIALOG", "Added to list: $name")
+                }
+            }
+        }
+
+        // Устанавливаем callback ПЕРЕД открытием диалога
+        bleManager.onDeviceFound = scanCallback
+
+        btnToggle.setOnClickListener {
+            val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            startActivityForResult(intent, 1)
+        }
+
+        btnScan.setOnClickListener {
+            if (bleManager.isScanning) {
+                bleManager.stopScan()
+            } else {
+                foundDevices.clear() // Очищаем список при новом сканировании
+                deviceAdapter.notifyDataSetChanged()
+                btnConnect.isEnabled = false
+                bleManager.startScan()
+            }
+            updateUi()
+        }
+
+        btnConnect.setOnClickListener {
+            val selected = deviceAdapter.selectedDevice
+            if (selected != null) {
+                bleManager.connect(selected.mac)
+                updateUi()
+            }
+        }
+
+        // Callbacks для обновления UI
+        val originalConnCallback = bleManager.onConnectionStateChanged
+        bleManager.onConnectionStateChanged = { connected ->
+            runOnUiThread { updateUi() }
+            originalConnCallback?.invoke(connected)
+        }
+
+        val dialog = com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle("Подключение к рулетке")
+            .setView(view)
+            .setNegativeButton("Закрыть") { _, _ ->
+                bleManager.stopScan()
+                // НЕ сбрасываем onDeviceFound - он нужен для основного потока
+                // Просто восстанавливаем logging-only callback
+                bleManager.onDeviceFound = { mac, name ->
+                    Log.d("BLE", "Found: $name ($mac)")
+                }
+            }
+            .create()
+
+        dialog.show()
+        updateUi()
     }
 }

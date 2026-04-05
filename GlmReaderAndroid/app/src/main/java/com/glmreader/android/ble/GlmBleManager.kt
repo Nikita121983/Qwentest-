@@ -29,6 +29,8 @@ class GlmBleManager(context: Context) {
         private set
     var isConnected = false
         private set
+    var connectedDeviceName: String? = null
+        private set
 
     var onDeviceFound: ((String, String) -> Unit)? = null
     var onDataReceived: ((ByteArray) -> Unit)? = null
@@ -46,13 +48,20 @@ class GlmBleManager(context: Context) {
             val device = result.device
             val name = device.name ?: "Unknown"
             val mac = device.address
-            Log.d("BLE", "Found: $name | $mac")
+
+            // Логируем все найденные устройства, особенно Bosch
+            Log.d("BLE_SCAN", "Found: $name | $mac")
+            if (name.contains("Bosch", ignoreCase = true) || name.contains("GLM", ignoreCase = true)) {
+                Log.w("BLE_SCAN", ">>> BOSCH DEVICE FOUND: $name ($mac)")
+            }
+
             onDeviceFound?.invoke(mac, name)
         }
 
         override fun onScanFailed(errorCode: Int) {
             Log.e("BLE", "Scan failed: $errorCode")
             isScanning = false
+            // Можно добавить callback для ошибки сканирования
         }
     }
 
@@ -60,22 +69,21 @@ class GlmBleManager(context: Context) {
     fun startScan() {
         if (isScanning || !bluetoothAdapter.isEnabled) return
         isScanning = true
-        Log.d("BLE", "Scan started")
+        Log.d("BLE", "Scan started (no filter)")
 
-        val scanFilter = android.bluetooth.le.ScanFilter.Builder()
-            .setServiceUuid(ParcelUuid(SERVICE_UUID))
-            .build()
-
+        // Убираем фильтр полностью - сканируем все устройства
         val scanSettings = ScanSettings.Builder()
             .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
             .build()
 
         try {
+            // Передаем null вместо списка фильтров - это сканирует ВСЕ устройства
             bluetoothLeScanner.startScan(
-                listOf(scanFilter),
+                null, // no filters - scan everything
                 scanSettings,
                 scanCallback
             )
+            Log.d("BLE", "Scanner started successfully")
         } catch (e: Exception) {
             Log.e("BLE", "startScan exception", e)
             isScanning = false
@@ -112,6 +120,7 @@ class GlmBleManager(context: Context) {
             if (newState == android.bluetooth.BluetoothProfile.STATE_CONNECTED) {
                 Log.d("BLE", "Connected!")
                 isConnected = true
+                connectedDeviceName = gatt.device.name
                 onConnectionStateChanged?.invoke(true)
                 try {
                     gatt.discoverServices()
