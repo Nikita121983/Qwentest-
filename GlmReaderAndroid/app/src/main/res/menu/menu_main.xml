@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_ble"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="Подключение"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_export"
         android:title="Экспорт XLSX"
         android:icon="@android:drawable/ic_menu_upload"

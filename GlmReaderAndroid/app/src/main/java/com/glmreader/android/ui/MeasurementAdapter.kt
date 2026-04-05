@@ -24,6 +24,9 @@ class MeasurementAdapter(
     private val dateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale("ru"))
     private val selectionMode = mutableSetOf<String>()
 
+    /** Получить текущий список измерений (для экспорта) */
+    fun getMeasurements(): List<MeasurementEntity> = measurements.toList()
+
     fun updateData(newData: List<MeasurementEntity>) {
         measurements.clear()
         measurements.addAll(newData)

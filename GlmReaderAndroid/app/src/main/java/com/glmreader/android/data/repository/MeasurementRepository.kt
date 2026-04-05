@@ -19,7 +19,7 @@ class MeasurementRepository(
         measurementDao.getByUuid(uuid)
 
     /** Вставить измерение */
-    suspend fun insert(measurement: MeasurementEntity): Long =
+    suspend fun insert(measurement: MeasurementEntity) =
         measurementDao.insert(measurement)
 
     /** Обновить измерение */

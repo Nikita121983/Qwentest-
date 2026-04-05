@@ -274,7 +274,7 @@ class MeasurementListActivity : AppCompatActivity() {
     }
 
     private fun exportToXlsx() {
-        val measurements = adapter.measurements.toList()
+        val measurements = adapter.getMeasurements()
         if (measurements.isEmpty()) {
             Toast.makeText(this, "Нет данных для экспорта", Toast.LENGTH_SHORT).show()
             return

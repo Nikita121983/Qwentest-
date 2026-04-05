@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Косвенная длина: линия под углом (как в MM) -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <!-- Наклонная линия -->
     <path
         android:fillColor="#0091EA"
         android:pathData="M4,20L20,4l1.5,1.5L6,21z" />
-    <!-- Стрелка верх (красная) -->
     <path
         android:fillColor="#E53935"
         android:pathData="M20,4L16,10h8z" />
-    <!-- Стрелка низ (синяя) -->
     <path
         android:fillColor="#0091EA"
         android:pathData="M4,20L8,14H0z" />
-    <!-- Угловая дуга -->
     <path
-        android:fillColor="none"
+        android:fillColor="#00000000"
         android:strokeColor="#E53935"
         android:strokeWidth="1.5"
         android:pathData="M7,19 A6,6 0 0,0 13,13" />

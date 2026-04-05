@@ -15,7 +15,7 @@ interface MeasurementDao {
     fun getAllActive(): Flow<List<MeasurementEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(measurement: MeasurementEntity)
+    suspend fun insert(measurement: MeasurementEntity): Long
 
     @Query("UPDATE measurements SET isDeleted = 1, updatedAt = :timestamp WHERE uuid = :uuid")
     suspend fun softDelete(uuid: String, timestamp: Long = System.currentTimeMillis())

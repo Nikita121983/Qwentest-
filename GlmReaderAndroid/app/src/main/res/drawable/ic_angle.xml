@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Угол: линия под углом (как в MM) -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <!-- Горизонтальная линия -->
     <path
         android:fillColor="#0091EA"
         android:pathData="M4,18h16v2H4z" />
-    <!-- Наклонная линия -->
     <path
         android:fillColor="#0091EA"
         android:pathData="M4,18L16,6l1.5,1.5L6,19z" />
-    <!-- Дуга угла -->
     <path
-        android:fillColor="none"
+        android:fillColor="#00000000"
         android:strokeColor="#E53935"
         android:strokeWidth="1.5"
         android:pathData="M7,18 A7,7 0 0,1 14,11" />
-    <!-- Точка угла -->
-    <circle
+    <path
         android:fillColor="#E53935"
-        android:cx="4"
-        android:cy="18"
-        android:r="1.5" />
+        android:pathData="M4,16.5a1.5,1.5 0 1,0 0,3a1.5,1.5 0 1,0 0,-3z" />
 </vector>

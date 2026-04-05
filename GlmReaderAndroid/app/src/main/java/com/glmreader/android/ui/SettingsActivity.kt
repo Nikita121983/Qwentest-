@@ -26,6 +26,9 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var switchAutoSwitch: SwitchMaterial
     private lateinit var radioGroupTheme: android.widget.RadioGroup
 
+    // Флаг для предотвращения зацикливания при смене темы
+    private var isThemeChanging = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -56,12 +59,21 @@ class SettingsActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             viewModel.themeMode.collectLatest { mode ->
+                // Пропускаем обновление если тема только что изменена пользователем
+                if (isThemeChanging) return@collectLatest
+
                 val radioButtonId = when (mode) {
                     "light" -> R.id.radioLight
                     "dark" -> R.id.radioDark
                     else -> R.id.radioSystem
                 }
+
+                // Временно отключаем слушатель, чтобы check() не триггерил логику смены темы
+                radioGroupTheme.setOnCheckedChangeListener(null)
                 radioGroupTheme.check(radioButtonId)
+
+                // Восстанавливаем слушатель
+                setupThemeListener()
             }
         }
 
@@ -83,23 +95,31 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         // RadioGroup — тема
+        setupThemeListener()
+    }
+
+    private fun setupThemeListener() {
         radioGroupTheme.setOnCheckedChangeListener { _, checkedId ->
+            if (isThemeChanging) return@setOnCheckedChangeListener
+            isThemeChanging = true
+
             val mode = when (checkedId) {
-                R.id.radioLight -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    "light"
-                }
-                R.id.radioDark -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    "dark"
-                }
-                R.id.radioSystem -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                    "system"
-                }
+                R.id.radioLight -> "light"
+                R.id.radioDark -> "dark"
+                R.id.radioSystem -> "system"
                 else -> "light"
             }
             viewModel.setThemeMode(mode)
+
+            // Применяем тему глобально - это пересоздаст activity
+            val nightMode = when (mode) {
+                "dark" -> AppCompatDelegate.MODE_NIGHT_YES
+                "system" -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                else -> AppCompatDelegate.MODE_NIGHT_NO
+            }
+            AppCompatDelegate.setDefaultNightMode(nightMode)
+
+            // Флаг снимется после пересоздания activity
         }
     }
 

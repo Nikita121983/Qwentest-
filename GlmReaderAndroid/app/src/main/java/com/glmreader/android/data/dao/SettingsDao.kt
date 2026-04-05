@@ -6,15 +6,11 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.glmreader.android.data.entity.SettingsEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SettingsDao {
     @Query("SELECT * FROM settings WHERE key = :key")
     suspend fun getSetting(key: String): SettingsEntity?
-
-    @Query("SELECT value FROM settings WHERE key = :key LIMIT 1")
-    fun getSettingFlow(key: String, defaultValue: String): Flow<String>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(setting: SettingsEntity)

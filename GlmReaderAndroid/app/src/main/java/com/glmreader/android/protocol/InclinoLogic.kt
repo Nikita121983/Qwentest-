@@ -1,5 +1,6 @@
 package com.glmreader.android.protocol
 
+import com.glmreader.android.protocol.BlePacketParser.MeasurementType
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin
