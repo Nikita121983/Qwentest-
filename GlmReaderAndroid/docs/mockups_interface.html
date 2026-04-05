@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=393, initial-scale=1.0">
+<title>GlmReaderAndroid — Mockups Final</title>
+<style>
+    body { background: #222; display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; font-family: 'Roboto', sans-serif; color: white; }
+    h1 { width: 100%; text-align: center; color: #ddd; margin-bottom: 10px; }
+    .phone {
+        width: 360px;
+        height: 640px;
+        background: #f5f5f5;
+        border-radius: 20px;
+        border: 8px solid #333;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .status-bar { height: 24px; background: #000; color: #fff; font-size: 10px; display: flex; justify-content: space-between; padding: 0 10px; align-items: center; }
+
+    /* Toolbar */
+    .toolbar { height: 56px; background: #2B5878; display: flex; align-items: center; padding: 0 16px; color: white; font-size: 20px; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 10; }
+    .toolbar .icon { margin-right: 16px; font-size: 20px; }
+    .toolbar .actions { margin-left: auto; display: flex; gap: 16px; }
+
+    /* Remote Panel (Collapsible) - MM Style Refined */
+    .remote-panel { background: #fff; border-bottom: 1px solid #ddd; transition: all 0.3s; position: relative; overflow: hidden; }
+    .remote-panel.collapsed { height: 40px; }
+    .remote-panel.expanded { height: 190px; } /* Чуть выше для кнопок */
+    .remote-toggle { width: 100%; height: 100%; background: none; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #2B5878; font-size: 14px; font-weight: 500; }
+
+    .remote-header { width: 100%; display: flex; justify-content: flex-end; padding: 4px 8px; }
+    .collapse-btn { background: none; border: none; color: #888; cursor: pointer; font-size: 14px; }
+
+    .remote-content { padding: 8px 16px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
+    .section-title { font-size: 12px; color: #888; font-weight: 500; margin-bottom: 4px; letter-spacing: 0.5px; }
+
+    .control-row { display: flex; align-items: center; gap: 12px; }
+    .mm-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+
+    /* Кнопка выбора как в MM */
+    .mm-dropdown {
+        flex: 1;
+        height: 44px;
+        background: linear-gradient(180deg, #1a6fb5, #0d4f8a);
+        border: none;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .mm-dropdown .arrow { font-size: 10px; margin-left: 8px; opacity: 0.8; }
+
+    /* Кнопка Включить */
+    .btn-enable {
+        width: 100%;
+        height: 48px;
+        background: linear-gradient(180deg, #1a6fb5, #0d4f8a);
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+        margin-top: 4px;
+    }
+    .btn-enable .laser-icon { font-size: 20px; color: #ffeb3b; } /* Желтая иконка лазера */
+
+    /* List */
+    .list-container { flex: 1; overflow-y: auto; background: #fff; position: relative; }
+    .list-header { background: #eee; padding: 8px 16px; font-size: 12px; color: #888; text-transform: uppercase; border-bottom: 1px solid #ccc; }
+
+    .row { display: flex; align-items: center; padding: 12px 16px; border-bottom: 1px solid #eee; background: #fff; position: relative; }
+    .row:hover { background: #fafafa; }
+    .row.selected { background: #e3f2fd; }
+    .row .trash { width: 24px; color: #888; margin-right: 12px; display: none; } /* Hidden by default per request */
+    .row .checkbox { width: 24px; margin-right: 12px; display: none; }
+    .row.select-mode .trash { display: none; }
+    .row.select-mode .checkbox { display: block; }
+
+    .row .info { flex: 1; }
+    .row .name { font-size: 16px; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .row .date { font-size: 12px; color: #888; margin-top: 2px; }
+    .row .right { display: flex; align-items: center; gap: 8px; }
+    .row .icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #2B5878; }
+    .row .value { font-size: 18px; color: #0091EA; font-weight: 500; }
+
+    /* Action Bar (Selection Mode) */
+    .action-bar { height: 56px; background: #2B5878; color: white; display: none; align-items: center; padding: 0 16px; z-index: 20; }
+    .action-bar.active { display: flex; }
+    .action-bar .count { font-size: 18px; margin-right: 20px; }
+    .action-bar .btn { margin-left: 16px; font-size: 14px; cursor: pointer; padding: 8px; border-radius: 4px; }
+    .action-bar .btn:hover { background: rgba(255,255,255,0.1); }
+
+    /* FAB Navigation */
+    .fab-nav { position: absolute; bottom: 16px; right: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 5; }
+    .fab { width: 40px; height: 40px; border-radius: 50%; background: #2B5878; color: white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.3); cursor: pointer; font-size: 18px; opacity: 0.8; }
+    .fab:hover { opacity: 1; }
+
+    /* Mode Label */
+    .mode-label { position: absolute; top: 30px; left: 0; width: 100%; background: rgba(0,0,0,0.7); color: white; text-align: center; padding: 5px; font-size: 12px; z-index: 100; }
+
+</style>
+</head>
+<body>
+
+<h1>GlmReaderAndroid — Final Mockups (MM Style)</h1>
+
+<!-- MODE 1: Standard (Collapsed Panel) -->
+<div class="phone">
+    <div class="mode-label">РЕЖИМ 1: Стандартный (Панель свернута)</div>
+    <div class="status-bar"><span>18:00</span><span>🔋 80%</span></div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <span class="icon">☰</span>
+        <span>Измерения</span>
+        <div class="actions">⋮</div>
+    </div>
+
+    <!-- Collapsed Remote Panel -->
+    <div class="remote-panel collapsed">
+        <button class="remote-toggle">▼ Дистанционное управление</button>
+    </div>
+
+    <!-- List -->
+    <div class="list-header">ИЗМЕРЕНИЯ</div>
+    <div class="list-container">
+        <!-- Rows -->
+        <div class="row">
+            <div class="trash">🗑</div>
+            <div class="info"><div class="name">Д-11 П3.2.1-2.Кл7</div><div class="date">04.04.2026 17:59</div></div>
+            <div class="right"><div class="icon">↕</div><div class="value">2078,2 mm</div></div>
+        </div>
+        <div class="row">
+            <div class="trash">🗑</div>
+            <div class="info"><div class="name">Измерение</div><div class="date">04.04.2026 17:58</div></div>
+            <div class="right"><div class="icon">📐</div><div class="value">1444,6 mm</div></div>
+        </div>
+        <!-- More rows to simulate scroll -->
+        <div class="row"><div class="trash">🗑</div><div class="info"><div class="name">Площадь</div><div class="date">04.04.2026 17:57</div></div><div class="right"><div class="icon">⬜</div><div class="value">12,5 м²</div></div></div>
+        <div class="row"><div class="trash">🗑</div><div class="info"><div class="name">Угол</div><div class="date">04.04.2026 17:56</div></div><div class="right"><div class="icon">∠</div><div class="value">45,0 °</div></div></div>
+        <div class="row"><div class="trash">🗑</div><div class="info"><div class="name">Измерение</div><div class="date">04.04.2026 17:55</div></div><div class="right"><div class="icon">↕</div><div class="value">3200,0 mm</div></div></div>
+        <div class="row"><div class="trash">🗑</div><div class="info"><div class="name">Объем</div><div class="date">04.04.2026 17:54</div></div><div class="right"><div class="icon">📦</div><div class="value">45 м³</div></div></div>
+
+        <!-- FAB Navigation -->
+        <div class="fab-nav">
+            <div class="fab">⬇</div>
+        </div>
+    </div>
+</div>
+
+<!-- MODE 2: Expanded Panel (MM Style) -->
+<div class="phone">
+    <div class="mode-label">РЕЖИМ 2: Панель управления (Стиль MM)</div>
+    <div class="status-bar"><span>18:00</span><span>🔋 80%</span></div>
+
+    <div class="toolbar">
+        <span class="icon">☰</span>
+        <span>Измерения</span>
+        <div class="actions">⋮</div>
+    </div>
+
+    <!-- Expanded Remote Panel -->
+    <div class="remote-panel expanded">
+        <div class="remote-header">
+            <button class="collapse-btn">▲ Свернуть</button>
+        </div>
+        <div class="remote-content">
+            <div class="section-title">ДИСТАНЦИОННОЕ ИЗМЕРЕНИЕ</div>
+
+            <!-- Строка 1: Тип замера -->
+            <div class="control-row">
+                <div class="mm-icon" style="color:#E53935;">🚪↑</div>
+                <button class="mm-dropdown">
+                    <span>Косвенная высота</span>
+                    <span class="arrow">▼</span>
+                </button>
+            </div>
+
+            <!-- Строка 2: Точка отсчета -->
+            <div class="control-row">
+                <div class="mm-icon" style="color:#0091EA;">↕</div>
+                <button class="mm-dropdown">
+                    <span>Задняя грань</span>
+                    <span class="arrow">▼</span>
+                </button>
+            </div>
+
+            <!-- Кнопка Включить -->
+            <button class="btn-enable">
+                <span class="laser-icon">✦</span> ВКЛЮЧИТЬ
+            </button>
+        </div>
+    </div>
+
+    <div class="list-header">ИЗМЕРЕНИЯ</div>
+    <div class="list-container">
+        <div class="row"><div class="trash">🗑</div><div class="info"><div class="name">Д-11 П3.2.1-2.Кл7</div><div class="date">04.04.2026 17:59</div></div><div class="right"><div class="icon">↕</div><div class="value">2078,2 mm</div></div></div>
+        <div class="row"><div class="trash">🗑</div><div class="info"><div class="name">Измерение</div><div class="date">04.04.2026 17:58</div></div><div class="right"><div class="icon">📐</div><div class="value">1444,6 mm</div></div></div>
+        <div class="row"><div class="trash">🗑</div><div class="info"><div class="name">Площадь</div><div class="date">04.04.2026 17:57</div></div><div class="right"><div class="icon">⬜</div><div class="value">12,5 м²</div></div></div>
+
+        <div class="fab-nav">
+            <div class="fab">⬇</div>
+        </div>
+    </div>
+</div>
+
+<!-- MODE 3: Selection Mode -->
+<div class="phone">
+    <div class="mode-label">РЕЖИМ 3: Выделение (Долгое нажатие)</div>
+    <div class="status-bar"><span>18:00</span><span>🔋 80%</span></div>
+
+    <!-- Action Bar -->
+    <div class="action-bar active">
+        <span class="count">2 выбрано</span>
+        <div class="actions" style="margin-left:auto; display:flex;">
+            <span class="btn">Интервал</span>
+            <span class="btn">Все</span>
+            <span class="btn" style="color:#ff8a80;">🗑</span>
+        </div>
+    </div>
+
+    <!-- Collapsed Remote Panel (Visible underneath) -->
+    <div class="remote-panel collapsed">
+        <button class="remote-toggle">▼ Дистанционное управление</button>
+    </div>
+
+    <div class="list-header">ИЗМЕРЕНИЯ</div>
+    <div class="list-container">
+        <!-- Selected Rows -->
+        <div class="row selected select-mode">
+            <div class="checkbox"><input type="checkbox" checked></div>
+            <div class="info"><div class="name">Д-11 П3.2.1-2.Кл7</div><div class="date">04.04.2026 17:59</div></div>
+            <div class="right"><div class="icon">↕</div><div class="value">2078,2 mm</div></div>
+        </div>
+        <div class="row selected select-mode">
+            <div class="checkbox"><input type="checkbox" checked></div>
+            <div class="info"><div class="name">Измерение</div><div class="date">04.04.2026 17:58</div></div>
+            <div class="right"><div class="icon">📐</div><div class="value">1444,6 mm</div></div>
+        </div>
+        <!-- Normal Row -->
+        <div class="row select-mode">
+            <div class="checkbox"><input type="checkbox"></div>
+            <div class="info"><div class="name">Площадь</div><div class="date">04.04.2026 17:57</div></div>
+            <div class="right"><div class="icon">⬜</div><div class="value">12,5 м²</div></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

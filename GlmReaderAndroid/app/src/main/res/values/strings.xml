@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GLM Reader</string>
+    <string name="no_measurements">Нет измерений</string>
+    <string name="connect_device">Подключить устройство</string>
+    <string name="disconnect">Отключиться</string>
+    <string name="export_xlsx">Экспорт XLSX</string>
+    <string name="delete_selected">Удалить выбранные</string>
+    <string name="select_all">Выбрать все</string>
+    <string name="measurement_type">Тип: %s</string>
+    <string name="result_mm">%.1f мм</string>
+</resources>

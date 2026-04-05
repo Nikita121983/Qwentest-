@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Непрерывный замер: волнистая линия с точками (как в MM) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Вертикальная линия -->
+    <path
+        android:fillColor="#0091EA"
+        android:pathData="M11,4h2v16h-2z" />
+    <!-- Верхняя стрелка -->
+    <path
+        android:fillColor="#E53935"
+        android:pathData="M12,4L8,10h8z" />
+    <!-- Нижняя стрелка -->
+    <path
+        android:fillColor="#0091EA"
+        android:pathData="M12,20L8,14h8z" />
+    <!-- Точки непрерывного -->
+    <circle
+        android:fillColor="#FFA500"
+        android:cx="16"
+        android:cy="8"
+        android:r="1.5" />
+    <circle
+        android:fillColor="#FFA500"
+        android:cx="16"
+        android:cy="12"
+        android:r="1.5" />
+    <circle
+        android:fillColor="#FFA500"
+        android:cx="16"
+        android:cy="16"
+        android:r="1.5" />
+</vector>

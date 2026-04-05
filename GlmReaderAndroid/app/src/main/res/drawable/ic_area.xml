@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Площадь: прямоугольник со стрелками (как в MM) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Прямоугольник (синий как в MM) -->
+    <path
+        android:fillColor="#42A5F5"
+        android:pathData="M4,6h16v12H4z" />
+    <!-- Стрелка вертикальная (красная) -->
+    <path
+        android:fillColor="#E53935"
+        android:pathData="M2,6L0,10h4z" />
+    <path
+        android:fillColor="#E53935"
+        android:pathData="M2,18L0,14h4z" />
+    <path
+        android:fillColor="#E53935"
+        android:pathData="M1,10h2v4H1z" />
+    <!-- Стрелка горизонтальная (синяя) -->
+    <path
+        android:fillColor="#0091EA"
+        android:pathData="M20,4L16,2v4z" />
+    <path
+        android:fillColor="#0091EA"
+        android:pathData="M4,4L8,2v4z" />
+    <path
+        android:fillColor="#0091EA"
+        android:pathData="M8,2v2H4V2z" />
+</vector>

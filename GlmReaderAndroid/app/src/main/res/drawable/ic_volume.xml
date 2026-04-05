@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Объём/контейнер: 3D куб со стрелками (как в MM) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- 3D куб (синий как в MM) -->
+    <path
+        android:fillColor="#42A5F5"
+        android:pathData="M4,8L12,4L20,8L12,12L4,8z" />
+    <path
+        android:fillColor="#1E88E5"
+        android:pathData="M4,8v8l8,4v-8L4,8z" />
+    <path
+        android:fillColor="#64B5F6"
+        android:pathData="M20,8v8l-8,4v-8L20,8z" />
+    <!-- Стрелки: вертикальная (красная) -->
+    <path
+        android:fillColor="#E53935"
+        android:pathData="M3,2L1,6h4z" />
+    <path
+        android:fillColor="#E53935"
+        android:pathData="M3,22L1,18h4z" />
+    <path
+        android:fillColor="#E53935"
+        android:pathData="M2,6h2v12H2z" />
+    <!-- Стрелки: горизонтальная (синяя) -->
+    <path
+        android:fillColor="#0091EA"
+        android:pathData="M22,3L18,1v4z" />
+    <path
+        android:fillColor="#0091EA"
+        android:pathData="M2,3L6,1v4z" />
+    <path
+        android:fillColor="#0091EA"
+        android:pathData="M6,2H2v2h4z" />
+</vector>

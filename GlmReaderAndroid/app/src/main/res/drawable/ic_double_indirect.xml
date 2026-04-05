@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Двойная косвенная: два отрезка под углом (как в MM) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Первый отрезок (наклон вверх) -->
+    <path
+        android:fillColor="#0091EA"
+        android:pathData="M4,20L12,10l1.5,1.5L6,21z" />
+    <!-- Второй отрезок (наклон вниз) -->
+    <path
+        android:fillColor="#42A5F5"
+        android:pathData="M12,10L20,6l0.8,1.8L14,12z" />
+    <!-- Точка соединения -->
+    <circle
+        android:fillColor="#E53935"
+        android:cx="12"
+        android:cy="10"
+        android:r="2" />
+    <!-- Стрелки -->
+    <path
+        android:fillColor="#E53935"
+        android:pathData="M20,4L16,10h8z" />
+    <path
+        android:fillColor="#0091EA"
+        android:pathData="M4,20L8,14H0z" />
+</vector>

@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "server",
+  "dolt_database": "Qwentest",
+  "project_id": "8ec42b98-b03a-4a5b-a5e0-3dea07c45372"
+}

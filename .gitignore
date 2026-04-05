@@ -75,3 +75,22 @@ Thumbs.db
 
 # Pre-commit cache
 .pre-commit/
+
+# Beads / Dolt
+.beads/
+.dolt/
+*.db
+.beads-credential-key
+
+# Archives - HCI logs, bugreports, tools
+archives/
+
+# Backup files
+*.bak
+*.bak.note
+
+# Temporary
+check.txt
+Текстовый документ.txt
+*.tmp
+*.log

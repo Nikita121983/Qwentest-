@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=393, initial-scale=1.0">
+<title>GLM Reader - Аналог MM</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+  }
+  .phone {
+    width: 393px;
+    height: 852px;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Статус-бар */
+  .status-bar {
+    height: 28px;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    color: #fff;
+    font-size: 11px;
+  }
+  /* Toolbar — синий как в MM */
+  .toolbar {
+    height: 56px;
+    background: #2B5878;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    color: #fff;
+  }
+  .toolbar .burger {
+    font-size: 22px;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  .toolbar .title {
+    font-size: 20px;
+    font-weight: 400;
+    flex: 1;
+    text-align: center;
+    margin-right: 48px;
+  }
+  .toolbar .bt-icon {
+    font-size: 20px;
+    margin-right: 16px;
+    opacity: 0.7;
+  }
+  .toolbar .dots {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+  /* Панель дистанционного измерения (когда подключена) */
+  .remote-panel {
+    background: #fff;
+    padding: 16px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+  .remote-panel .label {
+    color: #888;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    text-align: left;
+    letter-spacing: 0.5px;
+  }
+  .remote-panel .controls {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  .remote-panel .type-icon {
+    font-size: 32px;
+  }
+  .remote-panel .dropdown {
+    width: 80px;
+    height: 44px;
+    background: linear-gradient(180deg, #1a6fb5, #0d4f8a);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+  }
+  .remote-panel .btn-enable {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 40px;
+    background: linear-gradient(180deg, #1a6fb5, #0d4f8a);
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .remote-panel .btn-enable .laser-icon {
+    font-size: 20px;
+  }
+  /* Заголовок списка */
+  .list-header {
+    background: #e8e8e8;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+  }
+  .list-header .title {
+    color: #888;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .list-header .download {
+    color: #2B5878;
+    font-size: 20px;
+  }
+  /* Список замеров */
+  .measurement-list {
+    background: #fff;
+  }
+  /* Строка замера */
+  .measurement-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #fff;
+  }
+  .measurement-row .trash {
+    width: 24px;
+    color: #2B5878;
+    font-size: 18px;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+  .measurement-row .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .measurement-row .name {
+    color: #1A3A5C;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .measurement-row .datetime {
+    color: #888;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+  .measurement-row .right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .measurement-row .type-icon {
+    font-size: 24px;
+  }
+  .measurement-row .value {
+    color: #0091EA;
+    font-size: 18px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .measurement-row .arrow {
+    color: #2B5878;
+    font-size: 16px;
+  }
+  /* Навигация */
+  .nav-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 48px;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .nav-bar .gesture-bar {
+    width: 120px;
+    height: 4px;
+    background: #555;
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <!-- Статус-бар -->
+  <div class="status-bar">
+    <span>18:06</span>
+    <span>🔋 26%</span>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <span class="burger">☰</span>
+    <span class="title">Список измерений</span>
+    <span class="bt-icon"></span>
+    <span class="dots">⋮</span>
+  </div>
+
+  <!-- Панель дистанционного измерения (когда рулетка подключена) -->
+  <div class="remote-panel">
+    <div class="label">Дистанционное измерение</div>
+    <div class="controls">
+      <span class="type-icon">🚪↑</span>
+      <div class="dropdown">▾</div>
+      <span class="type-icon" style="color:#0091EA;">↕</span>
+      <div class="dropdown">▾</div>
+    </div>
+    <button class="btn-enable">
+      <span class="laser-icon">✦</span> Включить
+    </button>
+  </div>
+
+  <!-- Заголовок списка -->
+  <div class="list-header">
+    <span class="title">Измерения</span>
+    <span class="download">⬇</span>
+  </div>
+
+  <!-- Список замеров -->
+  <div class="measurement-list">
+
+    <div class="measurement-row">
+      <span class="trash">🗑</span>
+      <div class="info">
+        <div class="name">Д-11 П3.2.1-2.Кл7</div>
+        <div class="datetime">25.03.2026 20:56</div>
+      </div>
+      <div class="right">
+        <span class="type-icon" style="color:#0091EA;">↕</span>
+        <span class="value">1033,1 mm</span>
+      </div>
+    </div>
+
+    <div class="measurement-row">
+      <span class="trash">🗑</span>
+      <div class="info">
+        <div class="name">Измерение</div>
+        <div class="datetime">25.03.2026 20:55</div>
+      </div>
+      <div class="right">
+        <span class="type-icon" style="color:#0091EA;">↕</span>
+        <span class="value">2350,6 mm</span>
+      </div>
+    </div>
+
+    <div class="measurement-row">
+      <span class="trash">🗑</span>
+      <div class="info">
+        <div class="name">Измерение</div>
+        <div class="datetime">25.03.2026 20:55</div>
+      </div>
+      <div class="right">
+        <span class="type-icon" style="color:#0091EA;">↕</span>
+        <span class="value">2353,3 mm</span>
+      </div>
+    </div>
+
+    <div class="measurement-row">
+      <span class="trash">🗑</span>
+      <div class="info">
+        <div class="name">Д-11 П3.2.1-2.Кл7</div>
+        <div class="datetime">25.03.2026 20:55</div>
+      </div>
+      <div class="right">
+        <span class="type-icon" style="color:#0091EA;">↕</span>
+        <span class="value">1048 mm</span>
+      </div>
+    </div>
+
+    <div class="measurement-row">
+      <span class="trash">🗑</span>
+      <div class="info">
+        <div class="name">Измерение</div>
+        <div class="datetime">25.03.2026 20:54</div>
+      </div>
+      <div class="right">
+        <span class="type-icon" style="color:#0091EA;">↕</span>
+        <span class="value">2368,3 mm</span>
+      </div>
+    </div>
+
+    <div class="measurement-row">
+      <span class="trash">🗑</span>
+      <div class="info">
+        <div class="name">Измерение</div>
+        <div class="datetime">25.03.2026 20:54</div>
+      </div>
+      <div class="right">
+        <span class="type-icon" style="color:#0091EA;">↕</span>
+        <span class="value">2368,8 mm</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Навигация -->
+  <div class="nav-bar">
+    <div class="gesture-bar"></div>
+  </div>
+</div>
+
+</body>
+</html>

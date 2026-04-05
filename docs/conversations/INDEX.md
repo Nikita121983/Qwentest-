@@ -29,6 +29,8 @@
 | # | Дата | Тема | Файлы |
 |---|------|------|-------|
 | 001 | 2026-04-02 | Настройка Qwen Code | [FULL](001_2026-04-02_initial-setup_FULL.md), [SUMMARY](001_2026-04-02_initial-setup_SUMMARY.md) |
+| 002 | 2026-04-03 | Reverse engineering GLM протокола | [FULL](002_2026-04-03_reverse-engineering-glm-protocol_FULL.md), [SUMMARY](002_2026-04-03_reverse-engineering-glm-protocol_SUMMARY.md) |
+| 003 | 2026-04-03 | GlmReader разработка | [FULL](003_2026-04-03_glm-reader-development_FULL.md), [SUMMARY](003_2026-04-03_glm-reader-development_SUMMARY.md) |
 
 ---
 

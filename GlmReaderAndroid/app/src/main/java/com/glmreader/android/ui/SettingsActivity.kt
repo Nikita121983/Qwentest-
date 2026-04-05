@@ -1,0 +1,110 @@
+package com.glmreader.android.ui
+
+import android.os.Bundle
+import android.widget.SeekBar
+import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.radiobutton.MaterialRadioButton
+import com.google.android.material.switchmaterial.SwitchMaterial
+import com.glmreader.android.R
+import com.glmreader.android.ui.viewmodel.SettingsViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+
+/**
+ * Экран настроек.
+ */
+class SettingsActivity : AppCompatActivity() {
+
+    private val viewModel: SettingsViewModel by viewModels()
+    private lateinit var tvThresholdValue: TextView
+    private lateinit var seekBarThreshold: SeekBar
+    private lateinit var switchAutoSwitch: SwitchMaterial
+    private lateinit var radioGroupTheme: android.widget.RadioGroup
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_settings)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+
+        tvThresholdValue = findViewById(R.id.tvThresholdValue)
+        seekBarThreshold = findViewById(R.id.seekBarThreshold)
+        switchAutoSwitch = findViewById(R.id.switchAutoSwitch)
+        radioGroupTheme = findViewById(R.id.radioGroupTheme)
+
+        // Наблюдаем за настройками
+        lifecycleScope.launch {
+            viewModel.inclinoThreshold.collectLatest { threshold ->
+                seekBarThreshold.progress = threshold.toInt()
+                tvThresholdValue.text = "${threshold.toInt()}°"
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.inclinoAutoSwitch.collectLatest { enabled ->
+                switchAutoSwitch.isChecked = enabled
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.themeMode.collectLatest { mode ->
+                val radioButtonId = when (mode) {
+                    "light" -> R.id.radioLight
+                    "dark" -> R.id.radioDark
+                    else -> R.id.radioSystem
+                }
+                radioGroupTheme.check(radioButtonId)
+            }
+        }
+
+        // SeekBar — порог инклинометра
+        seekBarThreshold.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    tvThresholdValue.text = "${progress}°"
+                    viewModel.setInclinoThreshold(progress.toDouble())
+                }
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
+        // Switch — автопереключение
+        switchAutoSwitch.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.setInclinoAutoSwitch(isChecked)
+        }
+
+        // RadioGroup — тема
+        radioGroupTheme.setOnCheckedChangeListener { _, checkedId ->
+            val mode = when (checkedId) {
+                R.id.radioLight -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    "light"
+                }
+                R.id.radioDark -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    "dark"
+                }
+                R.id.radioSystem -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                    "system"
+                }
+                else -> "light"
+            }
+            viewModel.setThemeMode(mode)
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
+    }
+}

@@ -1,0 +1,104 @@
+# Draft — Сессия #003 — Разработка GlmReader
+## Хронология
+- Создан проект GlmReader (C# .NET 8 WinForms)
+- Реализованы: BleManager, GlmCommands, GlmProtocol, Measurement, MainForm
+- Изучена документация: 21_GLM_PROTOCOL_FULL_SPEC.md, 22_MINIMAL_APP_PLAN.md
+- Изучены Android/docs: 15_FULL_REVERSE_ENGINEERING, 16_BOSCH_GLM_PROTOCOL, 20_GLM_PROTOCOL_SPEC
+- Изучены bugreport логи Measuring Master — структура EDCInputMessage
+- Найдены TXT экспорты: "Косвенные приложение" vs "Косвенные" — подтверждение что приложение МОЖЕТ переключать тип
+- Сопоставлены TXT с HCI логами — GlmProtocol подтверждён (12/12 совпадений)
+- **Находка**: HCI лог btsnoop_app_control.log содержит 0 host→controller пакетов — команда смены типа не найдена
+- Удалены выдуманные команды SetMeasurementType/SetReferencePoint
+- ComboBox'ы переделаны в индикаторы (Enabled = false)
+- Попробованы BLE подходы: DeviceWatcher, BluetoothLEAdvertisementWatcher, FromBluetoothAddressAsync
+- **Проблема**: Windows BLE API не видит сервис GLM (02A6C0D0-...) без спаривания
+- **Проблема**: Рулетка не спаривается с Windows ("устройство не отвечает")
+- MAC адреса: 001343D5215D (x9370), 001343D55747 (x5747)
+- Финальная версия: BluetoothLEAdvertisementWatcher для сканирования
+- **Обсуждение правил**: контекст ограничен, draft.md НЕ удалять
+- **НОВЫЕ ДАННЫЕ**: файл "Точки.txt" с пометками рулетка/приложение/история
+  - Косвенная высота/длина, Двойная косвенная, Угол, Площадь, Поверхность стены — ТОЛЬКО из приложения
+  - Длина и Объём — и рулетка и приложение
+  - Синхронизация истории работает ("скачено из истории")
+  - **Подтверждение**: приложение МОЖЕТ переключать тип измерения
+- HCI лог новой сессии НЕ доступен — Android btsnooz (тип 1002) содержит только события, не ACL пакеты
+- **КРИТИЧЕСКАЯ НАХОДКА**: RemoteControlCommandsUtils.java — МЕХАНИЗМ СМЕНЫ ТИПА И ТОЧКИ ОТСЧЁТА НАЙДЕН!
+  - Смена типа: `devMode=60, remoteCtrlData=turnSyncModeToEDCMode(syncMode)`
+  - Смена точки: `devMode=62, remoteCtrlData=refLevel` (0=Front, 1=Tripod, 2=Rear, 3=Pin)
+  - Удалённая кнопка: команда 86 (0x56), data=0x00
+- **КРИТИЧЕСКАЯ НАХОДКА**: EDCMessageFactory.java — полная структура входящего пакета!
+  - DevModeRef: `[refEdge:2][devMode:6]` — точка отсчёта прямо в пакете (биты 0-1)!
+  - DevStatus: `[laser:1][tempWarn:1][battWarn:1][configUnits:1][deviceStatus:4]`
+  - MeasID: uint16, Result/Comp1/Comp2: float32 LE
+- **КРИТИЧЕСКАЯ НАХОДКА**: MtFrameByteWriter.java — форматы фреймов и CRC!
+  - LONG: `[FM][Cmd][Len][Payload...][CRC8]` — CRC по ВСЕМ байтам до CRC
+  - SHORT: `[FM][Cmd][CRC8]` — CRC по [FM, Cmd]
+  - EXT: `[FM][Cmd][LenLSB][LenMSB][Payload...][CRC16]`
+  - Байт `0xAC` в HCI логах — BLE терминатор Android стека, НЕ часть CRC
+- **Реализовано в коде**:
+  - CRC8 (0xA6, Init 0xAA) в GlmProtocol — точная копия Crc.java
+  - GlmProtocol.CreateEdcCommand() — создание LONG команд с правильным CRC
+  - GlmCommands.Init → `C0 55 02 40 00 [CRC=70]`
+  - GlmCommands.SyncHistory → `C0 55 02 BA 00 [CRC=5E]`
+  - GlmCommands.Measure → `C0 56 01 00 [CRC=1E]`
+  - GlmCommands.SetMeasurementType(syncMode) — 10 типов с CRC
+  - GlmCommands.SetReferencePoint(refLevel) — 4 точки с CRC
+  - GlmProtocol.TryParseDataPacket — полный парсинг по EDCMessageFactory
+  - Извлечение refEdge (точка отсчёта) из пакета
+  - Извлечение laserStatus, deviceStatus, measID
+  - Маппинг 27 devMode → MeasurementType
+  - Автоматическое обновление ComboBox'ов из пакета
+  - Measurement: добавлены LaserOn, MeasID, RawPacket
+- **Документация полностью переписана** (21_GLM_PROTOCOL_FULL_SPEC.md):
+  - 3 формата фреймов (LONG/SHORT/EXT)
+  - CRC8 алгоритм с примерами (проверено: Init HCI CRC=0x1A совпадает!)
+  - Полная таблица 64 devMode
+  - KeypadBypass — блокировка клавиатуры рулетки
+  - Heartbeat C0 55 02 F1 — EDCInputMessage с devMode=60, сообщает режим рулетки
+  - SyncList (команда 81) — пакетный запрос истории
+  - Settings (команда 83/84) — настройки рулетки (lastUsedListIndex, подсветка, единицы)
+  - Tail байты — это НЕ метаданные, а CRC фрейма!
+  - 12+ исходных файлов APK с описанием
+- **Добавлено в код**:
+  - GlmCommands.SyncList(indexFrom, indexTo)
+  - GlmCommands.GetSettings()
+  - Heartbeat парсинг обновлён: mode = data[4]
+- **КРИТИЧЕСКАЯ НАХОДКА**: MtProtocolBLEImpl.java — полный BLE транспорт!
+  - Состояния: SLAVE_LISTENING ↔ MASTER_READY ↔ MASTER_RECEIVING
+  - FIFO: 244 байта RX и TX
+  - Очередь сообщений (LinkedBlockingDeque), SendThread в фоне
+  - При ошибке записи: retry через 200мс
+  - При таймауте: возврат в SLAVE режим
+- **КРИТИЧЕСКАЯ НАХОДКА**: MtFrameByteReader.java — парсинг входящих фреймов!
+  - State Machine: MODE → STATUS → CMD → SIZE → DATA → CRC
+  - FrameMode байт определяет тип (REQUEST=3, RESPONSE=0) и формат (LONG/SHORT/EXT)
+  - BLE уведомления могут содержать фрагменты или несколько фреймов
+- **КРИТИЧЕСКАЯ НАХОДКА**: MtFrameConstants.java — все константы протокола!
+  - 9 FrameMode комбинаций (C0, C1, C2, C4, C6, C7, C8, C9, CA)
+  - 6 статусов ответа (SUCCESS, TIMEOUT, MODE_NOT_SUPPORTED, CHECKSUM_ERROR, CMD_UNKNOWN, ACCESS_DENIED, PARAM_ERROR)
+  - Размеры: FLOAT=4, UINT16=2, UINT8=1
+- **ПОЛНОЕ ПОДТВЕРЖДЕНИЕ**: Measuring Master 1.9.4 И MeasureOn 2.0.1 используют ИДЕНТИЧНЫЙ механизм смены типа/точки!
+  - Оба: `RemoteControlCommandsUtils.java` — одинаковый код
+  - Оба: `devMode=60` для смены типа, `devMode=62` для точки отсчёта
+  - Оба: `turnSyncModeToEDCMode()`, `KeypadBypass=0`, `SyncControl=1`
+  - Протокол 100% подтверждён на двух независимых APK
+- **КРИТИЧЕСКАЯ НАХОДКА**: BLEConnection.java — как приложение пишет в BLE!
+  - `characteristic.setValue(data)` → `bluetoothGatt.writeCharacteristic(characteristic)`
+  - Данные = ТОЛЬКО MtProtocol фрейм [FrameMode, Cmd, Len, Payload..., CRC8]
+  - **Байт 0xAC в HCI логах — BLE стек Android, НЕ приложение!**
+  - Наше C# приложение НЕ должно добавлять 0xAC
+  - Подписка: `descriptor.setValue(ENABLE_INDICATION_VALUE)` → `writeDescriptor`
+  - UUID: MIRACULIX_SERVICE=02A6C0D0, MIRACULIX_CHAR=02A6C0D1, MIRACULIX2_SERVICE=0000FDE8, MIRACULIX2_CHAR=02A6C0D2
+- **Документация обновлена** (21_GLM_PROTOCOL_FULL_SPEC.md):
+  - Добавлен раздел 8: Транспортный уровень (BLE)
+  - Состояния протокола, FIFO, парсинг фреймов, статусы, обработка ошибок
+  - Раздел 2.7: BLE транспорт — 0xAC это BLE padding Android стека, не протокол
+  - Полная таблица исходящих сообщений (30 типов)
+- **Полный список исходящих сообщений** (из FrameFactoryImpl.java — 30 типов):
+  - EDC: EDCOutputMessage, EDCDoRemoteTriggerButtonMessage, EDCTOutputMessage
+  - Sync: SyncOutputMessage, SyncListOutputMessage
+  - Settings: SettingsMessage
+  - Single: SingleDistOutputMessage
+  - LineLaser: GCLDevInfo, SetLasers, MotorOperations, RemoteControlKey, PowerProfile, SyncCalibrationData, ClearCalibrationEvents
+  - Rotation: SyncStatus, LaserSlope, AccessLock, LogSize, LogPacket, SyncCalibration, EEPROMData
+  - General: RTCTimestamp, KeypadPattern, TraceData, SetActivePeer, DoEcho, SimpleMessage
