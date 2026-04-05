@@ -422,4 +422,65 @@ Qwen Code поддерживает несколько языков.
 
 ---
 
-*Последнее обновление: 3 апреля 2026 г.*
+## ADR-012: Управление BLE callback'ами — избегать автоподключения
+
+**Дата:** 6 апреля 2026 г.
+**Статус:** Принято
+**Автор:** Nik + Qwen Code
+
+### Контекст
+
+Приложение GlmReader Android не находило устройства при сканировании BLE, хотя Nordic nRF Connect успешно видел и подключался к рулетке.
+
+### Проблема
+
+Callback `onDeviceFound` в `setupBleCallbacks()` автоматически:
+1. Останавливал сканирование при первом найденном устройстве
+2. Пытался подключиться к нему
+
+Это мешало диалогу `showBleDialog()` заполнять список устройств для выбора пользователем.
+
+### Решение
+
+**Паттерн управления callback'ами:**
+1. **Основной поток:** `onDeviceFound` только логирует, не подключается автоматически
+2. **Диалог подключения:** Устанавливает свой callback для заполнения списка устройств
+3. **Закрытие диалога:** Восстанавливает logging-only callback, НЕ сбрасывает в null
+
+### Код
+
+```kotlin
+// В setupBleCallbacks() - только логирование
+bleManager.onDeviceFound = { mac, name ->
+    Log.d("BLE", "Found: $name ($mac)")
+    // Не подключаемся автоматически
+}
+
+// В showBleDialog() - callback для заполнения списка
+val scanCallback: (String, String) -> Unit = { mac, name ->
+    if (foundDevices.none { it.mac == mac }) {
+        foundDevices.add(BleDeviceItem(name, mac, false))
+        deviceAdapter.notifyDataSetChanged()
+    }
+}
+bleManager.onDeviceFound = scanCallback
+
+// При закрытии диалога - восстановить logging-only callback
+bleManager.onDeviceFound = { mac, name ->
+    Log.d("BLE", "Found: $name ($mac)")
+}
+```
+
+### Последствия
+
+**Положительные:**
+- Пользователь видит все найденные устройства и может выбрать
+- Нет конфликтов callback'ов между основным потоком и диалогом
+- Логирование работает всегда для отладки
+
+**Отрицательные:**
+- Нужно вручную управлять callback'ами при открытии/закрытии диалога
+
+---
+
+*Последнее обновление: 6 апреля 2026 г.*
