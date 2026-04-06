@@ -510,4 +510,61 @@ bleManager.onDeviceFound = { mac, name ->
 
 ---
 
+## ADR-013: Глубокий анализ протокола MM/MO — команды верны, проблема в транспорте
+
+**Дата:** 6 апреля 2026 г.
+**Статус:** Принято
+**Задача:** Qwentest-4r6
+
+### Контекст
+Проведён досканальный анализ декомпилированного кода Measuring Master 1.9.4 и MeasureOn 2.0.1 для поиска причин нестабильности GlmReaderAndroid.
+
+### Анализ
+
+**Команды протокола — ПОЛНОСТЬЮ СОВПАДАЮТ ✅**
+- `Init` → `C0 55 02 40 00 [CRC8]` — байт-в-байт как в MO
+- `Set Type` → `C0 55 02 BC [mode] [CRC8]` — совпадает
+- `Set Ref` → `C0 55 02 BE [ref] [CRC8]` — совпадает
+- `Trigger` → `C0 56 01 00 [CRC8]` — совпадает
+- CRC8 (poly=0xA6, init=0xAA) — алгоритм идентичен
+
+**Транспорт — КРИТИЧЕСКИЕ РАСХОЖДЕНИЯ ❌**
+
+| Параметр | MM RFCOMM | MO BLE GATT | GlmReaderAndroid | Проблема |
+|----------|-----------|-------------|------------------|----------|
+| Метод | `createInsecureRfcommSocketToServiceRecord()` | `connectGatt()` | `createRfcommSocketToServiceRecord()` | Secure socket вместо insecure |
+| Bonding | **НЕ делает** | До подключения | **После подключения** | Разрывает сессию |
+| SendThread | ✅ Очередь + FSM | ✅ Очередь + FSM | ❌ Прямая отправка | Нет гарантии доставки |
+| Write confirmation | ✅ | ✅ flagIsBLEWriteFinished | ❌ Нет | Не знаем, приняты ли данные |
+| State machine | ✅ SLAVE/MASTER | ✅ SLAVE/MASTER | ❌ Нет | Команды когда угодно |
+| Timeout | ✅ 500ms | ✅ 500ms | ❌ Нет | Бесконечное ожидание |
+| Retry | ✅ AutoConnectThread | ✅ 3 попытки | ❌ Нет | Один шанс |
+| Heartbeat | ✅ Обрабатывается | ✅ Обрабатывается | ❌ Игнорируется | `C0 55 02 F1` не парсится |
+
+### Решение
+
+**Приоритетные исправления:**
+1. Заменить `createRfcommSocketToServiceRecord()` на `createInsecureRfcommSocketToServiceRecord()` (как MM)
+2. Убрать bonding после подключения (MM не делает bonding для RFCOMM)
+3. Добавить SendThread с очередью команд
+4. Добавить state machine (SLAVE_LISTENING → MASTER_READY → SENDING → RECEIVING)
+5. Добавить timeout timer (500ms)
+6. Добавить обработку heartbeat пакетов
+
+**Дополнительно:**
+- Создана задача Qwentest-2tm на анализ UI MM/MO
+- Полный анализ зафиксирован в `docs/24_MM_MO_PROTOCOL_DEEP_ANALYSIS.md`
+
+### Последствия
+
+**Положительные:**
+- Стабильное подключение без разрывов
+- Гарантированная доставка команд
+- Понятные таймауты и retry-логика
+
+**Риски:**
+- Insecure socket может быть менее безопасным (но MM использует его без проблем)
+
+---
+
 *Последнее обновление: 6 апреля 2026 г.*
