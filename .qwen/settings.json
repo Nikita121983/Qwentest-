@@ -62,7 +62,8 @@
       "Bash(git pull *)",
       "Bash(adb *)",
       "Bash(\"c:\\users\\nik\\appdata\\local\\android\\sdk\\platform-tools\\adb.exe\" *)",
-      "Bash(git restore *)"
+      "Bash(git restore *)",
+      "Bash(.\\gradlew.bat *)"
     ]
   },
   "$version": 3,

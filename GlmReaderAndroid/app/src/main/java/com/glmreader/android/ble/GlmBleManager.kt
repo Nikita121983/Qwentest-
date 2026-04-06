@@ -14,19 +14,51 @@ import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.UUID
+import java.util.concurrent.LinkedBlockingDeque
 
 class GlmBleManager(context: Context) {
 
     private val bluetoothManager = context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
     private val bluetoothAdapter = bluetoothManager.adapter
 
+    // RFCOMM
     private var rfcommSocket: BluetoothSocket? = null
     private var inputStream: InputStream? = null
     private var outputStream: OutputStream? = null
+
+    // Read loop
     private var readThread: Thread? = null
     private val readBuffer = ByteArrayOutputStream()
     private var isReading = false
     private var rawBytesCount = 0
+
+    // SendThread — очередь команд (как в MO/MM)
+    private var sendThread: Thread? = null
+    private val commandQueue = LinkedBlockingDeque<QueuedCommand>()
+    @Volatile private var isReadyToSend = false  // Аналог MASTER_READY
+    @Volatile private var isSending = false      // Аналог SENDING
+
+    // Timeout timer (500ms как в MO/MM)
+    private var timeoutTimer: Thread? = null
+    private val commandTimeoutMs = 500L
+
+    // Connection retry
+    private var connectAttempt = 0
+
+    // SPP UUID (стандартный, как в MM)
+    private val SPP_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb")
+
+    // Command data class
+    private data class QueuedCommand(val payload: ByteArray, val name: String)
+
+    // State machine states (упрощённая версия из MO)
+    enum class ProtocolState {
+        SLAVE_LISTENING,    // Ожидание данных от рулетки
+        MASTER_READY,       // Готовы отправлять команду
+        MASTER_SENDING,     // Отправляем команду
+        MASTER_RECEIVING    // Ждём ответ
+    }
+    @Volatile private var protocolState = ProtocolState.SLAVE_LISTENING
 
     var isScanning = false
         private set
@@ -82,18 +114,25 @@ class GlmBleManager(context: Context) {
 
     @SuppressLint("MissingPermission")
     fun connect(macAddress: String) {
-        Log.d("BLE", "=== Connecting to $macAddress (WITH BONDING) ===")
+        Log.d("BLE", "=== Connecting to $macAddress (INSECURE RFCOMM, no bonding) ===")
         stopScan()
+        connectAttempt = 0
+        connectToDevice(macAddress)
+    }
+
+    private fun connectToDevice(macAddress: String) {
+        connectAttempt++
+        val maxAttempts = 3
+        Log.d("BLE", "Connection attempt $connectAttempt/$maxAttempts")
 
         Thread {
             try {
                 val device = bluetoothAdapter.getRemoteDevice(macAddress)
 
-                // 1. Подключение сокета
-                val uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb")
-                rfcommSocket = device.createRfcommSocketToServiceRecord(uuid)
+                // 1. Insecure RFCOMM socket (как Measuring Master) — БЕЗ bonding
+                rfcommSocket = device.createInsecureRfcommSocketToServiceRecord(SPP_UUID)
 
-                Log.d("BLE", "Connecting socket...")
+                Log.d("BLE", "Connecting insecure socket...")
                 rfcommSocket?.connect()
                 Log.d("BLE", "✅ RFCOMM Connected!")
 
@@ -102,94 +141,194 @@ class GlmBleManager(context: Context) {
                 connectedDeviceMac = macAddress
                 onConnectionStateChanged?.invoke(true)
 
-                // 2. Принудительное сопряжение (Bonding)
-                if (device.bondState != BluetoothDevice.BOND_BONDED) {
-                    Log.d("BLE", "Not bonded. Creating bond...")
-                    device.createBond()
-                    // Ждем завершения сопряжения (до 10 сек)
-                    var waitCount = 0
-                    while (device.bondState != BluetoothDevice.BOND_BONDED && waitCount < 20) {
-                        Thread.sleep(500)
-                        waitCount++
-                        Log.d("BLE", "Waiting for bond... state: ${device.bondState}")
-                    }
-                    if (device.bondState == BluetoothDevice.BOND_BONDED) {
-                        Log.d("BLE", "✅ Bonding Successful!")
-                    } else {
-                        Log.w("BLE", "⚠️ Bonding failed or timed out. Trying anyway...")
-                    }
-                } else {
-                    Log.d("BLE", "Already bonded.")
-                }
-
-                // 3. Инициализация потока данных
+                // 2. Инициализация потоков
                 inputStream = rfcommSocket?.inputStream
                 outputStream = rfcommSocket?.outputStream
 
-                Thread.sleep(500)
-                sendInit()
-
-                Thread.sleep(500)
-                sendGetSettings() // Сразу запрашиваем данные
-
-                // 4. Запуск чтения
+                // 3. Запуск чтения ДО отправки команд
                 isReading = true
                 readThread = Thread(::readLoop)
                 readThread?.start()
 
+                // Рулетка в SLAVE_LISTENING, мы тоже готовы принимать
+                protocolState = ProtocolState.SLAVE_LISTENING
+                isReadyToSend = true
+
+                // Небольшая пауза чтобы рулетка успела перейти в SLAVE_LISTENING
+                Thread.sleep(200)
+
+                // 4. Init — AutoSync ON (как turnAutoSyncOn() в MO/MM)
+                enqueueCommand(
+                    byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0x40.toByte(), 0x00.toByte()),
+                    "Init"
+                )
+
+                // Пауза между командами (как Thread.sleep(50L) в MM)
+                Thread.sleep(100)
+
+                // 5. Get Settings
+                enqueueCommand(
+                    byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0x3B.toByte(), 0x00.toByte()),
+                    "Get Settings"
+                )
+
             } catch (e: Exception) {
-                Log.e("BLE", "❌ Connection failed: ${e.message}")
-                isConnected = false
-                onConnectionStateChanged?.invoke(false)
+                Log.e("BLE", "❌ Connection attempt $connectAttempt failed: ${e.message}")
+
+                if (connectAttempt < maxAttempts) {
+                    val backoff = connectAttempt * 1000L
+                    Log.d("BLE", "Retrying in ${backoff}ms...")
+                    Thread.sleep(backoff)
+                    connectToDevice(macAddress)
+                } else {
+                    Log.e("BLE", "❌ All $maxAttempts connection attempts failed")
+                    isConnected = false
+                    onConnectionStateChanged?.invoke(false)
+                }
             }
         }.start()
     }
 
     // Делаем методы публичными для доступа из UI
     fun sendInit() {
-        // Init / AutoSync ON
-        sendCommand(byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0x40.toByte(), 0x00.toByte()), "Init")
+        enqueueCommand(
+            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0x40.toByte(), 0x00.toByte()),
+            "Init"
+        )
     }
 
     fun sendGetSettings() {
-        // Get Settings / Request Data (как кнопка замера в старой версии)
-        sendCommand(byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0x3B.toByte(), 0x00.toByte()), "Get Settings/Data")
+        enqueueCommand(
+            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0x3B.toByte(), 0x00.toByte()),
+            "Get Settings"
+        )
     }
 
     fun sendTrigger() {
-        sendCommand(byteArrayOf(0xC0.toByte(), 0x56.toByte(), 0x01.toByte(), 0x00.toByte()), "Trigger")
+        enqueueCommand(
+            byteArrayOf(0xC0.toByte(), 0x56.toByte(), 0x01.toByte(), 0x00.toByte()),
+            "Trigger"
+        )
     }
 
     fun sendSyncHistory(index: Int) {
-        sendCommand(byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0xBA.toByte(), index.toByte()), "Sync History")
+        enqueueCommand(
+            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0xBA.toByte(), index.toByte()),
+            "Sync History $index"
+        )
     }
 
     // Управление рулеткой
     fun setMeasurementType(mode: Int) {
-        // C0 55 02 BC [mode] [CRC]
-        sendCommand(byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0xBC.toByte(), mode.toByte()), "Set Mode $mode")
+        enqueueCommand(
+            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0xBC.toByte(), mode.toByte()),
+            "Set Mode $mode"
+        )
     }
 
     fun setReferencePoint(ref: Int) {
-        // C0 55 02 BE [ref] [CRC]
-        sendCommand(byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0xBE.toByte(), ref.toByte()), "Set Ref $ref")
+        enqueueCommand(
+            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0xBE.toByte(), ref.toByte()),
+            "Set Ref $ref"
+        )
     }
 
     fun sendRawCommand(payload: ByteArray, name: String) {
-        sendCommand(payload, name)
+        enqueueCommand(payload, name)
     }
 
-    private fun sendCommand(payload: ByteArray, name: String) {
-        try {
-            val crc = BlePacketParser.calcCrc8(payload)
-            val full = payload + crc.toByte()
-
-            outputStream?.write(full)
-            outputStream?.flush()
-            Log.d("BLE", "Sent $name: ${full.joinToString(" ") { "%02X".format(it) }}")
-        } catch (e: Exception) {
-            Log.e("BLE", "❌ Failed to send $name", e)
+    /**
+     * Поставить команду в очередь.
+     * SendThread заберёт её когда рулетка будет готова.
+     */
+    private fun enqueueCommand(payload: ByteArray, name: String) {
+        if (!isConnected) {
+            Log.w("BLE", "Not connected, command dropped: $name")
+            return
         }
+        commandQueue.offerLast(QueuedCommand(payload, name))
+        // Если SendThread ещё не запущен — запускаем
+        if (sendThread?.isAlive != true) {
+            startSendThread()
+        }
+    }
+
+    /**
+     * SendThread — вытаскивает команды из очереди и отправляет по одной.
+     * Аналог SendThread из MtProtocolBLEImpl (MO) и MtProtocolImpl (MM).
+     */
+    private fun startSendThread() {
+        sendThread = Thread {
+            Log.d("BLE", "SendThread started")
+            while (!Thread.interrupted() && isConnected) {
+                try {
+                    val cmd = commandQueue.pollFirst() ?: break  // Очередь пуста — выходим
+
+                    // Ждём пока рулетка готова (STATE_MASTER_READY)
+                    while (!isReadyToSend && isConnected && !Thread.interrupted()) {
+                        Thread.sleep(10)
+                    }
+                    if (!isConnected) break
+
+                    // Переходим в состояние отправки
+                    isReadyToSend = false
+                    isSending = true
+                    protocolState = ProtocolState.MASTER_SENDING
+
+                    // Вычисляем CRC и отправляем
+                    val crc = BlePacketParser.calcCrc8(cmd.payload)
+                    val fullPacket = cmd.payload + crc.toByte()
+
+                    outputStream?.write(fullPacket)
+                    outputStream?.flush()
+                    Log.d("BLE", "📤 Sent ${cmd.name}: ${fullPacket.joinToString(" ") { "%02X".format(it) }}")
+
+                    // Запускаем таймер ожидания ответа
+                    startTimeoutTimer()
+
+                    // Переходим в ожидание ответа
+                    isSending = false
+                    protocolState = ProtocolState.MASTER_RECEIVING
+
+                    // Ждём пока придёт ответ или timeout
+                    val waitStart = System.currentTimeMillis()
+                    while (protocolState == ProtocolState.MASTER_RECEIVING &&
+                           isConnected &&
+                           System.currentTimeMillis() - waitStart < commandTimeoutMs * 2) {
+                        Thread.sleep(10)
+                    }
+
+                    stopTimeoutTimer()
+                    isReadyToSend = true
+                    protocolState = ProtocolState.SLAVE_LISTENING
+
+                } catch (e: Exception) {
+                    Log.e("BLE", "❌ SendThread error: ${e.message}")
+                    isReadyToSend = true
+                    protocolState = ProtocolState.SLAVE_LISTENING
+                    Thread.sleep(200)  // Пауза перед следующей попыткой (как в MO)
+                }
+            }
+            Log.d("BLE", "SendThread stopped")
+        }.apply { start() }
+    }
+
+    /**
+     * Таймер команд (500ms как в MO/MM).
+     * Если ответ не пришёл — считаем timeout и продолжаем.
+     */
+    private fun startTimeoutTimer() {
+        stopTimeoutTimer()
+        timeoutTimer = Thread {
+            Thread.sleep(commandTimeoutMs)
+            Log.w("BLE", "⏱️ Command timeout (${commandTimeoutMs}ms)")
+            // Не прерываем — просто логируем
+        }.apply { start() }
+    }
+
+    private fun stopTimeoutTimer() {
+        timeoutTimer?.interrupt()
+        timeoutTimer = null
     }
 
     private fun readLoop() {
@@ -253,14 +392,60 @@ class GlmBleManager(context: Context) {
                     readBuffer.write(packetData.copyOfRange(expectedSize, packetData.size))
                 }
 
-                onDataReceived?.invoke(fullPacket)
+                // Проверяем: это heartbeat или измерение?
+                if (isHeartbeatPacket(fullPacket)) {
+                    handleHeartbeat(fullPacket)
+                    // Heartbeat — это ответ рулетки, сигнализируем что готовы к следующей команде
+                    if (protocolState == ProtocolState.MASTER_RECEIVING) {
+                        protocolState = ProtocolState.MASTER_READY
+                        isReadyToSend = true
+                    }
+                } else {
+                    // Обычное измерение
+                    onDataReceived?.invoke(fullPacket)
 
-                val parsed = BlePacketParser.parse(fullPacket)
-                if (parsed != null) {
-                    Log.d("BLE", "✅ Parsed: ${parsed.devMode}, ${parsed.resultValue}m, ${parsed.comp2Value}°")
-                    onParsedMeasurement?.invoke(parsed)
+                    val parsed = BlePacketParser.parse(fullPacket)
+                    if (parsed != null) {
+                        Log.d("BLE", "✅ Parsed: devMode=${parsed.devMode}, ${parsed.resultValue}m, ${parsed.comp2Value}°")
+                        onParsedMeasurement?.invoke(parsed)
+                    }
+
+                    // Пришёл ответ — сигнализируем что можно слать следующую команду
+                    if (protocolState == ProtocolState.MASTER_RECEIVING) {
+                        protocolState = ProtocolState.MASTER_READY
+                        isReadyToSend = true
+                        stopTimeoutTimer()
+                    }
                 }
             }
+        }
+    }
+
+    /**
+     * Проверка: это heartbeat пакет (C0 55 02 F1)?
+     * Heartbeat рулетка шлёт периодически — DevModeRef=0xF1 = devMode=60, syncCtrl=1
+     */
+    private fun isHeartbeatPacket(data: ByteArray): Boolean {
+        if (data.size < 5) return false
+        // C0 55 02 F1 ...
+        return data[0] == 0xC0.toByte() &&
+               data[1] == 0x55.toByte() &&
+               data[2] == 0x02.toByte() &&
+               (data[3].toInt() and 0xFF) == 0xF1
+    }
+
+    /**
+     * Обработка heartbeat пакета.
+     * Формат: C0 55 02 F1 [devStatus] [angle] [CRC]
+     * devStatus — режим рулетки, angle — текущий угол
+     */
+    private fun handleHeartbeat(data: ByteArray) {
+        if (data.size >= 6) {
+            val devStatus = data[4].toInt() and 0xFF
+            val angle = data[5].toInt() and 0xFF
+            Log.d("BLE", "💓 Heartbeat: devStatus=$devStatus, angle=$angle")
+        } else {
+            Log.d("BLE", "💓 Heartbeat received (short)")
         }
     }
 
@@ -270,17 +455,32 @@ class GlmBleManager(context: Context) {
         isConnected = false
         isReading = false
 
+        // Останавливаем SendThread
+        sendThread?.interrupt()
+        commandQueue.clear()
+
+        // Останавливаем таймер
+        stopTimeoutTimer()
+
         try {
             readThread?.interrupt()
             rfcommSocket?.close()
             inputStream?.close()
             readThread?.join(1000)
+            sendThread?.join(500)
         } catch (e: Exception) {}
 
         readBuffer.reset()
         rfcommSocket = null
         inputStream = null
         outputStream = null
+        sendThread = null
+        readThread = null
+
+        // Сбрасываем состояние
+        protocolState = ProtocolState.SLAVE_LISTENING
+        isReadyToSend = false
+        isSending = false
 
         if (wasConnected) onConnectionStateChanged?.invoke(false)
         Log.d("BLE", "Disconnected")
