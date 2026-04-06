@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Тёмная тема -->
+    <style name="Base.Theme.GlmReaderAndroid" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#5DADE2</item>
+        <item name="colorPrimaryDark">#1B4F72</item>
+        <item name="colorAccent">#5DADE2</item>
+        <!-- Светлый текст для тёмной темы -->
+        <item name="android:textColorPrimary">#E0E0E0</item>
+        <item name="popupMenuBackground">@color/popup_background</item>
+    </style>
+</resources>

@@ -58,6 +58,16 @@ class GlmBleManager(context: Context) {
             onDeviceFound?.invoke(mac, name)
         }
 
+        override fun onBatchScanResults(results: MutableList<ScanResult>?) {
+            Log.d("BLE_SCAN", "Batch scan: ${results?.size ?: 0} devices")
+            results?.forEach { result ->
+                val device = result.device
+                val name = device.name ?: "Unknown"
+                val mac = device.address
+                onDeviceFound?.invoke(mac, name)
+            }
+        }
+
         override fun onScanFailed(errorCode: Int) {
             Log.e("BLE", "Scan failed: $errorCode")
             isScanning = false

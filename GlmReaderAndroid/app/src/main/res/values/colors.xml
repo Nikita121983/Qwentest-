@@ -4,4 +4,32 @@
     <color name="black">#FF000000</color>
     <color name="gray_dark">#333333</color>
     <color name="primary">#1976D2</color>
+
+    <!-- Фоны -->
+    <color name="background">#F5F5F5</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="toolbar_background">#2B5878</color>
+
+    <!-- Текст -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_heading">#2B5878</color>
+    <color name="text_value">#0091EA</color>
+    <color name="text_on_toolbar">#FFFFFF</color>
+
+    <!-- UI элементы -->
+    <color name="divider">#E0E0E0</color>
+    <color name="selection_highlight">#E3F2FD</color>
+    <color name="popup_background">#FFFFFF</color>
+
+    <!-- Статусы -->
+    <color name="status_success">#388E3C</color>
+    <color name="status_error">#F44336</color>
+    <color name="status_info">#0091EA</color>
+
+    <!-- Иконки -->
+    <color name="icon_tint">#2B5878</color>
+    <color name="icon_type">#0091EA</color>
+    <color name="icon_trash">#2B5878</color>
 </resources>

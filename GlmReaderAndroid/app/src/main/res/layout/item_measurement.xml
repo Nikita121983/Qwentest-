@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:background="@color/card_background"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingStart="12dp"
@@ -19,7 +19,7 @@
         android:layout_marginEnd="10dp"
         android:contentDescription="Удалить"
         android:src="@android:drawable/ic_menu_delete"
-        android:tint="#2B5878" />
+        android:tint="@color/icon_trash" />
 
     <!-- Информация (название + дата) -->
     <LinearLayout
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="#1A3A5C"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             tools:text="Д-11 П3.2.1-2.Кл7" />
 
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:textColor="#888888"
+            android:textColor="@color/text_secondary"
             android:textSize="13sp"
             tools:text="25.03.2026 20:56" />
     </LinearLayout>
@@ -63,14 +63,14 @@
             android:layout_marginEnd="8dp"
             android:contentDescription="Тип замера"
             android:src="@drawable/ic_distance"
-            android:tint="#0091EA" />
+            android:tint="@color/icon_type" />
 
         <!-- Значение синим как в MM -->
         <TextView
             android:id="@+id/tvValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#0091EA"
+            android:textColor="@color/text_value"
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="1033,1 mm" />
@@ -83,7 +83,7 @@
             android:layout_marginStart="4dp"
             android:gravity="center"
             android:text="∨"
-            android:textColor="#2B5878"
+            android:textColor="@color/text_heading"
             android:textSize="16sp"
             android:visibility="gone"
             tools:visibility="visible" />
@@ -94,7 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="46dp"
-        android:background="#e0e0e0" />
+        android:background="@color/divider" />
 
     <!-- Чекбокс для Selection Mode -->
     <CheckBox

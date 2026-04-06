@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FF000000</color>
+    <color name="black">#FFFFFFFF</color>
+
+    <!-- Фоны -->
+    <color name="background">#121212</color>
+    <color name="surface">#1E1E1E</color>
+    <color name="card_background">#2C2C2C</color>
+
+    <!-- Текст -->
+    <color name="text_primary">#E0E0E0</color>
+    <color name="text_secondary">#9E9E9E</color>
+    <color name="text_heading">#5DADE2</color>
+    <color name="text_value">#5DADE2</color>
+
+    <!-- UI элементы -->
+    <color name="divider">#424242</color>
+    <color name="selection_highlight">#1A3A5C</color>
+    <color name="popup_background">#2C2C2C</color>
+
+    <!-- Статусы -->
+    <color name="status_success">#66BB6A</color>
+    <color name="status_error">#EF5350</color>
+    <color name="status_info">#5DADE2</color>
+
+    <!-- Иконки -->
+    <color name="icon_tint">#BDBDBD</color>
+    <color name="icon_type">#5DADE2</color>
+</resources>

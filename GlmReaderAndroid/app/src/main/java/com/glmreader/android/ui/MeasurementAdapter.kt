@@ -1,12 +1,12 @@
 package com.glmreader.android.ui
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.glmreader.android.R
 import com.glmreader.android.data.entity.MeasurementEntity
@@ -122,8 +122,9 @@ class MeasurementAdapter(
         // Selection mode
         holder.cbSelected.visibility = if (isSelectionMode()) View.VISIBLE else View.GONE
         holder.cbSelected.isChecked = selectionMode.contains(m.uuid)
+        val selectionColor = ContextCompat.getColor(holder.itemView.context, R.color.selection_highlight)
         holder.itemView.setBackgroundColor(
-            if (selectionMode.contains(m.uuid)) Color.parseColor("#E3F2FD") else Color.TRANSPARENT
+            if (selectionMode.contains(m.uuid)) selectionColor else android.graphics.Color.TRANSPARENT
         )
 
         // Клик — toggle selection или открыть детали

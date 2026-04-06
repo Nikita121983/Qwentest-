@@ -4,16 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F5F5">
+    android:background="@color/background">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#2B5878"
+        android:background="@color/toolbar_background"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:title="Настройки"
-        app:titleTextColor="#FFFFFF" />
+        app:titleTextColor="@color/text_on_toolbar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="📐 Инклинометр"
-                android:textColor="#2B5878"
+                android:textColor="@color/text_heading"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="12dp" />
@@ -52,7 +52,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Порог прямого замера"
-                        android:textColor="#333333"
+                        android:textColor="@color/text_primary"
                         android:textSize="16sp" />
 
                     <LinearLayout
@@ -68,7 +68,7 @@
                             android:layout_height="wrap_content"
                             android:text="5°"
                             android:textSize="24sp"
-                            android:textColor="#0091EA"
+                            android:textColor="@color/text_value"
                             android:layout_marginEnd="16dp" />
 
                         <SeekBar
@@ -84,7 +84,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="±5° = прямой замер"
-                        android:textColor="#757575"
+                        android:textColor="@color/text_secondary"
                         android:textSize="12sp"
                         android:layout_marginTop="4dp" />
 
@@ -104,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="🎨 Тема"
-                android:textColor="#2B5878"
+                android:textColor="@color/text_heading"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="12dp" />
@@ -155,7 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="ℹ️ О приложении"
-                android:textColor="#2B5878"
+                android:textColor="@color/text_heading"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="12dp" />
@@ -183,14 +183,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Версия 1.0.0"
-                        android:textColor="#757575"
+                        android:textColor="@color/text_secondary"
                         android:layout_marginTop="4dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Клиент для Bosch GLM 50C через BLE"
-                        android:textColor="#757575"
+                        android:textColor="@color/text_secondary"
                         android:layout_marginTop="4dp" />
 
                 </LinearLayout>

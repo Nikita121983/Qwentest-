@@ -4,16 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F5F5">
+    android:background="@color/background">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#2B5878"
+        android:background="@color/toolbar_background"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:title="Мои проекты"
-        app:titleTextColor="#FFFFFF" />
+        app:titleTextColor="@color/text_on_toolbar" />
 
     <TextView
         android:id="@+id/tvEmpty"
@@ -22,7 +22,7 @@
         android:layout_marginTop="48dp"
         android:gravity="center"
         android:text="Нет проектов"
-        android:textColor="#757575"
+        android:textColor="@color/text_secondary"
         android:textSize="18sp"
         android:visibility="gone" />
 

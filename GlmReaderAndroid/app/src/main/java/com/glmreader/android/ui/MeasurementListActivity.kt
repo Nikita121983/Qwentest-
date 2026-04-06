@@ -317,21 +317,26 @@ class MeasurementListActivity : AppCompatActivity() {
             val tvConnStatus = view.findViewById<TextView>(R.id.tvConnectionStatus)
 
             tvStatus.text = if (isBleOn) "Bluetooth включен" else "Bluetooth выключен"
-            tvStatus.setTextColor(if (isBleOn) getColor(android.R.color.holo_green_dark) else getColor(android.R.color.holo_red_dark))
+            tvStatus.setTextColor(
+                ContextCompat.getColor(
+                    this,
+                    if (isBleOn) R.color.status_success else R.color.status_error
+                )
+            )
             btnToggle.text = if (isBleOn) "Выключить" else "Включить"
             btnScan.isEnabled = isBleOn
 
             if (bleManager.isConnected) {
                 tvConnStatus.text = "Подключено к ${bleManager.connectedDeviceName ?: "Устройству"}"
-                tvConnStatus.setTextColor(getColor(android.R.color.holo_green_dark))
+                tvConnStatus.setTextColor(ContextCompat.getColor(this, R.color.status_success))
                 btnScan.text = "Остановить"
             } else if (bleManager.isScanning) {
                 tvConnStatus.text = "Сканирование..."
-                tvConnStatus.setTextColor(getColor(android.R.color.holo_blue_dark))
+                tvConnStatus.setTextColor(ContextCompat.getColor(this, R.color.status_info))
                 btnScan.text = "Стоп"
             } else {
                 tvConnStatus.text = "Не подключено"
-                tvConnStatus.setTextColor(getColor(android.R.color.darker_gray))
+                tvConnStatus.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
                 btnScan.text = "Сканировать"
             }
         }
@@ -360,7 +365,11 @@ class MeasurementListActivity : AppCompatActivity() {
                 if (foundDevices.none { it.mac == mac }) {
                     foundDevices.add(BleDeviceItem(name, mac, false))
                     deviceAdapter.notifyDataSetChanged()
-                    Log.d("BLE_DIALOG", "Added to list: $name")
+                    Log.d("BLE_DIALOG", "Added to list: $name, total: ${foundDevices.size}")
+                    // Показываем Toast при первом найденном устройстве
+                    if (foundDevices.size == 1) {
+                        Toast.makeText(this, "Найдено BLE устройство!", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -376,13 +385,14 @@ class MeasurementListActivity : AppCompatActivity() {
         btnScan.setOnClickListener {
             if (bleManager.isScanning) {
                 bleManager.stopScan()
+                updateUi()
             } else {
-                foundDevices.clear() // Очищаем список при новом сканировании
+                foundDevices.clear()
                 deviceAdapter.notifyDataSetChanged()
                 btnConnect.isEnabled = false
                 bleManager.startScan()
+                updateUi()
             }
-            updateUi()
         }
 
         btnConnect.setOnClickListener {

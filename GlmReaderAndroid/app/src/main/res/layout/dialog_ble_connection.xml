@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Bluetooth выключен"
-            android:textColor="#F44336"
+            android:textColor="@color/status_error"
             android:textSize="14sp" />
 
         <Button
@@ -77,6 +77,6 @@
         android:text="Не подключено"
         android:gravity="center"
         android:layout_marginTop="8dp"
-        android:textColor="#757575" />
+        android:textColor="@color/text_secondary" />
 
 </LinearLayout>

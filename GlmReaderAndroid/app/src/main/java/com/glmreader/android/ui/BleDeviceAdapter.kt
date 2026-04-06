@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.glmreader.android.R
 
@@ -47,12 +48,11 @@ class BleDeviceAdapter(
 
         // Подсветка выбранного
         holder.itemView.isSelected = position == selectedPosition
-        holder.itemView.setBackgroundColor(
-            if (position == selectedPosition)
-                holder.itemView.context.getColor(android.R.color.holo_blue_light) // Или цвет темы
-            else
-                android.graphics.Color.TRANSPARENT
+        val selectionColor = ContextCompat.getColor(
+            holder.itemView.context,
+            if (position == selectedPosition) R.color.selection_highlight else android.R.color.transparent
         )
+        holder.itemView.setBackgroundColor(selectionColor)
 
         holder.itemView.setOnClickListener {
             setSelectedPosition(position)
