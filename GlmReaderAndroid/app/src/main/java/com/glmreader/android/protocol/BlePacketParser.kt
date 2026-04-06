@@ -107,6 +107,10 @@ object BlePacketParser {
         if (rawBytes[0].toInt() and 0xFF != 0xC0) return null // FrameMode != LONG
         if (rawBytes[1].toInt() and 0xFF != 0x55) return null // Command != EDC
 
+        // Пропускаем heartbeat пакеты (PayloadLen == 2)
+        val payloadLen = rawBytes[2].toInt() and 0xFF
+        if (payloadLen == 2) return null // Heartbeat, не измерение
+
         // Разрешаем любые значения в байтах [2] и [6], главное чтобы были данные
         // Это нужно для разных прошивок рулетки
 

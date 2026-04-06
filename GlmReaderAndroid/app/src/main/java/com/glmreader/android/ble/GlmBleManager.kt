@@ -320,9 +320,12 @@ class GlmBleManager(context: Context) {
     private fun startTimeoutTimer() {
         stopTimeoutTimer()
         timeoutTimer = Thread {
-            Thread.sleep(commandTimeoutMs)
-            Log.w("BLE", "⏱️ Command timeout (${commandTimeoutMs}ms)")
-            // Не прерываем — просто логируем
+            try {
+                Thread.sleep(commandTimeoutMs)
+                Log.w("BLE", "⏱️ Command timeout (${commandTimeoutMs}ms)")
+            } catch (e: InterruptedException) {
+                // Timer was interrupted (e.g. on disconnect), ignore
+            }
         }.apply { start() }
     }
 

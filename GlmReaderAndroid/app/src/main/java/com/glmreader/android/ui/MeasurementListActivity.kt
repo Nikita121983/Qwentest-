@@ -351,9 +351,17 @@ class MeasurementListActivity : AppCompatActivity() {
             return
         }
         lifecycleScope.launch {
-            val filePath = xlsxExporter.export(measurements)
-            runOnUiThread {
-                Toast.makeText(this@MeasurementListActivity, if (filePath != null) "Saved: $filePath" else "Error", Toast.LENGTH_LONG).show()
+            try {
+                val filePath = xlsxExporter.export(measurements)
+                runOnUiThread {
+                    Toast.makeText(this@MeasurementListActivity,
+                        if (filePath != null) "Saved: $filePath" else "Error exporting",
+                        Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    Toast.makeText(this@MeasurementListActivity, "Export error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
@@ -384,8 +392,17 @@ class MeasurementListActivity : AppCompatActivity() {
         val foundDevices = mutableListOf<BleDeviceItem>()
         val deviceAdapter = BleDeviceAdapter(foundDevices) { selected ->
             runOnUiThread {
-                btnConnect.isEnabled = selected != null || lastMac != null
-                if (selected != null) tvConnStatus.text = "Selected: ${selected.name}"
+                // Сохраняем выбранное устройство
+                if (selected != null) {
+                    lastMac = selected.mac
+                    lastName = selected.name
+                    prefs.edit()
+                        .putString("last_device_mac", selected.mac)
+                        .putString("last_device_name", selected.name)
+                        .apply()
+                    tvConnStatus.text = "Selected: ${selected.name}"
+                }
+                btnConnect.isEnabled = lastMac != null
             }
         }
         recycler.layoutManager = LinearLayoutManager(this)
