@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=393, initial-scale=1.0">
+<title>GLM Reader — UI v8 (MM иконки + BT символ)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; justify-content: center; font-family: 'Roboto', sans-serif; padding: 20px; gap: 30px; flex-wrap: wrap; }
+  .layout-group { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .layout-label { font-size: 12px; color: #aaa; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+  .phone { width: 393px; height: 852px; background: #fff; position: relative; overflow: hidden; border-radius: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+  .status-bar { height: 28px; background: #000; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #fff; font-size: 11px; }
+
+  /* Toolbar #2B5878 как в MM */
+  .toolbar { height: 56px; background: #2B5878; display: flex; align-items: center; padding: 0 16px; color: #fff; }
+  .toolbar .burger { font-size: 22px; margin-right: 20px; cursor: pointer; }
+  .toolbar .title { font-size: 20px; font-weight: 400; flex: 1; text-align: center; margin-right: 48px; }
+  .toolbar .bt-symbol { margin-right: 16px; opacity: 0.9; }
+  .toolbar .dots { font-size: 20px; letter-spacing: 2px; }
+
+  /* Remote Panel */
+  .remote-panel { background: #fff; padding: 16px; border-bottom: 1px solid #ddd; text-align: center; }
+  .remote-panel .label { color: #888; font-size: 13px; text-transform: uppercase; margin-bottom: 12px; text-align: left; letter-spacing: 0.5px; }
+  .remote-panel .controls { display: flex; justify-content: center; gap: 16px; margin-bottom: 12px; }
+  .remote-panel .type-icon { font-size: 32px; }
+  .remote-panel .dropdown { width: 80px; height: 44px; background: linear-gradient(180deg, #1a6fb5, #0d4f8a); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; cursor: pointer; }
+  .remote-panel .btn-enable { display: inline-flex; align-items: center; gap: 8px; padding: 12px 40px; background: linear-gradient(180deg, #1a6fb5, #0d4f8a); color: #fff; font-size: 18px; border: none; border-radius: 4px; cursor: pointer; }
+  .remote-panel .btn-enable .laser-icon { font-size: 20px; }
+
+  /* Swipe-панель */
+  .swipe-panel { background: #fff; border-bottom: 1px solid #eee; overflow: hidden; transition: max-height 0.3s; max-height: 0; }
+  .swipe-panel.visible { max-height: 200px; }
+  .swipe-track { display: flex; gap: 8px; padding: 12px 16px; overflow-x: auto; scroll-snap-type: x mandatory; }
+  .swipe-track::-webkit-scrollbar { display: none; }
+  .swipe-item { flex: 0 0 72px; height: 64px; background: #f5f5f5; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; scroll-snap-align: center; transition: all 0.2s; border: 2px solid transparent; }
+  .swipe-item.active { background: #e3f2fd; border-color: #1a6fb5; }
+  .swipe-item .swipe-icon { font-size: 24px; margin-bottom: 4px; }
+  .swipe-item .swipe-label { font-size: 10px; color: #666; text-align: center; }
+
+  /* Download strip */
+  .download-strip { display: flex; gap: 8px; padding: 8px 16px 12px; background: #fff; }
+  .btn-download { flex: 1; padding: 10px; background: #fff; color: #2B5878; border: 1px solid #ddd; border-radius: 4px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; }
+  .btn-trigger { flex: 1; padding: 10px; background: #d32f2f; color: #fff; border: none; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; }
+
+  /* List */
+  .list-header { background: #e8e8e8; padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #ccc; }
+  .list-header .title { color: #888; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .list-header .download { color: #2B5878; font-size: 20px; }
+
+  .measurement-list { background: #fff; }
+  .measurement-row { display: flex; align-items: center; padding: 12px 16px; border-bottom: 1px solid #e0e0e0; }
+  .measurement-row .trash { width: 24px; color: #2B5878; font-size: 18px; margin-right: 12px; flex-shrink: 0; }
+  .measurement-row .info { flex: 1; min-width: 0; }
+  .measurement-row .name { color: #1A3A5C; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .measurement-row .datetime { color: #888; font-size: 13px; margin-top: 2px; }
+  .measurement-row .right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .measurement-row .value { color: #0091EA; font-size: 18px; font-weight: 500; white-space: nowrap; }
+
+  /* History dialog */
+  .history-dialog { position: absolute; bottom: 70px; left: 12px; right: 12px; background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); display: none; }
+  .history-dialog.visible { display: block; }
+  .history-dialog h4 { font-size: 14px; color: #333; margin-bottom: 10px; }
+  .hist-opt { padding: 10px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; color: #333; }
+  .hist-opt:hover { background: #e3f2fd; color: #0091EA; }
+  .hist-opt.custom { color: #888; font-style: italic; border-top: 1px solid #eee; margin-top: 8px; padding-top: 10px; }
+
+  /* Nav bar */
+  .nav-bar { position: absolute; bottom: 0; width: 100%; height: 48px; background: #000; display: flex; justify-content: center; align-items: center; }
+  .nav-bar .gesture-bar { width: 120px; height: 4px; background: #555; border-radius: 2px; }
+
+  /* Icon legend */
+  .icon-legend { position: fixed; bottom: 12px; left: 12px; background: #1a1a2e; padding: 12px 16px; border-radius: 8px; font-size: 11px; color: #aaa; max-width: 400px; }
+  .icon-legend b { color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- ====== ① Главный экран ====== -->
+<div class="layout-group">
+  <div class="layout-label">① MM-style: иконки, BT символ, шрифты</div>
+  <div class="phone" style="position:relative;">
+    <div class="status-bar"><span>18:06</span><span>🔋 26%</span></div>
+    <div class="toolbar">
+      <span class="burger">☰</span>
+      <span class="title">Список измерений</span>
+      <!-- Bluetooth символ SVG (как в MM) -->
+      <span class="bt-symbol">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6.5 6.5 17.5 17.5 12 23 12 1 17.5 6.5 6.5 17.5"/>
+        </svg>
+      </span>
+      <span class="dots">⋮</span>
+    </div>
+
+    <div class="remote-panel">
+      <div class="label">Дистанционное измерение</div>
+      <div class="controls">
+        <!-- Иконка точки отсчёта: задняя грань (стена + красная стрелка) -->
+        <span class="type-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <rect x="4" y="10" width="12" height="18" fill="#888" rx="1"/>
+            <rect x="6" y="12" width="7" height="7" fill="#fff" rx="0.5"/>
+            <line x1="22" y1="26" x2="22" y2="8" stroke="#d32f2f" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="22,5 18,12 26,12" fill="#d32f2f"/>
+          </svg>
+        </span>
+        <div class="dropdown" onclick="toggleSwipe('ref-swipe')">▾</div>
+        <div style="width:16px"></div>
+        <!-- Иконка типа: косвенная высота (красная стрелка + голубая I) -->
+        <span class="type-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <line x1="10" y1="28" x2="10" y2="8" stroke="#d32f2f" stroke-width="2" stroke-linecap="round"/>
+            <polygon points="10,5 6,13 14,13" fill="#d32f2f"/>
+            <line x1="24" y1="8" x2="24" y2="28" stroke="#42a5f5" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="20" y1="8" x2="28" y2="8" stroke="#42a5f5" stroke-width="2" stroke-linecap="round"/>
+            <line x1="20" y1="28" x2="28" y2="28" stroke="#42a5f5" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <div class="dropdown" onclick="toggleSwipe('type-swipe')">▾</div>
+      </div>
+      <button class="btn-enable" onclick="this.innerHTML=this.innerHTML.includes('Включить')?this.innerHTML.replace('Включить','Выключить'):this.innerHTML.replace('Выключить','Включить')">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.5">
+          <circle cx="9" cy="9" r="7"/>
+          <line x1="9" y1="2" x2="9" y2="16"/>
+          <line x1="2" y1="9" x2="16" y2="9"/>
+          <circle cx="9" cy="9" r="2" fill="#fff"/>
+          <line x1="9" y1="1" x2="9" y2="3" stroke-width="2"/>
+        </svg>
+        Включить
+      </button>
+    </div>
+
+    <!-- Swipe точка отсчёта -->
+    <div class="swipe-panel" id="ref-swipe">
+      <div class="swipe-track">
+        <div class="swipe-item active">
+          <svg width="28" height="28" viewBox="0 0 28 28"><rect x="3" y="8" width="9" height="13" fill="#888" rx="1"/><rect x="4" y="9" width="5" height="5" fill="#fff"/><line x1="17" y1="19" x2="17" y2="6" stroke="#d32f2f" stroke-width="2"/><polygon points="17,4 14,10 20,10" fill="#d32f2f"/></svg>
+          <span class="swipe-label">Задняя</span>
+        </div>
+        <div class="swipe-item">
+          <svg width="28" height="28" viewBox="0 0 28 28"><rect x="10" y="8" width="9" height="13" fill="#888" rx="1"/><rect x="12" y="9" width="5" height="5" fill="#fff"/><line x1="5" y1="19" x2="5" y2="6" stroke="#d32f2f" stroke-width="2"/><polygon points="5,4 2,10 8,10" fill="#d32f2f"/></svg>
+          <span class="swipe-label">Передняя</span>
+        </div>
+        <div class="swipe-item">
+          <svg width="28" height="28" viewBox="0 0 28 28"><rect x="8" y="8" width="12" height="13" fill="#888" rx="1"/><rect x="10" y="9" width="8" height="5" fill="#fff"/><line x1="14" y1="19" x2="14" y2="6" stroke="#d32f2f" stroke-width="2"/><polygon points="14,4 11,10 17,10" fill="#d32f2f"/></svg>
+          <span class="swipe-label">Штатив</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Swipe тип замера — все иконки -->
+    <div class="swipe-panel visible" id="type-swipe">
+      <div class="swipe-track">
+        <!-- Прямое измерение -->
+        <div class="swipe-item active">
+          <svg width="28" height="28" viewBox="0 0 28 28">
+            <line x1="14" y1="24" x2="14" y2="6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round"/>
+            <polygon points="14,3 10,10 18,10" fill="#d32f2f"/>
+            <line x1="10" y1="24" x2="18" y2="24" stroke="#42a5f5" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span class="swipe-label">Измерение</span>
+        </div>
+        <!-- Площадь -->
+        <div class="swipe-item">
+          <svg width="28" height="28" viewBox="0 0 28 28">
+            <rect x="6" y="6" width="16" height="16" fill="none" stroke="#42a5f5" stroke-width="2" rx="1"/>
+            <line x1="6" y1="6" x2="22" y2="22" stroke="#42a5f5" stroke-width="1" stroke-dasharray="2,2"/>
+            <line x1="6" y1="22" x2="22" y2="6" stroke="#42a5f5" stroke-width="1" stroke-dasharray="2,2"/>
+            <text x="14" y="17" text-anchor="middle" fill="#42a5f5" font-size="10" font-weight="bold">m²</text>
+          </svg>
+          <span class="swipe-label">Площадь</span>
+        </div>
+        <!-- Объём -->
+        <div class="swipe-item">
+          <svg width="28" height="28" viewBox="0 0 28 28">
+            <rect x="5" y="5" width="18" height="18" fill="none" stroke="#42a5f5" stroke-width="2" rx="1"/>
+            <line x1="5" y1="5" x2="12" y2="1" stroke="#42a5f5" stroke-width="1.5"/>
+            <line x1="23" y1="5" x2="27" y2="1" stroke="#42a5f5" stroke-width="1.5"/>
+            <line x1="12" y1="1" x2="27" y2="1" stroke="#42a5f5" stroke-width="1.5"/>
+            <text x="14" y="17" text-anchor="middle" fill="#42a5f5" font-size="9" font-weight="bold">m³</text>
+          </svg>
+          <span class="swipe-label">Объём</span>
+        </div>
+        <!-- Угол -->
+        <div class="swipe-item">
+          <svg width="28" height="28" viewBox="0 0 28 28">
+            <path d="M6 22 L6 10 Q6 6 10 6 L22 6" fill="none" stroke="#42a5f5" stroke-width="2" stroke-linecap="round"/>
+            <line x1="6" y1="22" x2="22" y2="22" stroke="#d32f2f" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="22" y1="6" x2="22" y2="22" stroke="#d32f2f" stroke-width="1.5" stroke-linecap="round"/>
+            <text x="10" y="18" fill="#42a5f5" font-size="10" font-weight="bold">°</text>
+          </svg>
+          <span class="swipe-label">Угол</span>
+        </div>
+        <!-- Косвенная высота -->
+        <div class="swipe-item">
+          <svg width="28" height="28" viewBox="0 0 28 28">
+            <line x1="10" y1="24" x2="10" y2="6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round"/>
+            <polygon points="10,3 7,10 13,10" fill="#d32f2f"/>
+            <line x1="18" y1="6" x2="18" y2="22" stroke="#42a5f5" stroke-width="2" stroke-linecap="round"/>
+            <line x1="15" y1="6" x2="21" y2="6" stroke="#42a5f5" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="15" y1="22" x2="21" y2="22" stroke="#42a5f5" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span class="swipe-label">Косв. высота</span>
+        </div>
+        <!-- Косвенная длина -->
+        <div class="swipe-item">
+          <svg width="28" height="28" viewBox="0 0 28 28">
+            <line x1="4" y1="14" x2="22" y2="14" stroke="#d32f2f" stroke-width="2" stroke-linecap="round"/>
+            <polygon points="25,14 18,11 18,17" fill="#d32f2f"/>
+            <line x1="6" y1="6" x2="22" y2="6" stroke="#42a5f5" stroke-width="2" stroke-linecap="round"/>
+            <line x1="6" y1="6" x2="6" y2="10" stroke="#42a5f5" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="22" y1="6" x2="22" y2="10" stroke="#42a5f5" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span class="swipe-label">Косв. длина</span>
+        </div>
+        <!-- Двойная косвенная -->
+        <div class="swipe-item">
+          <svg width="28" height="28" viewBox="0 0 28 28">
+            <line x1="8" y1="24" x2="8" y2="4" stroke="#d32f2f" stroke-width="1.5" stroke-linecap="round"/>
+            <polygon points="8,2 5,8 11,8" fill="#d32f2f"/>
+            <line x1="20" y1="4" x2="20" y2="14" stroke="#42a5f5" stroke-width="2" stroke-linecap="round"/>
+            <line x1="17" y1="4" x2="23" y2="4" stroke="#42a5f5" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="17" y1="14" x2="23" y2="14" stroke="#42a5f5" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="8" y1="14" x2="20" y2="14" stroke="#999" stroke-width="1" stroke-dasharray="2,2"/>
+          </svg>
+          <span class="swipe-label">Двойная косв.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="download-strip">
+      <button class="btn-download">📥 Скачать</button>
+      <button class="btn-trigger">📏 Замер</button>
+    </div>
+
+    <div class="list-header"><span class="title">Измерения</span><span class="download">⬇</span></div>
+    <div class="measurement-list" style="max-height:300px;overflow-y:auto;">
+      <div class="measurement-row">
+        <span class="trash">🗑</span>
+        <div class="info"><div class="name">Д-11 П3.2.1-2.Кл7</div><div class="datetime">25.03.2026 20:56</div></div>
+        <div class="right">
+          <!-- Иконка косвенной высоты в строке -->
+          <svg width="20" height="24" viewBox="0 0 20 24">
+            <line x1="7" y1="22" x2="7" y2="4" stroke="#d32f2f" stroke-width="1.5" stroke-linecap="round"/>
+            <polygon points="7,2 4,8 10,8" fill="#d32f2f"/>
+            <line x1="13" y1="4" x2="13" y2="20" stroke="#42a5f5" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="11" y1="4" x2="15" y2="4" stroke="#42a5f5" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="11" y1="20" x2="15" y2="20" stroke="#42a5f5" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <span class="value">1033,1 мм</span>
+        </div>
+      </div>
+      <div class="measurement-row">
+        <span class="trash">🗑</span>
+        <div class="info"><div class="name">Измерение</div><div class="datetime">25.03.2026 20:55</div></div>
+        <div class="right">
+          <svg width="20" height="24" viewBox="0 0 20 24">
+            <line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5" stroke-linecap="round"/>
+            <polygon points="10,2 7,8 13,8" fill="#d32f2f"/>
+            <line x1="7" y1="22" x2="13" y2="22" stroke="#42a5f5" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <span class="value">2350,6 мм</span>
+        </div>
+      </div>
+      <div class="measurement-row">
+        <span class="trash">🗑</span>
+        <div class="info"><div class="name">Угол</div><div class="datetime">25.03.2026 20:54</div></div>
+        <div class="right">
+          <svg width="20" height="24" viewBox="0 0 20 24">
+            <path d="M4 20 L4 10 Q4 6 8 6 L18 6" fill="none" stroke="#42a5f5" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="4" y1="20" x2="16" y2="20" stroke="#d32f2f" stroke-width="1" stroke-linecap="round"/>
+            <line x1="16" y1="6" x2="16" y2="20" stroke="#d32f2f" stroke-width="1" stroke-linecap="round"/>
+            <text x="8" y="17" fill="#42a5f5" font-size="9" font-weight="bold">°</text>
+          </svg>
+          <span class="value">45,2°</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-bar"><div class="gesture-bar"></div></div>
+  </div>
+</div>
+
+<script>
+function toggleSwipe(id) {
+  document.querySelectorAll('.swipe-panel').forEach(p => {
+    if (p.id === id) p.classList.toggle('visible');
+    else p.classList.remove('visible');
+  });
+}
+document.querySelectorAll('.swipe-item').forEach(item => {
+  item.addEventListener('click', () => {
+    item.parentElement.querySelectorAll('.swipe-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+</script>
+
+<div class="icon-legend">
+  <b>Toolbar:</b> #2B5878 + BT символ (polyline как в ММ)<br>
+  <b>Иконки типов (SVG):</b> Прямое, Площадь (m²), Объём (m³), Угол (°), Косв. высота, Косв. длина, Двойная косв.<br>
+  <b>Точка отсчёта:</b> Задняя/Передняя/Штатив — стена + стрелка<br>
+  <b>Цвета:</b> красный #d32f2f (стрелка), голубой #42a5f5 (I-образная), значение #0091EA<br>
+  <b>Шрифты:</b> name #1A3A5C 16px, value #0091EA 18px 500, datetime #888 13px<br>
+  <b>Переключение:</b> свайп по горизонтальной прокрутке (scroll-snap)
+</div>
+
+</body>
+</html>

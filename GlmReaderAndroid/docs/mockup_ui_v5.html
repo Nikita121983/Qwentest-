@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlmReaderAndroid — UI Spec v5 (по ММ)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Roboto', 'Segoe UI', sans-serif; background: #222; color: #fff; padding: 20px; display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; }
+  .layout-group { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .layout-label { font-size: 12px; color: #aaa; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+  .phone { width: 375px; background: #fff; border-radius: 28px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.5); display: flex; flex-direction: column; }
+  .status-bar { height: 22px; background: #000; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; font-size: 11px; color: #fff; }
+
+  /* === TOOLBAR (как в ММ) === */
+  .toolbar { padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; color: #fff; font-weight: 500; font-size: 18px; transition: background 0.3s; }
+  .toolbar.rear   { background: #1565c0; }
+  .toolbar.front  { background: #2e7d32; }
+  .toolbar.tripod { background: #c62828; }
+  .toolbar .menu-icon { font-size: 22px; cursor: pointer; }
+  .toolbar .bt-icon { font-size: 20px; color: #fff; }
+
+  /* === ACTION MODE === */
+  .action-mode { background: #1976d2; padding: 8px 16px; display: none; align-items: center; gap: 12px; color: #fff; }
+  .action-mode.visible { display: flex; }
+  .action-mode .count { font-size: 16px; }
+  .action-mode .actions { margin-left: auto; display: flex; gap: 16px; }
+  .action-mode .act-btn { font-size: 13px; color: #fff; cursor: pointer; padding: 4px 8px; }
+  .action-mode .act-btn.danger { color: #ffcdd2; }
+
+  /* === REMOTE PANEL (как в ММ) === */
+  .remote-section-label { background: #e8e8e8; padding: 8px 16px; font-size: 13px; color: #777; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+
+  /* Кнопки-кубики: тип замера (справа) и точка отсчёта (слева) */
+  .remote-controls { display: flex; align-items: flex-start; padding: 12px 16px; background: #fff; gap: 12px; }
+
+  /* Левый кубик — точка отсчёта */
+  .cube-ref { width: 60px; height: 60px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; border-radius: 6px; background: #fff; position: relative; }
+  .cube-ref .cube-icon { font-size: 28px; }
+  .cube-ref .cube-label { font-size: 9px; color: #555; margin-top: 2px; }
+
+  /* Правый кубик — тип измерения */
+  .cube-type { width: 60px; height: 60px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; border-radius: 6px; background: #fff; position: relative; }
+  .cube-type .cube-icon { font-size: 28px; }
+  .cube-type .cube-label { font-size: 9px; color: #555; margin-top: 2px; }
+
+  /* Широкая кнопка "Включить" */
+  .btn-enable { margin: 4px 16px 8px; padding: 14px; background: linear-gradient(180deg, #1e88e5, #1565c0); color: #fff; border: none; border-radius: 6px; font-size: 16px; font-weight: 500; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); text-align: center; }
+  .btn-enable:active { background: linear-gradient(180deg, #1565c0, #0d47a1); }
+
+  /* Полоса с кнопкой скачать + триггер */
+  .remote-actions { display: flex; gap: 8px; padding: 4px 16px 10px; background: #fff; }
+  .btn-download { flex: 1; padding: 10px; background: #fff; color: #333; border: 1px solid #ddd; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; }
+  .btn-trigger { flex: 1; padding: 10px; background: #d32f2f; color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+
+  /* Выпадающие панели (при нажатии на кубик) */
+  .dropdown-panel { display: none; background: #fff; padding: 8px 16px 12px; border-top: 1px solid #eee; }
+  .dropdown-panel.visible { display: block; }
+  .dropdown-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+  .dropdown-item {
+    padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 12px; color: #333;
+    cursor: pointer; background: #fff; transition: all 0.15s;
+  }
+  .dropdown-item.active { background: #1565c0; color: #fff; border-color: #1565c0; }
+  .dropdown-item:hover { background: #e3f2fd; }
+
+  /* === LIST (как в ММ) === */
+  .list-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: #e8e8e8; }
+  .list-header span { font-size: 13px; color: #777; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+  .list-header .download-icon { font-size: 20px; color: #1565c0; cursor: pointer; }
+
+  /* Строки — слабоконтрастные полоски, не карточки */
+  .list { flex: 1; overflow-y: auto; }
+  .item {
+    display: flex; align-items: center; padding: 12px 16px;
+    border-bottom: 1px solid #f5f5f5; cursor: pointer; user-select: none;
+  }
+  .item:last-child { border-bottom: none; }
+  .item:active { background: #f8f8f8; }
+  .item .check { width: 20px; height: 20px; border: 2px solid #bbb; border-radius: 3px; flex-shrink: 0; margin-right: 10px; display: none; align-items: center; justify-content: center; color: #fff; font-size: 12px; background: #fff; }
+  .item.selected .check { display: flex; background: #1565c0; border-color: #1565c0; }
+  .item.selected .check::after { content: '✓'; }
+
+  .item .info { flex: 1; min-width: 0; }
+  .item .name { font-size: 15px; color: #1a5276; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .item .date { font-size: 12px; color: #888; margin-top: 3px; }
+
+  /* Значок типа + значение справа (как в ММ) */
+  .item .right-side { display: flex; align-items: center; gap: 8px; flex-shrink: 0; margin-left: 8px; }
+  .item .type-icon { font-size: 18px; }
+  .item .value { font-size: 20px; font-weight: 400; color: #1565c0; white-space: nowrap; }
+
+  /* === FABs === */
+  .fabs { position: absolute; bottom: 16px; right: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .fab { width: 40px; height: 40px; border-radius: 50%; border: none; color: #fff; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+  .fab-up { background: #90a4ae; }
+  .fab-down { background: #1565c0; }
+
+  /* === HISTORY DIALOG === */
+  .history-dialog { position: absolute; bottom: 70px; left: 12px; right: 12px; background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); display: none; z-index: 10; }
+  .history-dialog.visible { display: block; }
+  .history-dialog h4 { font-size: 14px; color: #333; margin-bottom: 10px; }
+  .hist-opt { padding: 10px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; color: #333; }
+  .hist-opt:hover { background: #e3f2fd; color: #1565c0; }
+  .hist-opt.custom { color: #888; font-style: italic; border-top: 1px solid #eee; margin-top: 8px; padding-top: 10px; }
+
+  /* === EDIT === */
+  .item.editing .name { display: none; }
+  .item .edit-input { display: none; width: 100%; font-size: 15px; color: #1a5276; border: none; background: none; font-weight: 400; outline: none; }
+  .item.editing .edit-input { display: block; }
+</style>
+</head>
+<body>
+
+<!-- ====== ① Задняя грань (синий) — обычный режим ====== -->
+<div class="layout-group">
+  <div class="layout-label">① Задняя грань (синий) — обычный режим</div>
+  <div class="phone" style="position:relative;">
+    <div class="status-bar"><span>12:00</span><span>🔋 85%</span></div>
+    <div class="toolbar rear">
+      <span class="menu-icon">☰</span>
+      <span>Список измерений</span>
+      <span class="bt-icon">📶</span>
+    </div>
+
+    <div class="remote-section-label">Дистанционное измерение</div>
+    <div class="remote-controls">
+      <!-- Левый кубик: точка отсчёта -->
+      <div class="cube-ref" onclick="togglePanel('ref')">
+        <span class="cube-icon">⬅</span>
+        <span class="cube-label">Задняя</span>
+      </div>
+      <div style="flex:1"></div>
+      <!-- Правый кубик: тип замера -->
+      <div class="cube-type" onclick="togglePanel('type')">
+        <span class="cube-icon">↕️</span>
+        <span class="cube-label">Косв. высота</span>
+      </div>
+    </div>
+
+    <!-- Широкая кнопка Включить -->
+    <button class="btn-enable" onclick="triggerLaser()">🔆 Включить</button>
+
+    <!-- Полоса: скачать + замер -->
+    <div class="remote-actions">
+      <button class="btn-download" onmousedown="startLongPress(event)" onmouseup="clearLongPress()" onmouseleave="clearLongPress()" ontouchstart="startLongPress(event)" ontouchend="clearLongPress()">📥 Скачать измерения</button>
+      <button class="btn-trigger">📏 Замер</button>
+    </div>
+
+    <!-- Выпадающая панель точки отсчёта -->
+    <div class="dropdown-panel" id="panel-ref">
+      <div class="dropdown-grid">
+        <div class="dropdown-item active" onclick="changeRef('rear')">⬅ Задняя</div>
+        <div class="dropdown-item" onclick="changeRef('front')">➡ Передняя</div>
+        <div class="dropdown-item" onclick="changeRef('tripod')">🔺 Штатив</div>
+      </div>
+    </div>
+
+    <!-- Выпадающая панель типа замера -->
+    <div class="dropdown-panel" id="panel-type">
+      <div class="dropdown-grid">
+        <div class="dropdown-item active" onclick="changeType(this,'Измерение')">📏 Измерение</div>
+        <div class="dropdown-item" onclick="changeType(this,'Площадь')">📐 Площадь</div>
+        <div class="dropdown-item" onclick="changeType(this,'Объём')">📦 Объём</div>
+        <div class="dropdown-item" onclick="changeType(this,'Угол')">📐 Угол</div>
+        <div class="dropdown-item" onclick="changeType(this,'Косв. высота')">↕️ Косв. высота</div>
+        <div class="dropdown-item" onclick="changeType(this,'Косв. длина')">↔️ Косв. длина</div>
+        <div class="dropdown-item" onclick="changeType(this,'Двойная косв.')">🔻 Двойная косв.</div>
+      </div>
+    </div>
+
+    <div class="list-header"><span>Измерения</span><span class="download-icon">⬇</span></div>
+    <div class="list">
+      <div class="item">
+        <div class="check"></div>
+        <div class="info"><div class="name">Д-11 П3.2.1-2.Кл7</div><div class="date">25.03.2026 20:56</div></div>
+        <div class="right-side"><span class="type-icon">↕️</span><div class="value">1033,1 мм</div></div>
+      </div>
+      <div class="item">
+        <div class="check"></div>
+        <div class="info"><div class="name">Измерение</div><div class="date">25.03.2026 20:55</div></div>
+        <div class="right-side"><span class="type-icon">📏</span><div class="value">2350,6 мм</div></div>
+      </div>
+      <div class="item">
+        <div class="check"></div>
+        <div class="info"><div class="name">Угол</div><div class="date">25.03.2026 20:54</div></div>
+        <div class="right-side"><span class="type-icon">📐</span><div class="value">45,2°</div></div>
+      </div>
+      <div class="item">
+        <div class="check"></div>
+        <div class="info"><div class="name">8Л Пр Сн Шт+</div><div class="date">25.03.2026 20:53</div></div>
+        <div class="right-side"><span class="type-icon">📏</span><div class="value">1314,4 мм</div></div>
+      </div>
+      <div class="item">
+        <div class="check"></div>
+        <div class="info"><div class="name">Измерение</div><div class="date">25.03.2026 20:52</div></div>
+        <div class="right-side"><span class="type-icon">📏</span><div class="value">2203,9 мм</div></div>
+      </div>
+      <div class="item">
+        <div class="check"></div>
+        <div class="info"><div class="name">Дчпзп</div><div class="date">25.03.2026 20:51</div></div>
+        <div class="right-side"><span class="type-icon">📏</span><div class="value">2205,3 мм</div></div>
+      </div>
+    </div>
+    <div class="fabs"><div class="fab fab-up">⬆</div><div class="fab fab-down">⬇</div></div>
+  </div>
+</div>
+
+<!-- ====== ② Передняя грань (зелёный) ====== -->
+<div class="layout-group">
+  <div class="layout-label">② Передняя грань (зелёный) — панель открыта</div>
+  <div class="phone">
+    <div class="status-bar"><span>12:00</span><span>🔋 85%</span></div>
+    <div class="toolbar front">
+      <span class="menu-icon">☰</span><span>Список измерений</span><span class="bt-icon">📶</span>
+    </div>
+    <div class="remote-section-label">Дистанционное измерение</div>
+    <div class="remote-controls">
+      <div class="cube-ref" onclick="togglePanel('ref')">
+        <span class="cube-icon">➡</span><span class="cube-label">Передняя</span>
+      </div>
+      <div style="flex:1"></div>
+      <div class="cube-type" onclick="togglePanel('type')">
+        <span class="cube-icon">📏</span><span class="cube-label">Измерение</span>
+      </div>
+    </div>
+    <button class="btn-enable">🔆 Включить</button>
+    <div class="remote-actions">
+      <button class="btn-download">📥 Скачать измерения</button>
+      <button class="btn-trigger">📏 Замер</button>
+    </div>
+
+    <!-- Панель точки отсчёта открыта -->
+    <div class="dropdown-panel visible" id="panel-ref2">
+      <div class="dropdown-grid">
+        <div class="dropdown-item" onclick="changeRef('rear')">⬅ Задняя</div>
+        <div class="dropdown-item active" onclick="changeRef('front')">➡ Передняя</div>
+        <div class="dropdown-item" onclick="changeRef('tripod')">🔺 Штатив</div>
+      </div>
+    </div>
+
+    <div class="list-header"><span>Измерения</span><span class="download-icon">⬇</span></div>
+    <div class="list" style="max-height:260px;overflow-y:auto;">
+      <div class="item"><div class="check"></div><div class="info"><div class="name">Д-11 П3.2.1</div><div class="date">20:56</div></div><div class="right-side"><span class="type-icon">📏</span><div class="value">1033,1 мм</div></div></div>
+      <div class="item"><div class="check"></div><div class="info"><div class="name">Измерение</div><div class="date">20:55</div></div><div class="right-side"><span class="type-icon">📏</span><div class="value">2350,6 мм</div></div></div>
+      <div class="item"><div class="check"></div><div class="info"><div class="name">Угол</div><div class="date">20:54</div></div><div class="right-side"><span class="type-icon">📐</span><div class="value">45,2°</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== ③ Штатив (красный) + ActionMode (долгое нажатие на "Скачать") ====== -->
+<div class="layout-group">
+  <div class="layout-label">③ Штатив (красный) + долгое нажатие на "Скачать" → чекбоксы</div>
+  <div class="phone">
+    <div class="status-bar"><span>12:00</span><span>🔋 85%</span></div>
+    <div class="toolbar tripod">
+      <span class="menu-icon">☰</span><span>Список измерений</span><span class="bt-icon">📶</span>
+    </div>
+
+    <!-- ActionMode -->
+    <div class="action-mode visible">
+      <span class="count">Выбрано: 2</span>
+      <div class="actions">
+        <span class="act-btn">⬜ Интервал</span>
+        <span class="act-btn">Все</span>
+        <span class="act-btn danger">🗑 Удалить</span>
+        <span class="act-btn">✕</span>
+      </div>
+    </div>
+
+    <div class="remote-section-label">Дистанционное измерение</div>
+    <div class="remote-controls">
+      <div class="cube-ref"><span class="cube-icon">🔺</span><span class="cube-label">Штатив</span></div>
+      <div style="flex:1"></div>
+      <div class="cube-type"><span class="cube-icon">↕️</span><span class="cube-label">Косв. высота</span></div>
+    </div>
+    <button class="btn-enable">🔆 Включить</button>
+    <div class="remote-actions">
+      <button class="btn-download">📥 Скачать измерения</button>
+      <button class="btn-trigger">📏 Замер</button>
+    </div>
+
+    <div class="list-header"><span>Измерения</span><span class="download-icon">⬇</span></div>
+    <div class="list" style="max-height:240px;overflow-y:auto;">
+      <div class="item selected"><div class="check"></div><div class="info"><div class="name">Д-11 П3.2.1-2.Кл7</div><div class="date">20:56</div></div><div class="right-side"><span class="type-icon">↕️</span><div class="value">1033,1 мм</div></div></div>
+      <div class="item"><div class="check"></div><div class="info"><div class="name">Измерение</div><div class="date">20:55</div></div><div class="right-side"><span class="type-icon">📏</span><div class="value">2350,6 мм</div></div></div>
+      <div class="item selected"><div class="check"></div><div class="info"><div class="name">8Л Пр Сн Шт+</div><div class="date">20:54</div></div><div class="right-side"><span class="type-icon">📏</span><div class="value">1314,4 мм</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== ④ Редактирование + История ====== -->
+<div class="layout-group">
+  <div class="layout-label">④ Редактирование подписи: долгое нажатие → выбор из истории или своя</div>
+  <div class="phone" style="position:relative;">
+    <div class="status-bar"><span>12:00</span><span>🔋 85%</span></div>
+    <div class="toolbar rear"><span class="menu-icon">☰</span><span>Список измерений</span><span class="bt-icon">📶</span></div>
+    <div class="list-header"><span>Измерения</span><span class="download-icon">⬇</span></div>
+    <div class="list" style="max-height:260px;overflow-y:auto;">
+      <div class="item editing">
+        <div class="check"></div>
+        <div class="info"><div class="name">Д-11 П3.2.1</div><input class="edit-input" value="Д-11 П3.2.1" /><div class="date">25.03.2026 20:56</div></div>
+        <div class="right-side"><span class="type-icon">📏</span><div class="value">1033,1 мм</div></div>
+      </div>
+      <div class="item"><div class="check"></div><div class="info"><div class="name">Измерение</div><div class="date">20:55</div></div><div class="right-side"><span class="type-icon">📏</span><div class="value">2350,6 мм</div></div></div>
+      <div class="item"><div class="check"></div><div class="info"><div class="name">Угол</div><div class="date">20:54</div></div><div class="right-side"><span class="type-icon">📐</span><div class="value">45,2°</div></div></div>
+    </div>
+    <div class="history-dialog visible">
+      <h4>📋 Предыдущие подписи</h4>
+      <div class="hist-opt">Д-11 П3.2.1-2.Кл7</div>
+      <div class="hist-opt">Д-11 П3.2.1</div>
+      <div class="hist-opt">Д-11 П3.2</div>
+      <div class="hist-opt custom">✏️ Ввести свою подпись...</div>
+    </div>
+    <div class="fabs"><div class="fab fab-up">⬆</div><div class="fab fab-down">⬇</div></div>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div style="position:fixed;bottom:12px;left:12px;background:#1a1a2e;padding:12px 16px;border-radius:8px;font-size:11px;color:#aaa;max-width:360px;">
+  <b style="color:#fff;">Цвета шапки:</b> 🔵 Задняя | 🟢 Передняя | 🔴 Штатив (Pin зависит от модели)<br>
+  <b style="color:#fff;">Кубики:</b> Слева — точка отсчёта, Справа — тип замера (выпадающие панели)<br>
+  <b style="color:#fff;">Кнопка "Включить":</b> широкая, градиент синего<br>
+  <b style="color:#fff;">Полоса:</b> 📥 Скачать измерения (долгое нажатие → чекбоксы) + 📏 Замер<br>
+  <b style="color:#fff;">Заголовок:</b> «Список измерений» + символ 📶 (работающий BT)<br>
+  <b style="color:#fff;">Шрифт/цвет подписей:</b> как в ММ — синий #1565c0, regular weight<br>
+  <b style="color:#fff;">Разделители:</b> слабоконтрастные полоски #f5f5f5<br>
+  <b style="color:#fff;">Smart Mode:</b> техкод → капс 1-й буквы ИЛИ замена из словаря
+</div>
+
+<script>
+let longPressTimer;
+function startLongPress(e) {
+  longPressTimer = setTimeout(() => {
+    // Долгое нажатие — показать чекбоксы
+    document.querySelectorAll('.check').forEach(c => c.style.display = 'flex');
+    alert('Долгое нажатие → режим выделения чекбоксами');
+  }, 800);
+}
+function clearLongPress() { clearTimeout(longPressTimer); }
+
+function togglePanel(id) {
+  const p = document.getElementById('panel-' + id);
+  if (p) p.classList.toggle('visible');
+}
+function changeRef(val) {
+  document.querySelectorAll('.toolbar').forEach(t => {
+    t.className = 'toolbar ' + (val || 'rear');
+  });
+}
+function changeType(el, name) {
+  el.parentElement.querySelectorAll('.dropdown-item').forEach(x => x.classList.remove('active'));
+  el.classList.add('active');
+}
+function triggerLaser() {
+  const btn = document.querySelector('.btn-enable');
+  btn.textContent = btn.textContent.includes('Включить') ? '🔆 Выключить' : '🔆 Включить';
+}
+</script>
+</body>
+</html>

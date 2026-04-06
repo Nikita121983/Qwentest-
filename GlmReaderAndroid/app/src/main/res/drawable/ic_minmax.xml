@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path android:fillColor="#D32F2F" android:pathData="M8,6h8v2H8z" />
+    <path android:fillColor="#42A5F5" android:pathData="M8,16h8v2H8z" />
+    <path android:fillColor="#42A5F5" android:pathData="M10,10h4v4h-4z" />
+    <text x="12" y="13" font-size="6" fill="#42A5F5" text-anchor="middle">min</text>
+    <text x="12" y="9" font-size="6" fill="#D32F2F" text-anchor="middle">max</text>
+</vector>

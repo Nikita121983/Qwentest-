@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlmReaderAndroid — UI Spec v6 (точно по ММ)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Roboto', 'Segoe UI', sans-serif; background: #222; color: #fff; padding: 20px; display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; }
+  .layout-group { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .layout-label { font-size: 12px; color: #aaa; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+  .phone { width: 375px; background: #fff; border-radius: 28px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.5); display: flex; flex-direction: column; }
+  .status-bar { height: 22px; background: #000; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; font-size: 11px; color: #fff; }
+
+  /* === TOOLBAR (как в ММ: тёмно-синий #2c5282) === */
+  .toolbar {
+    padding: 10px 8px; display: flex; align-items: center; justify-content: space-between;
+    color: #fff; font-weight: 400; font-size: 18px; background: #2c5282;
+  }
+  .toolbar .menu-icon { font-size: 22px; cursor: pointer; padding: 8px; }
+  .toolbar .bt-icon { font-size: 22px; color: #fff; padding: 8px; }
+
+  /* === REMOTE PANEL (как в ММ) === */
+  .remote-label { background: #e8e8e8; padding: 10px 16px; font-size: 16px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 400; }
+
+  .remote-controls { display: flex; align-items: center; justify-content: space-around; padding: 16px 24px 8px; background: #fff; }
+
+  /* Иконка типа/точки (SVG-подобная через CSS) */
+  .ctrl-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+  /* Кнопка-дропдаун (синий градиент, белая стрелка) */
+  .dropdown-btn {
+    width: 64px; height: 42px; background: linear-gradient(180deg, #1e88e5, #1565c0);
+    border: 1px solid #0d47a1; border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 3px rgba(0,0,0,0.15);
+    transition: background 0.15s;
+  }
+  .dropdown-btn:active { background: linear-gradient(180deg, #1565c0, #0d47a1); }
+  .dropdown-btn .chevron { color: #fff; font-size: 20px; font-weight: 300; }
+
+  /* Широкая кнопка Включить */
+  .btn-enable {
+    margin: 12px 40px 16px; padding: 14px; background: linear-gradient(180deg, #1e88e5, #1565c0);
+    color: #fff; border: none; border-radius: 6px; font-size: 18px; font-weight: 400;
+    cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
+  .btn-enable:active { background: linear-gradient(180deg, #1565c0, #0d47a1); }
+  .btn-enable .laser-icon { font-size: 22px; }
+
+  /* === LIST HEADER (как в ММ) === */
+  .list-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: #e8e8e8; }
+  .list-header span { font-size: 16px; color: #888; font-weight: 400; }
+  .list-header .dl-icon { font-size: 22px; color: #2c5282; cursor: pointer; }
+
+  /* === LIST ITEMS (как в ММ) === */
+  .list { flex: 1; overflow-y: auto; }
+  .item {
+    display: flex; align-items: center; padding: 10px 12px;
+    border-bottom: 1px solid #e8e8e8; cursor: pointer; user-select: none;
+  }
+  .item:last-child { border-bottom: none; }
+  .item:active { background: #f5f5f5; }
+
+  /* Корзина (только в режиме выделения или обычная) */
+  .item .trash { font-size: 20px; color: #666; margin-right: 10px; cursor: pointer; flex-shrink: 0; }
+  .item .check { width: 20px; height: 20px; border: 2px solid #bbb; border-radius: 3px; margin-right: 10px; display: none; align-items: center; justify-content: center; color: #fff; font-size: 12px; flex-shrink: 0; }
+  .item.selected .check { display: flex; background: #1565c0; border-color: #1565c0; }
+  .item.selected .check::after { content: '✓'; }
+
+  .item .info { flex: 1; min-width: 0; }
+  /* Шрифт и цвет как в ММ: синий #1a5276, Roboto 15px */
+  .item .name { font-size: 15px; color: #1a5276; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .item .date { font-size: 12px; color: #888; margin-top: 3px; font-weight: 400; }
+
+  /* Иконка типа + значение (как в ММ) */
+  .item .right-side { display: flex; align-items: center; gap: 8px; flex-shrink: 0; margin-left: 8px; }
+  .item .type-icon { font-size: 18px; }
+  .item .value { font-size: 20px; font-weight: 400; color: #1565c0; white-space: nowrap; }
+
+  /* === ACTION MODE === */
+  .action-mode { background: #1976d2; padding: 8px 16px; display: none; align-items: center; gap: 12px; color: #fff; }
+  .action-mode.visible { display: flex; }
+  .action-mode .count { font-size: 16px; }
+  .action-mode .actions { margin-left: auto; display: flex; gap: 16px; }
+  .action-mode .act-btn { font-size: 13px; color: #fff; cursor: pointer; padding: 4px 8px; }
+  .action-mode .act-btn.danger { color: #ffcdd2; }
+
+  /* === FABs === */
+  .fabs { position: absolute; bottom: 16px; right: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .fab { width: 40px; height: 40px; border-radius: 50%; border: none; color: #fff; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+  .fab-up { background: #90a4ae; }
+  .fab-down { background: #1565c0; }
+
+  /* === HISTORY DIALOG === */
+  .history-dialog { position: absolute; bottom: 70px; left: 12px; right: 12px; background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); display: none; z-index: 10; }
+  .history-dialog.visible { display: block; }
+  .history-dialog h4 { font-size: 14px; color: #333; margin-bottom: 10px; }
+  .hist-opt { padding: 10px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; color: #333; }
+  .hist-opt:hover { background: #e3f2fd; color: #1565c0; }
+  .hist-opt.custom { color: #888; font-style: italic; border-top: 1px solid #eee; margin-top: 8px; padding-top: 10px; }
+
+  /* === EDIT === */
+  .item.editing .name { display: none; }
+  .item .edit-input { display: none; width: 100%; font-size: 15px; color: #1a5276; border: none; background: none; font-weight: 400; outline: none; }
+  .item.editing .edit-input { display: block; }
+
+  /* === Dropdown panels === */
+  .dropdown-panel { display: none; background: #fff; padding: 8px 16px 12px; border-top: 1px solid #eee; }
+  .dropdown-panel.visible { display: block; }
+  .dropdown-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+  .dropdown-item {
+    padding: 8px 14px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; color: #333;
+    cursor: pointer; background: #fff; transition: all 0.15s;
+  }
+  .dropdown-item.active { background: #1565c0; color: #fff; border-color: #1565c0; }
+</style>
+</head>
+<body>
+
+<!-- ====== ① Задняя грань (синий) — обычный режим ====== -->
+<div class="layout-group">
+  <div class="layout-label">① Точно по ММ — обычный режим</div>
+  <div class="phone" style="position:relative;">
+    <div class="status-bar"><span>18:06</span><span>📶 🔋 26%</span></div>
+    <div class="toolbar">
+      <span class="menu-icon">☰</span>
+      <span>Список измерений</span>
+      <span class="bt-icon">📶</span>
+    </div>
+
+    <div class="remote-label">Дистанционное измерение</div>
+    <div class="remote-controls">
+      <!-- Левая иконка: точка отсчёта (как в ММ: серая стена с красной стрелкой вверх) -->
+      <div class="ctrl-icon">
+        <svg width="40" height="40" viewBox="0 0 40 40">
+          <rect x="6" y="14" width="14" height="18" fill="#888" rx="1"/>
+          <rect x="8" y="16" width="8" height="8" fill="#fff" rx="0.5"/>
+          <line x1="24" y1="30" x2="24" y2="8" stroke="#d32f2f" stroke-width="2.5"/>
+          <polygon points="24,6 20,12 28,12" fill="#d32f2f"/>
+        </svg>
+      </div>
+      <!-- Синяя кнопка-дропдаун (стрелка вниз) -->
+      <div class="dropdown-btn" onclick="togglePanel('ref')"><span class="chevron">⌄</span></div>
+
+      <div style="width:24px"></div>
+
+      <!-- Правая иконка: тип замера (как в ММ: красная стрелка вверх + голубая I-образная) -->
+      <div class="ctrl-icon">
+        <svg width="40" height="40" viewBox="0 0 40 40">
+          <line x1="12" y1="30" x2="12" y2="8" stroke="#d32f2f" stroke-width="2"/>
+          <polygon points="12,6 8,14 16,14" fill="#d32f2f"/>
+          <line x1="26" y1="8" x2="26" y2="30" stroke="#42a5f5" stroke-width="2.5"/>
+          <line x1="22" y1="8" x2="30" y2="8" stroke="#42a5f5" stroke-width="2"/>
+          <line x1="22" y1="30" x2="30" y2="30" stroke="#42a5f5" stroke-width="2"/>
+        </svg>
+      </div>
+      <!-- Синяя кнопка-дропдаун -->
+      <div class="dropdown-btn" onclick="togglePanel('type')"><span class="chevron">⌄</span></div>
+    </div>
+
+    <!-- Широкая кнопка Включить (как в ММ: молния + текст) -->
+    <button class="btn-enable" onclick="triggerLaser()">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="#fff">
+        <circle cx="10" cy="10" r="8" fill="none" stroke="#fff" stroke-width="1"/>
+        <line x1="10" y1="2" x2="10" y2="18" stroke="#fff" stroke-width="1"/>
+        <line x1="2" y1="10" x2="18" y2="10" stroke="#fff" stroke-width="0.5"/>
+        <circle cx="10" cy="10" r="2" fill="#fff"/>
+        <line x1="10" y1="4" x2="10" y2="1" stroke="#fff" stroke-width="1.5"/>
+      </svg>
+      Включить
+    </button>
+
+    <!-- Панель точки отсчёта -->
+    <div class="dropdown-panel" id="panel-ref">
+      <div class="dropdown-grid">
+        <div class="dropdown-item active" onclick="changeRef('rear')">⬅ Задняя грань</div>
+        <div class="dropdown-item" onclick="changeRef('front')">➡ Передняя грань</div>
+        <div class="dropdown-item" onclick="changeRef('tripod')">🔺 Ось штатива</div>
+      </div>
+    </div>
+    <div class="dropdown-panel" id="panel-type">
+      <div class="dropdown-grid">
+        <div class="dropdown-item active" onclick="changeType(this)">📏 Измерение</div>
+        <div class="dropdown-item" onclick="changeType(this)">📐 Площадь</div>
+        <div class="dropdown-item" onclick="changeType(this)">📦 Объём</div>
+        <div class="dropdown-item" onclick="changeType(this)">📐 Угол</div>
+        <div class="dropdown-item" onclick="changeType(this)">↕️ Косвенная высота</div>
+        <div class="dropdown-item" onclick="changeType(this)">↔️ Косвенная длина</div>
+      </div>
+    </div>
+
+    <div class="list-header"><span>Измерения</span><span class="dl-icon">⬇</span></div>
+    <div class="list">
+      <div class="item">
+        <div class="trash">🗑</div>
+        <div class="info"><div class="name">Д-11 П3.2.1-2.Кл7</div><div class="date">25.03.2026 20:56</div></div>
+        <div class="right-side">
+          <svg width="16" height="24" viewBox="0 0 16 24"><line x1="8" y1="22" x2="8" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="8,2 5,8 11,8" fill="#d32f2f"/><line x1="12" y1="4" x2="12" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="4" x2="14" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="20" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg>
+          <div class="value">1033,1 мм</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="trash">🗑</div>
+        <div class="info"><div class="name">Измерение</div><div class="date">25.03.2026 20:55</div></div>
+        <div class="right-side">
+          <svg width="16" height="24" viewBox="0 0 16 24"><line x1="8" y1="22" x2="8" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="8,2 5,8 11,8" fill="#d32f2f"/><line x1="12" y1="4" x2="12" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="4" x2="14" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="20" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg>
+          <div class="value">2350,6 мм</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="trash">🗑</div>
+        <div class="info"><div class="name">Измерение</div><div class="date">25.03.2026 20:55</div></div>
+        <div class="right-side">
+          <svg width="16" height="24" viewBox="0 0 16 24"><line x1="8" y1="22" x2="8" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="8,2 5,8 11,8" fill="#d32f2f"/><line x1="12" y1="4" x2="12" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="4" x2="14" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="20" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg>
+          <div class="value">2353,3 мм</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="trash">🗑</div>
+        <div class="info"><div class="name">Д-11 П3.2.1-2.Кл7</div><div class="date">25.03.2026 20:55</div></div>
+        <div class="right-side">
+          <svg width="16" height="24" viewBox="0 0 16 24"><line x1="8" y1="22" x2="8" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="8,2 5,8 11,8" fill="#d32f2f"/><line x1="12" y1="4" x2="12" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="4" x2="14" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="20" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg>
+          <div class="value">1048 мм</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="trash">🗑</div>
+        <div class="info"><div class="name">Измерение</div><div class="date">25.03.2026 20:54</div></div>
+        <div class="right-side">
+          <svg width="16" height="24" viewBox="0 0 16 24"><line x1="8" y1="22" x2="8" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="8,2 5,8 11,8" fill="#d32f2f"/><line x1="12" y1="4" x2="12" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="4" x2="14" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="20" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg>
+          <div class="value">2368,3 мм</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="trash">🗑</div>
+        <div class="info"><div class="name">Измерение</div><div class="date">25.03.2026 20:54</div></div>
+        <div class="right-side">
+          <svg width="16" height="24" viewBox="0 0 16 24"><line x1="8" y1="22" x2="8" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="8,2 5,8 11,8" fill="#d32f2f"/><line x1="12" y1="4" x2="12" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="4" x2="14" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="20" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg>
+          <div class="value">2368,8 мм</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== ② ActionMode (долгое нажатие → чекбоксы) ====== -->
+<div class="layout-group">
+  <div class="layout-label">② Долгое нажатие → режим выделения</div>
+  <div class="phone">
+    <div class="status-bar"><span>18:06</span><span>📶  26%</span></div>
+    <div class="toolbar">
+      <span class="menu-icon">☰</span><span>Список измерений</span><span class="bt-icon">📶</span>
+    </div>
+    <div class="action-mode visible">
+      <span class="count">Выбрано: 2</span>
+      <div class="actions">
+        <span class="act-btn">⬜ Интервал</span>
+        <span class="act-btn">Все</span>
+        <span class="act-btn danger">🗑 Удалить</span>
+        <span class="act-btn">✕</span>
+      </div>
+    </div>
+    <div class="remote-label">Дистанционное измерение</div>
+    <div class="remote-controls">
+      <div class="ctrl-icon">
+        <svg width="40" height="40" viewBox="0 0 40 40"><rect x="6" y="14" width="14" height="18" fill="#888" rx="1"/><rect x="8" y="16" width="8" height="8" fill="#fff" rx="0.5"/><line x1="24" y1="30" x2="24" y2="8" stroke="#d32f2f" stroke-width="2.5"/><polygon points="24,6 20,12 28,12" fill="#d32f2f"/></svg>
+      </div>
+      <div class="dropdown-btn"><span class="chevron">⌄</span></div>
+      <div style="width:24px"></div>
+      <div class="ctrl-icon">
+        <svg width="40" height="40" viewBox="0 0 40 40"><line x1="12" y1="30" x2="12" y2="8" stroke="#d32f2f" stroke-width="2"/><polygon points="12,6 8,14 16,14" fill="#d32f2f"/><line x1="26" y1="8" x2="26" y2="30" stroke="#42a5f5" stroke-width="2.5"/><line x1="22" y1="8" x2="30" y2="8" stroke="#42a5f5" stroke-width="2"/><line x1="22" y1="30" x2="30" y2="30" stroke="#42a5f5" stroke-width="2"/></svg>
+      </div>
+      <div class="dropdown-btn"><span class="chevron">⌄</span></div>
+    </div>
+    <button class="btn-enable"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="#fff" stroke-width="1"/><line x1="10" y1="2" x2="10" y2="18" stroke="#fff" stroke-width="1"/><line x1="2" y1="10" x2="18" y2="10" stroke="#fff" stroke-width="0.5"/><circle cx="10" cy="10" r="2" fill="#fff"/><line x1="10" y1="4" x2="10" y2="1" stroke="#fff" stroke-width="1.5"/></svg> Включить</button>
+    <div class="list-header"><span>Измерения</span><span class="dl-icon">⬇</span></div>
+    <div class="list" style="max-height:300px;overflow-y:auto;">
+      <div class="item selected"><div class="check"></div><div class="info"><div class="name">Д-11 П3.2.1-2.Кл7</div><div class="date">25.03.2026 20:56</div></div><div class="right-side"><svg width="16" height="24" viewBox="0 0 16 24"><line x1="8" y1="22" x2="8" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="8,2 5,8 11,8" fill="#d32f2f"/><line x1="12" y1="4" x2="12" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="4" x2="14" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="20" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg><div class="value">1033,1 мм</div></div></div>
+      <div class="item"><div class="check"></div><div class="info"><div class="name">Измерение</div><div class="date">25.03.2026 20:55</div></div><div class="right-side"><svg width="16" height="24" viewBox="0 0 16 24"><line x1="8" y1="22" x2="8" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="8,2 5,8 11,8" fill="#d32f2f"/><line x1="12" y1="4" x2="12" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="4" x2="14" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="20" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg><div class="value">2350,6 мм</div></div></div>
+      <div class="item selected"><div class="check"></div><div class="info"><div class="name">8Л Пр Сн Шт+</div><div class="date">25.03.2026 20:54</div></div><div class="right-side"><svg width="16" height="24" viewBox="0 0 16 24"><line x1="8" y1="22" x2="8" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="8,2 5,8 11,8" fill="#d32f2f"/><line x1="12" y1="4" x2="12" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="4" x2="14" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="10" y1="20" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg><div class="value">1314,4 мм</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div style="position:fixed;bottom:12px;left:12px;background:#1a1a2e;padding:12px 16px;border-radius:8px;font-size:11px;color:#aaa;max-width:400px;">
+  <b style="color:#fff;">Цвета:</b> Toolbar #2c5282, подписи #1a5276, значение #1565c0<br>
+  <b style="color:#fff;">ДП (как в ММ):</b> Иконка + синяя кнопка-дропдаун (×2), кнопка "Включить" с молнией<br>
+  <b style="color:#fff;">Точка отсчёта:</b> слева, Тип замера: справа (оба с выпадающими панелями)<br>
+  <b style="color:#fff;">Список:</b> 🗑 слева, имя+дата, иконка типа+значение справа<br>
+  <b style="color:#fff;">Шрифт:</b> Roboto 15px, weight 400 (как в ММ)<br>
+  <b style="color:#fff;">Шапка:</b> "Список измерений" + 📶 (BT активен)<br>
+  <b style="color:#fff;">Pin:</b> только если поддерживается моделью рулетки
+</div>
+
+<script>
+function togglePanel(id) {
+  document.querySelectorAll('.dropdown-panel').forEach(p => {
+    if (p.id === 'panel-' + id) p.classList.toggle('visible');
+    else p.classList.remove('visible');
+  });
+}
+function changeRef(val) {
+  document.querySelectorAll('.toolbar').forEach(t => { t.className = 'toolbar'; });
+}
+function changeType(el) {
+  el.parentElement.querySelectorAll('.dropdown-item').forEach(x => x.classList.remove('active'));
+  el.classList.add('active');
+}
+function triggerLaser() {
+  const btn = document.querySelector('.btn-enable');
+  btn.innerHTML = btn.innerHTML.includes('Включить')
+    ? btn.innerHTML.replace('Включить', 'Выключить')
+    : btn.innerHTML.replace('Выключить', 'Включить');
+}
+</script>
+</body>
+</html>

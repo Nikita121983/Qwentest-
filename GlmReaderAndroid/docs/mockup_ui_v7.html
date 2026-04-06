@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=393, initial-scale=1.0">
+<title>GLM Reader — UI v7 (MM-style, swipe)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; justify-content: center; font-family: 'Roboto', sans-serif; padding: 20px; gap: 30px; flex-wrap: wrap; }
+  .layout-group { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .layout-label { font-size: 12px; color: #aaa; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+  .phone { width: 393px; height: 852px; background: #fff; position: relative; overflow: hidden; border-radius: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+
+  /* Статус-бар */
+  .status-bar { height: 28px; background: #000; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #fff; font-size: 11px; }
+
+  /* Toolbar — #2B5878 как в MM */
+  .toolbar { height: 56px; background: #2B5878; display: flex; align-items: center; padding: 0 16px; color: #fff; }
+  .toolbar .burger { font-size: 22px; margin-right: 20px; cursor: pointer; }
+  .toolbar .title { font-size: 20px; font-weight: 400; flex: 1; text-align: center; margin-right: 48px; }
+  .toolbar .bt-icon { font-size: 20px; margin-right: 16px; opacity: 0.7; }
+  .toolbar .dots { font-size: 20px; letter-spacing: 2px; }
+
+  /* ActionMode */
+  .action-mode { background: #1976d2; padding: 8px 16px; display: none; align-items: center; gap: 12px; color: #fff; }
+  .action-mode.visible { display: flex; }
+  .action-mode .count { font-size: 16px; }
+  .action-mode .actions { margin-left: auto; display: flex; gap: 14px; }
+  .action-mode .act-btn { font-size: 13px; color: #fff; cursor: pointer; padding: 4px 8px; }
+  .action-mode .act-btn.danger { color: #ffcdd2; }
+
+  /* Remote Panel */
+  .remote-panel { background: #fff; padding: 16px; border-bottom: 1px solid #ddd; text-align: center; }
+  .remote-panel .label { color: #888; font-size: 13px; text-transform: uppercase; margin-bottom: 12px; text-align: left; letter-spacing: 0.5px; }
+  .remote-panel .controls { display: flex; justify-content: center; gap: 16px; margin-bottom: 12px; }
+  .remote-panel .type-icon { font-size: 32px; }
+
+  /* Синяя кнопка-дропдаун (как в MM) */
+  .remote-panel .dropdown {
+    width: 80px; height: 44px; background: linear-gradient(180deg, #1a6fb5, #0d4f8a);
+    border-radius: 4px; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 20px; cursor: pointer;
+  }
+
+  /* Swipe-панель для переключения режимов (вместо dropdown) */
+  .swipe-panel {
+    background: #fff; border-bottom: 1px solid #eee; overflow: hidden;
+    transition: max-height 0.3s; max-height: 0;
+  }
+  .swipe-panel.visible { max-height: 200px; }
+  .swipe-track { display: flex; gap: 8px; padding: 12px 16px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+  .swipe-track::-webkit-scrollbar { display: none; }
+  .swipe-item {
+    flex: 0 0 72px; height: 64px; background: #f5f5f5; border-radius: 8px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer; scroll-snap-align: center; transition: all 0.2s;
+    border: 2px solid transparent;
+  }
+  .swipe-item.active { background: #e3f2fd; border-color: #1a6fb5; }
+  .swipe-item .swipe-icon { font-size: 24px; margin-bottom: 4px; }
+  .swipe-item .swipe-label { font-size: 10px; color: #666; text-align: center; }
+
+  .remote-panel .btn-enable {
+    display: inline-flex; align-items: center; gap: 8px; padding: 12px 40px;
+    background: linear-gradient(180deg, #1a6fb5, #0d4f8a); color: #fff;
+    font-size: 18px; border: none; border-radius: 4px; cursor: pointer;
+  }
+  .remote-panel .btn-enable .laser-icon { font-size: 20px; }
+
+  /* Download strip */
+  .download-strip { display: flex; gap: 8px; padding: 8px 16px 12px; background: #fff; }
+  .btn-download { flex: 1; padding: 10px; background: #fff; color: #2B5878; border: 1px solid #ddd; border-radius: 4px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; }
+  .btn-trigger { flex: 1; padding: 10px; background: #d32f2f; color: #fff; border: none; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; }
+
+  /* List header */
+  .list-header { background: #e8e8e8; padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #ccc; }
+  .list-header .title { color: #888; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .list-header .download { color: #2B5878; font-size: 20px; }
+
+  /* Measurement rows — шрифты как в MM */
+  .measurement-list { background: #fff; }
+  .measurement-row { display: flex; align-items: center; padding: 12px 16px; border-bottom: 1px solid #e0e0e0; background: #fff; }
+  .measurement-row .trash { width: 24px; color: #2B5878; font-size: 18px; margin-right: 12px; flex-shrink: 0; }
+  .measurement-row .check { width: 20px; height: 20px; border: 2px solid #bbb; border-radius: 3px; margin-right: 10px; display: none; align-items: center; justify-content: center; color: #fff; font-size: 12px; flex-shrink: 0; }
+  .measurement-row.selected .check { display: flex; background: #1565c0; border-color: #1565c0; }
+  .measurement-row.selected .check::after { content: '✓'; }
+  .measurement-row .info { flex: 1; min-width: 0; }
+  /* Шрифты MM: name #1A3A5C 16px, datetime #888 13px */
+  .measurement-row .name { color: #1A3A5C; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .measurement-row .datetime { color: #888; font-size: 13px; margin-top: 2px; }
+  .measurement-row .right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .measurement-row .type-icon { font-size: 24px; }
+  /* Значение: #0091EA 18px weight 500 как в MM */
+  .measurement-row .value { color: #0091EA; font-size: 18px; font-weight: 500; white-space: nowrap; }
+  .measurement-row .arrow { color: #2B5878; font-size: 16px; }
+
+  /* History dialog */
+  .history-dialog { position: absolute; bottom: 70px; left: 12px; right: 12px; background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); display: none; z-index: 10; }
+  .history-dialog.visible { display: block; }
+  .history-dialog h4 { font-size: 14px; color: #333; margin-bottom: 10px; }
+  .hist-opt { padding: 10px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; color: #333; }
+  .hist-opt:hover { background: #e3f2fd; color: #0091EA; }
+  .hist-opt.custom { color: #888; font-style: italic; border-top: 1px solid #eee; margin-top: 8px; padding-top: 10px; }
+
+  /* Edit mode */
+  .measurement-row.editing .name { display: none; }
+  .measurement-row .edit-input { display: none; width: 100%; font-size: 16px; color: #1A3A5C; border: none; background: none; outline: none; }
+  .measurement-row.editing .edit-input { display: block; }
+
+  /* FABs */
+  .fabs { position: absolute; bottom: 56px; right: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .fab { width: 40px; height: 40px; border-radius: 50%; border: none; color: #fff; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+  .fab-up { background: #90a4ae; }
+  .fab-down { background: #0091EA; }
+
+  /* Nav bar */
+  .nav-bar { position: absolute; bottom: 0; width: 100%; height: 48px; background: #000; display: flex; justify-content: center; align-items: center; }
+  .nav-bar .gesture-bar { width: 120px; height: 4px; background: #555; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- ====== ① Обычный режим ====== -->
+<div class="layout-group">
+  <div class="layout-label">① MM-style: шрифты, цвета, свайп для переключения</div>
+  <div class="phone" style="position:relative;">
+    <div class="status-bar"><span>18:06</span><span>🔋 26%</span></div>
+    <div class="toolbar">
+      <span class="burger">☰</span>
+      <span class="title">Список измерений</span>
+      <span class="bt-icon">📶</span>
+      <span class="dots">⋮</span>
+    </div>
+
+    <div class="remote-panel">
+      <div class="label">Дистанционное измерение</div>
+      <div class="controls">
+        <!-- Иконка точки отсчёта (как в MM: стена + стрелка) -->
+        <span class="type-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="10" width="10" height="14" fill="#888" rx="1"/><rect x="5" y="11" width="6" height="6" fill="#fff"/><line x1="18" y1="22" x2="18" y2="6" stroke="#d32f2f" stroke-width="2"/><polygon points="18,4 15,10 21,10" fill="#d32f2f"/></svg>
+        </span>
+        <!-- Синяя кнопка (открывает свайп-панель) -->
+        <div class="dropdown" onclick="toggleSwipe('ref-swipe')">▾</div>
+        <div style="width:16px"></div>
+        <!-- Иконка типа замера (как в MM: стрелка + I-образная) -->
+        <span class="type-icon" style="color:#0091EA;">
+          <svg width="32" height="32" viewBox="0 0 32 32"><line x1="8" y1="22" x2="8" y2="6" stroke="#d32f2f" stroke-width="1.5"/><polygon points="8,4 5,10 11,10" fill="#d32f2f"/><line x1="20" y1="6" x2="20" y2="22" stroke="#42a5f5" stroke-width="2"/><line x1="17" y1="6" x2="23" y2="6" stroke="#42a5f5" stroke-width="1.5"/><line x1="17" y1="22" x2="23" y2="22" stroke="#42a5f5" stroke-width="1.5"/></svg>
+        </span>
+        <div class="dropdown" onclick="toggleSwipe('type-swipe')">▾</div>
+      </div>
+      <button class="btn-enable" onclick="this.innerHTML=this.innerHTML.includes('Включить')?this.innerHTML.replace('Включить','Выключить'):this.innerHTML.replace('Выключить','Включить')">
+        <span class="laser-icon">✦</span> Включить
+      </button>
+    </div>
+
+    <!-- Swipe-панель точки отсчёта (проводим пальцем) -->
+    <div class="swipe-panel" id="ref-swipe">
+      <div class="swipe-track">
+        <div class="swipe-item active"><span class="swipe-icon">⬅</span><span class="swipe-label">Задняя</span></div>
+        <div class="swipe-item"><span class="swipe-icon">➡</span><span class="swipe-label">Передняя</span></div>
+        <div class="swipe-item"><span class="swipe-icon">🔺</span><span class="swipe-label">Штатив</span></div>
+      </div>
+    </div>
+    <!-- Swipe-панель типа замера -->
+    <div class="swipe-panel" id="type-swipe">
+      <div class="swipe-track">
+        <div class="swipe-item active"><span class="swipe-icon">📏</span><span class="swipe-label">Измерение</span></div>
+        <div class="swipe-item"><span class="swipe-icon">📐</span><span class="swipe-label">Площадь</span></div>
+        <div class="swipe-item"><span class="swipe-icon">📦</span><span class="swipe-label">Объём</span></div>
+        <div class="swipe-item"><span class="swipe-icon">📐</span><span class="swipe-label">Угол</span></div>
+        <div class="swipe-item"><span class="swipe-icon">↕️</span><span class="swipe-label">Косв. высота</span></div>
+        <div class="swipe-item"><span class="swipe-icon">↔️</span><span class="swipe-label">Косв. длина</span></div>
+      </div>
+    </div>
+
+    <div class="download-strip">
+      <button class="btn-download" onmousedown="startLongPress(event)" onmouseup="clearLongPress()" onmouseleave="clearLongPress()">📥 Скачать</button>
+      <button class="btn-trigger">📏 Замер</button>
+    </div>
+
+    <div class="list-header"><span class="title">Измерения</span><span class="download">⬇</span></div>
+    <div class="measurement-list" style="max-height:340px;overflow-y:auto;">
+      <div class="measurement-row">
+        <span class="trash">🗑</span>
+        <div class="info"><div class="name">Д-11 П3.2.1-2.Кл7</div><div class="datetime">25.03.2026 20:56</div></div>
+        <div class="right">
+          <svg width="20" height="24" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="10,2 7,8 13,8" fill="#d32f2f"/><line x1="14" y1="4" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="4" x2="16" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="20" x2="16" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg>
+          <span class="value">1033,1 mm</span>
+        </div>
+      </div>
+      <div class="measurement-row">
+        <span class="trash">🗑</span>
+        <div class="info"><div class="name">Измерение</div><div class="datetime">25.03.2026 20:55</div></div>
+        <div class="right">
+          <svg width="20" height="24" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="10,2 7,8 13,8" fill="#d32f2f"/><line x1="14" y1="4" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="4" x2="16" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="20" x2="16" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg>
+          <span class="value">2350,6 mm</span>
+        </div>
+      </div>
+      <div class="measurement-row">
+        <span class="trash">🗑</span>
+        <div class="info"><div class="name">Измерение</div><div class="datetime">25.03.2026 20:55</div></div>
+        <div class="right">
+          <svg width="20" height="24" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="10,2 7,8 13,8" fill="#d32f2f"/><line x1="14" y1="4" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="4" x2="16" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="20" x2="16" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg>
+          <span class="value">2353,3 mm</span>
+        </div>
+      </div>
+      <div class="measurement-row">
+        <span class="trash">🗑</span>
+        <div class="info"><div class="name">Д-11 П3.2.1-2.Кл7</div><div class="datetime">25.03.2026 20:55</div></div>
+        <div class="right">
+          <svg width="20" height="24" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="10,2 7,8 13,8" fill="#d32f2f"/><line x1="14" y1="4" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="4" x2="16" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="20" x2="16" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg>
+          <span class="value">1048 mm</span>
+        </div>
+      </div>
+      <div class="measurement-row">
+        <span class="trash">🗑</span>
+        <div class="info"><div class="name">Измерение</div><div class="datetime">25.03.2026 20:54</div></div>
+        <div class="right">
+          <svg width="20" height="24" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="10,2 7,8 13,8" fill="#d32f2f"/><line x1="14" y1="4" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="4" x2="16" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="20" x2="16" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg>
+          <span class="value">2368,3 mm</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fabs"><div class="fab fab-up">⬆</div><div class="fab fab-down">⬇</div></div>
+    <div class="nav-bar"><div class="gesture-bar"></div></div>
+  </div>
+</div>
+
+<!-- ====== ② ActionMode + Swipe ====== -->
+<div class="layout-group">
+  <div class="layout-label">② Долгое нажатие на "Скачать" → чекбоксы</div>
+  <div class="phone">
+    <div class="status-bar"><span>18:06</span><span>🔋 26%</span></div>
+    <div class="toolbar"><span class="burger">☰</span><span class="title">Список измерений</span><span class="bt-icon">📶</span><span class="dots">⋮</span></div>
+    <div class="action-mode visible">
+      <span class="count">Выбрано: 2</span>
+      <div class="actions">
+        <span class="act-btn">⬜ Интервал</span>
+        <span class="act-btn">Все</span>
+        <span class="act-btn danger">🗑 Удалить</span>
+        <span class="act-btn">✕</span>
+      </div>
+    </div>
+    <div class="remote-panel">
+      <div class="label">Дистанционное измерение</div>
+      <div class="controls">
+        <span class="type-icon"><svg width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="10" width="10" height="14" fill="#888" rx="1"/><rect x="5" y="11" width="6" height="6" fill="#fff"/><line x1="18" y1="22" x2="18" y2="6" stroke="#d32f2f" stroke-width="2"/><polygon points="18,4 15,10 21,10" fill="#d32f2f"/></svg></span>
+        <div class="dropdown">▾</div><div style="width:16px"></div>
+        <span class="type-icon" style="color:#0091EA;"><svg width="32" height="32" viewBox="0 0 32 32"><line x1="8" y1="22" x2="8" y2="6" stroke="#d32f2f" stroke-width="1.5"/><polygon points="8,4 5,10 11,10" fill="#d32f2f"/><line x1="20" y1="6" x2="20" y2="22" stroke="#42a5f5" stroke-width="2"/><line x1="17" y1="6" x2="23" y2="6" stroke="#42a5f5" stroke-width="1.5"/><line x1="17" y1="22" x2="23" y2="22" stroke="#42a5f5" stroke-width="1.5"/></svg></span>
+        <div class="dropdown">▾</div>
+      </div>
+      <button class="btn-enable"><span class="laser-icon">✦</span> Включить</button>
+    </div>
+    <div class="list-header"><span class="title">Измерения</span><span class="download">⬇</span></div>
+    <div class="measurement-list" style="max-height:400px;overflow-y:auto;">
+      <div class="measurement-row selected"><div class="check"></div><div class="info"><div class="name">Д-11 П3.2.1-2.Кл7</div><div class="datetime">25.03.2026 20:56</div></div><div class="right"><svg width="20" height="24" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="10,2 7,8 13,8" fill="#d32f2f"/><line x1="14" y1="4" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="4" x2="16" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="20" x2="16" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg><span class="value">1033,1 mm</span></div></div>
+      <div class="measurement-row"><div class="check"></div><div class="info"><div class="name">Измерение</div><div class="datetime">25.03.2026 20:55</div></div><div class="right"><svg width="20" height="24" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="10,2 7,8 13,8" fill="#d32f2f"/><line x1="14" y1="4" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="4" x2="16" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="20" x2="16" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg><span class="value">2350,6 mm</span></div></div>
+      <div class="measurement-row selected"><div class="check"></div><div class="info"><div class="name">8Л Пр Сн Шт+</div><div class="datetime">25.03.2026 20:54</div></div><div class="right"><svg width="20" height="24" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="10,2 7,8 13,8" fill="#d32f2f"/><line x1="14" y1="4" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="4" x2="16" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="20" x2="16" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg><span class="value">1314,4 mm</span></div></div>
+    </div>
+    <div class="nav-bar"><div class="gesture-bar"></div></div>
+  </div>
+</div>
+
+<!-- ====== ③ Редактирование + История ====== -->
+<div class="layout-group">
+  <div class="layout-label">③ Редактирование: долгое нажатие → история подписей</div>
+  <div class="phone" style="position:relative;">
+    <div class="status-bar"><span>18:06</span><span>🔋 26%</span></div>
+    <div class="toolbar"><span class="burger">☰</span><span class="title">Список измерений</span><span class="bt-icon">📶</span><span class="dots">⋮</span></div>
+    <div class="list-header"><span class="title">Измерения</span><span class="download">⬇</span></div>
+    <div class="measurement-list" style="max-height:500px;overflow-y:auto;">
+      <div class="measurement-row editing">
+        <span class="trash">🗑</span>
+        <div class="info"><div class="name">Д-11 П3.2.1</div><input class="edit-input" value="Д-11 П3.2.1" /><div class="datetime">25.03.2026 20:56</div></div>
+        <div class="right"><svg width="20" height="24" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="10,2 7,8 13,8" fill="#d32f2f"/><line x1="14" y1="4" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="4" x2="16" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="20" x2="16" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg><span class="value">1033,1 mm</span></div>
+      </div>
+      <div class="measurement-row"><span class="trash">🗑</span><div class="info"><div class="name">Измерение</div><div class="datetime">20:55</div></div><div class="right"><svg width="20" height="24" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"/><polygon points="10,2 7,8 13,8" fill="#d32f2f"/><line x1="14" y1="4" x2="14" y2="20" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="4" x2="16" y2="4" stroke="#42a5f5" stroke-width="1.5"/><line x1="12" y1="20" x2="16" y2="20" stroke="#42a5f5" stroke-width="1.5"/></svg><span class="value">2350,6 mm</span></div></div>
+    </div>
+    <div class="history-dialog visible">
+      <h4>📋 Предыдущие подписи</h4>
+      <div class="hist-opt">Д-11 П3.2.1-2.Кл7</div>
+      <div class="hist-opt">Д-11 П3.2.1</div>
+      <div class="hist-opt">Д-11 П3.2</div>
+      <div class="hist-opt custom">✏️ Ввести свою подпись...</div>
+    </div>
+    <div class="fabs"><div class="fab fab-up">⬆</div><div class="fab fab-down">⬇</div></div>
+    <div class="nav-bar"><div class="gesture-bar"></div></div>
+  </div>
+</div>
+
+<script>
+function toggleSwipe(id) {
+  document.querySelectorAll('.swipe-panel').forEach(p => {
+    if (p.id === id) p.classList.toggle('visible');
+    else p.classList.remove('visible');
+  });
+}
+let longPressTimer;
+function startLongPress(e) {
+  longPressTimer = setTimeout(() => {
+    document.querySelectorAll('.measurement-row .check').forEach(c => c.style.display = 'flex');
+    document.querySelectorAll('.measurement-row .trash').forEach(c => c.style.display = 'none');
+    alert('Долгое нажатие → режим выделения');
+  }, 800);
+}
+function clearLongPress() { clearTimeout(longPressTimer); }
+</script>
+</body>
+</html>

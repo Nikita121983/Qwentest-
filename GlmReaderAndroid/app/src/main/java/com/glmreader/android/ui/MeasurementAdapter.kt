@@ -23,6 +23,7 @@ class MeasurementAdapter(
 
     private val dateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale("ru"))
     private val selectionMode = mutableSetOf<String>()
+    private var isSelectionMode = false
 
     /** Получить текущий список измерений (для экспорта) */
     fun getMeasurements(): List<MeasurementEntity> = measurements.toList()
@@ -33,7 +34,7 @@ class MeasurementAdapter(
         notifyDataSetChanged()
     }
 
-    fun isSelectionMode(): Boolean = selectionMode.isNotEmpty()
+    fun isSelectionMode(): Boolean = isSelectionMode
 
     fun getSelectedUuids(): Set<String> = selectionMode.toSet()
 
@@ -57,6 +58,15 @@ class MeasurementAdapter(
         clearSelection()
     }
 
+    fun toggleSelectionMode(enabled: Boolean) {
+        isSelectionMode = enabled
+        if (!enabled) {
+            selectionMode.clear()
+        }
+        notifyDataSetChanged()
+        onSelectionChanged?.invoke(if (enabled) emptySet() else emptySet())
+    }
+
     private fun toggleSelection(position: Int, holder: ViewHolder) {
         val uuid = measurements[position].uuid
         if (selectionMode.contains(uuid)) {
@@ -69,12 +79,10 @@ class MeasurementAdapter(
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val ivTrash: ImageView = view.findViewById(R.id.ivTrash)
         val tvName: TextView = view.findViewById(R.id.tvName)
         val tvDateTime: TextView = view.findViewById(R.id.tvDateTime)
         val ivTypeIcon: ImageView = view.findViewById(R.id.ivTypeIcon)
         val tvValue: TextView = view.findViewById(R.id.tvValue)
-        val tvArrow: TextView = view.findViewById(R.id.tvArrow)
         val cbSelected: CheckBox = view.findViewById(R.id.cbSelected)
     }
 
@@ -116,11 +124,8 @@ class MeasurementAdapter(
             else -> R.drawable.ic_distance
         })
 
-        // Стрелка для составных
-        holder.tvArrow.visibility = if (m.measurementType in listOf(4, 7, 12, 13)) View.VISIBLE else View.GONE
-
         // Selection mode
-        holder.cbSelected.visibility = if (isSelectionMode()) View.VISIBLE else View.GONE
+        holder.cbSelected.visibility = if (isSelectionMode) View.VISIBLE else View.GONE
         holder.cbSelected.isChecked = selectionMode.contains(m.uuid)
         val selectionColor = ContextCompat.getColor(holder.itemView.context, R.color.selection_highlight)
         holder.itemView.setBackgroundColor(
@@ -129,27 +134,19 @@ class MeasurementAdapter(
 
         // Клик — toggle selection или открыть детали
         holder.itemView.setOnClickListener {
-            if (isSelectionMode()) {
+            if (isSelectionMode) {
                 toggleSelection(position, holder)
             }
         }
 
         // Долгое нажатие — включить selection mode
         holder.itemView.setOnLongClickListener {
-            if (!isSelectionMode()) {
+            if (!isSelectionMode) {
+                toggleSelectionMode(true)
                 toggleSelection(position, holder)
                 true
             } else {
                 false
-            }
-        }
-
-        // Удаление
-        holder.ivTrash.setOnClickListener {
-            if (isSelectionMode()) {
-                deleteSelected()
-            } else {
-                onDelete(m.uuid)
             }
         }
     }

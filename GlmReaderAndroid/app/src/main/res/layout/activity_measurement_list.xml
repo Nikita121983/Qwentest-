@@ -1,230 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/background">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbar_background"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/toolbar_background"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <!-- Сворачиваемая панель дистанционного управления -->
+    <LinearLayout
+        android:id="@+id/panelRemote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/card_background"
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        <!-- Панель дистанционного управления -->
+        <!-- Полоска со стрелкой для сворачивания -->
         <LinearLayout
-            android:id="@+id/panelRemote"
+            android:id="@+id/btnTogglePanel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/card_background"
-            android:orientation="vertical"
-            android:padding="12dp"
-            android:visibility="gone">
+            android:layout_height="24dp"
+            android:background="@color/toolbar_background"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
 
-            <TextView
+            <ImageView
+                android:id="@+id/ivPanelArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="📡 Дистанционное управление"
-                android:textColor="@color/text_heading"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
-
-            <!-- Главные кнопки -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
-
-                <Button
-                    android:id="@+id/btnTrigger"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="📏 Замер"
-                    android:layout_marginEnd="4dp"
-                    style="?android:attr/buttonBarButtonStyle" />
-
-                <Button
-                    android:id="@+id/btnGetData"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="📥 Данные"
-                    android:layout_marginEnd="4dp"
-                    style="?android:attr/buttonBarButtonStyle" />
-
-                <Button
-                    android:id="@+id/btnInit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="⚡ Init"
-                    style="?android:attr/buttonBarButtonStyle" />
-            </LinearLayout>
-
-            <!-- Выбор команды и отправка (Отладка) -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
-
-                <Spinner
-                    android:id="@+id/spinnerCommands"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp" />
-
-                <Button
-                    android:id="@+id/btnSendCustom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📤" />
-            </LinearLayout>
-
-            <!-- Настройки рулетки (Режим и Точка отсчета) -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="⚙️ Настройки рулетки:"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp"
-                android:layout_marginBottom="4dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
-
-                <Spinner
-                    android:id="@+id/spinnerModes"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="4dp" />
-
-                <Spinner
-                    android:id="@+id/spinnerRefs"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="4dp" />
-            </LinearLayout>
-
-            <!-- Лог ответов -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="📜 Ответ:"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_secondary" />
-
-                <Button
-                    android:id="@+id/btnClearLog"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Очистить"
-                    android:textSize="10sp"
-                    style="?android:attr/buttonBarButtonStyle" />
-            </LinearLayout>
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="#1A000000"
-                android:padding="4dp">
-
-                <TextView
-                    android:id="@+id/tvResponseLog"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ожидание команды..."
-                    android:textSize="11sp"
-                    android:fontFamily="monospace"
-                    android:textIsSelectable="true"
-                    android:textColor="@color/text_primary" />
-            </ScrollView>
+                android:src="@android:drawable/arrow_down_float"
+                android:tint="#FFFFFF"
+                android:contentDescription="Свернуть/Развернуть" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvEmpty"
+        <!-- Содержимое панели -->
+        <LinearLayout
+            android:id="@+id/panelRemoteContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:gravity="center"
-            android:text="Нет измерений"
-            android:textColor="@color/text_secondary"
-            android:textSize="18sp"
-            android:visibility="gone" />
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="visible">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:clipToPadding="false"
-            android:padding="8dp" />
+            <!-- Кубики: Точка отсчёта и Тип измерения -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="16dp">
 
+                <!-- Кубик точки отсчёта -->
+                <FrameLayout
+                    android:id="@+id/refCubeContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:maxWidth="80dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="@color/card_background">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/ivRefIcon"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_ref_rear" />
+
+                            <TextView
+                                android:id="@+id/tvRefLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Задняя"
+                                android:textSize="9sp"
+                                android:textColor="@color/text_secondary"
+                                android:layout_marginTop="4dp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </FrameLayout>
+
+                <!-- Кубик типа замера -->
+                <FrameLayout
+                    android:id="@+id/typeCubeContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:maxWidth="80dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="@color/card_background">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/ivTypeIcon"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_distance" />
+
+                            <TextView
+                                android:id="@+id/tvTypeLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Прямой"
+                                android:textSize="9sp"
+                                android:textColor="@color/text_secondary"
+                                android:layout_marginTop="4dp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- Кнопка Включить -->
+            <Button
+                android:id="@+id/btnEnableLaser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Включить"
+                android:drawableStart="@android:drawable/ic_dialog_alert"
+                android:drawableTint="#FFFFFF"
+                android:background="@drawable/bg_button_primary"
+                android:textColor="#FFFFFF"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
+        </LinearLayout>
     </LinearLayout>
 
-    <!-- FABs -->
+    <!-- Режим выделения -->
     <LinearLayout
+        android:id="@+id/selectionModeBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E8E8E8"
+        android:padding="8dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvSelectAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="☑ Выбрать все"
+            android:textColor="#2B5878"
+            android:textSize="12sp"
+            android:padding="4dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/tvInterval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⬜ Интервал"
+            android:textColor="#2B5878"
+            android:textSize="12sp"
+            android:padding="4dp"
+            android:layout_marginStart="8dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/tvDeselect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✕ Снять выбор"
+            android:textColor="#2B5878"
+            android:textSize="12sp"
+            android:padding="4dp"
+            android:layout_marginStart="8dp"
+            android:clickable="true"
+            android:focusable="true" />
+    </LinearLayout>
+
+    <!-- Заголовок списка -->
+    <LinearLayout
+        android:id="@+id/listHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E8E8E8"
+        android:padding="8dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Измерения"
+            android:textColor="#888888"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivDownload"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/stat_sys_download"
+            android:tint="#2B5878"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="Скачать измерения" />
+    </LinearLayout>
+
+    <!-- Список измерений -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:padding="8dp" />
+
+    <!-- FAB Scroll to Top -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabScrollTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:orientation="vertical">
+        android:src="@android:drawable/arrow_up_float"
+        android:contentDescription="В начало"
+        android:visibility="gone"
+        app:backgroundTint="#90A4AE"
+        app:fabSize="mini"
+        app:tint="#FFFFFF" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabScrollTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:src="@android:drawable/arrow_up_float"
-            android:contentDescription="В начало"
-            android:visibility="gone"
-            app:backgroundTint="@color/text_secondary"
-            app:fabSize="mini"
-            app:tint="#FFFFFF" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabScrollBottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:src="@android:drawable/arrow_down_float"
-            android:contentDescription="В конец"
-            app:backgroundTint="#0091EA"
-            app:fabSize="mini"
-            app:tint="#FFFFFF" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabExport"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/stat_sys_upload"
-            android:contentDescription="Экспорт XLSX"
-            app:backgroundTint="#4CAF50"
-            app:fabSize="mini"
-            app:tint="#FFFFFF" />
-
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

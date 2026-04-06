@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlmReaderAndroid — UI Spec v4 (по ТЗ, уточнения)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #1a1a2e; color: #e0e0e0; padding: 20px; display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; }
+  .layout-group { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .layout-label { font-size: 13px; color: #aaa; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+  .phone { width: 375px; background: #fff; border-radius: 28px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.5); display: flex; flex-direction: column; }
+  .status-bar { height: 24px; background: #111; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; font-size: 11px; color: #fff; }
+
+  /* === TOOLBAR === */
+  .toolbar { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; color: #fff; font-weight: 600; font-size: 18px; transition: background 0.3s; }
+  .toolbar.rear   { background: #1565c0; }
+  .toolbar.front  { background: #2e7d32; }
+  .toolbar.tripod { background: #c62828; }
+  .toolbar span.icon { font-size: 20px; cursor: pointer; }
+
+  /* === REMOTE PANEL — без надписи "Дистанционное..." === */
+  .remote-panel { background: #fff; border-bottom: 1px solid #e0e0e0; }
+  .remote-panel.collapsed { max-height: 36px; overflow: hidden; }
+  .remote-panel.expanded { max-height: 500px; }
+  .remote-header { display: flex; align-items: center; justify-content: center; padding: 8px 16px; cursor: pointer; user-select: none; background: #fafafa; }
+  .remote-header:hover { background: #f0f0f0; }
+  .remote-header .arrow { color: #999; transition: transform 0.3s; }
+  .remote-header .arrow.open { transform: rotate(180deg); }
+  .remote-body { padding: 10px 12px 14px; }
+
+  /* Кнопки-иконки с прокруткой (вместо выпадающих списков) */
+  .icon-scroll { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 8px; scrollbar-width: none; }
+  .icon-scroll::-webkit-scrollbar { display: none; }
+  .icon-btn {
+    flex-shrink: 0; width: 56px; height: 56px; border: 2px solid #e0e0e0; border-radius: 10px;
+    background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 10px; color: #666; gap: 2px; transition: all 0.2s;
+  }
+  .icon-btn .ico { font-size: 22px; }
+  .icon-btn.active { border-color: #1565c0; background: #e3f2fd; color: #1565c0; }
+  .icon-btn:active { transform: scale(0.94); }
+
+  /* Точки отсчёта — тоже кнопки-иконки */
+  .ref-scroll { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 10px; scrollbar-width: none; }
+  .ref-scroll::-webkit-scrollbar { display: none; }
+  .ref-btn {
+    flex: 1; min-width: 64px; padding: 8px 4px; border: 2px solid #e0e0e0; border-radius: 8px;
+    background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 10px; color: #666; gap: 2px; transition: all 0.2s;
+  }
+  .ref-btn .ico { font-size: 18px; }
+  .ref-btn.active { border-color: #2e7d32; background: #e8f5e9; color: #2e7d32; }
+
+  .btn-laser { width: 100%; padding: 10px; background: #1565c0; color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-laser:active { background: #0d47a1; }
+
+  /* === ACTION MODE === */
+  .action-mode { background: #263238; padding: 8px 16px; display: none; align-items: center; gap: 12px; color: #fff; }
+  .action-mode.visible { display: flex; }
+  .action-mode .count { font-size: 14px; }
+  .action-mode .actions { margin-left: auto; display: flex; gap: 14px; }
+  .action-mode .act-btn { font-size: 12px; color: #b0bec5; cursor: pointer; padding: 4px 8px; }
+  .action-mode .act-btn:hover { color: #fff; }
+  .action-mode .act-btn.danger { color: #ef5350; }
+
+  /* === LIST === */
+  .list-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: #f5f5f5; border-bottom: 1px solid #eee; }
+  .list-header span { font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+  /* Строки с слабоконтрастными разделителями (как в MM) */
+  .list { flex: 1; overflow-y: auto; }
+  .item {
+    display: flex; align-items: center; padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0; cursor: pointer; user-select: none;
+  }
+  .item:last-child { border-bottom: none; }
+  .item:active { background: #f8f8f8; }
+  .item .check { width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 3px; flex-shrink: 0; margin-right: 10px; display: none; align-items: center; justify-content: center; color: #fff; font-size: 12px; }
+  .item.selected .check { display: flex; background: #1565c0; border-color: #1565c0; }
+  .item.selected .check::after { content: '✓'; }
+  .item .info { flex: 1; min-width: 0; }
+  .item .name { font-size: 14px; color: #333; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .item .date { font-size: 11px; color: #aaa; margin-top: 2px; }
+
+  /* Значок типа слева от значения (как в MM) */
+  .item .right-side { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .item .type-icon { font-size: 18px; }
+  .item .value { font-size: 18px; font-weight: 700; color: #1565c0; white-space: nowrap; }
+
+  /* === FABs === */
+  .fabs { position: absolute; bottom: 16px; right: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .fab { width: 40px; height: 40px; border-radius: 50%; border: none; color: #fff; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+  .fab:active { transform: scale(0.9); }
+  .fab-up { background: #78909c; }
+  .fab-down { background: #0091ea; }
+
+  /* === HISTORY DIALOG === */
+  .history-dialog { position: absolute; bottom: 70px; left: 12px; right: 12px; background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.15); display: none; z-index: 10; }
+  .history-dialog.visible { display: block; }
+  .history-dialog h4 { font-size: 13px; color: #333; margin-bottom: 10px; }
+  .hist-opt { padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; color: #555; }
+  .hist-opt:hover { background: #e3f2fd; color: #1565c0; }
+  .hist-opt.custom { color: #888; font-style: italic; border-top: 1px solid #eee; margin-top: 8px; padding-top: 10px; }
+
+  /* === EDIT === */
+  .item.editing .name { display: none; }
+  .item .edit-input { display: none; width: 100%; font-size: 14px; color: #333; border: none; background: none; font-weight: 500; outline: none; }
+  .item.editing .edit-input { display: block; }
+</style>
+</head>
+<body>
+
+<!-- ====== ① Задняя грань (синий) — обычное состояние ====== -->
+<div class="layout-group">
+  <div class="layout-label">① Задняя грань (синий) — обычный режим</div>
+  <div class="phone" style="position:relative;">
+    <div class="status-bar"><span>12:00</span><span>🔋 85%</span></div>
+    <div class="toolbar rear">
+      <span class="icon">☰</span>
+      <span>Список измерений</span>
+      <span class="icon">⋮</span>
+    </div>
+
+    <!-- Remote Panel — свёрнута (только стрелка) -->
+    <div class="remote-panel collapsed">
+      <div class="remote-header"><span class="arrow">▼</span></div>
+      <div class="remote-body">
+        <!-- Кнопки-иконки типа замера (горизонтальная прокрутка) -->
+        <div class="icon-scroll">
+          <div class="icon-btn active"><span class="ico">📏</span><span>Измерение</span></div>
+          <div class="icon-btn"><span class="ico">📐</span><span>Площадь</span></div>
+          <div class="icon-btn"><span class="ico">📦</span><span>Объём</span></div>
+          <div class="icon-btn"><span class="ico">📐</span><span>Угол</span></div>
+          <div class="icon-btn"><span class="ico">↕️</span><span>Косв. высота</span></div>
+          <div class="icon-btn"><span class="ico">↔️</span><span>Косв. длина</span></div>
+        </div>
+        <!-- Кнопки точки отсчёта -->
+        <div class="ref-scroll">
+          <div class="ref-btn active" onclick="changeRef('rear')"><span class="ico">⬅</span><span>Задняя</span></div>
+          <div class="ref-btn" onclick="changeRef('front')"><span class="ico">➡</span><span>Передняя</span></div>
+          <div class="ref-btn" onclick="changeRef('tripod')"><span class="ico">🔺</span><span>Штатив</span></div>
+          <div class="ref-btn" onclick="changeRef('pin')"><span class="ico">📌</span><span>Pin</span></div>
+        </div>
+        <button class="btn-laser">🔆 Включить лазер</button>
+      </div>
+    </div>
+
+    <div class="list-header"><span>Измерения</span><span>⬇</span></div>
+    <div class="list">
+      <div class="item">
+        <div class="check"></div>
+        <div class="info"><div class="name">Д-11 П3.2.1-2.Кл7</div><div class="date">25.03.2026 20:56</div></div>
+        <div class="right-side"><span class="type-icon">↕️</span><div class="value">1033,1 мм</div></div>
+      </div>
+      <div class="item">
+        <div class="check"></div>
+        <div class="info"><div class="name">Измерение</div><div class="date">25.03.2026 20:55</div></div>
+        <div class="right-side"><span class="type-icon">📏</span><div class="value">2350,6 мм</div></div>
+      </div>
+      <div class="item">
+        <div class="check"></div>
+        <div class="info"><div class="name">Угол</div><div class="date">25.03.2026 20:54</div></div>
+        <div class="right-side"><span class="type-icon">📐</span><div class="value">45,2°</div></div>
+      </div>
+      <div class="item">
+        <div class="check"></div>
+        <div class="info"><div class="name">8Л Пр Сн Шт+</div><div class="date">25.03.2026 20:53</div></div>
+        <div class="right-side"><span class="type-icon">📏</span><div class="value">1314,4 мм</div></div>
+      </div>
+      <div class="item">
+        <div class="check"></div>
+        <div class="info"><div class="name">Измерение</div><div class="date">25.03.2026 20:52</div></div>
+        <div class="right-side"><span class="type-icon">📏</span><div class="value">2203,9 мм</div></div>
+      </div>
+      <div class="item">
+        <div class="check"></div>
+        <div class="info"><div class="name">Дчпзп</div><div class="date">25.03.2026 20:51</div></div>
+        <div class="right-side"><span class="type-icon">📏</span><div class="value">2205,3 мм</div></div>
+      </div>
+    </div>
+    <div class="fabs"><div class="fab fab-up">⬆</div><div class="fab fab-down">⬇</div></div>
+  </div>
+</div>
+
+<!-- ====== ② Передняя грань (зелёный) — панель развёрнута ====== -->
+<div class="layout-group">
+  <div class="layout-label">② Передняя грань (зелёный) — панель развёрнута</div>
+  <div class="phone">
+    <div class="status-bar"><span>12:00</span><span>🔋 85%</span></div>
+    <div class="toolbar front">
+      <span class="icon">☰</span><span>Список измерений</span><span class="icon">⋮</span>
+    </div>
+    <div class="remote-panel expanded">
+      <div class="remote-header"><span class="arrow open">▼</span></div>
+      <div class="remote-body">
+        <div class="icon-scroll">
+          <div class="icon-btn active"><span class="ico">📏</span><span>Измерение</span></div>
+          <div class="icon-btn"><span class="ico">📐</span><span>Площадь</span></div>
+          <div class="icon-btn"><span class="ico">📦</span><span>Объём</span></div>
+          <div class="icon-btn"><span class="ico">📐</span><span>Угол</span></div>
+        </div>
+        <div class="ref-scroll">
+          <div class="ref-btn" onclick="changeRef('rear')"><span class="ico">⬅</span><span>Задняя</span></div>
+          <div class="ref-btn active" onclick="changeRef('front')"><span class="ico">➡</span><span>Передняя</span></div>
+          <div class="ref-btn" onclick="changeRef('tripod')"><span class="ico">🔺</span><span>Штатив</span></div>
+        </div>
+        <button class="btn-laser">🔆 Включить лазер</button>
+      </div>
+    </div>
+    <div class="list-header"><span>Измерения</span></div>
+    <div class="list" style="max-height:300px;overflow-y:auto;">
+      <div class="item"><div class="check"></div><div class="info"><div class="name">Д-11 П3.2.1</div><div class="date">20:56</div></div><div class="right-side"><span class="type-icon">📏</span><div class="value">1033,1 мм</div></div></div>
+      <div class="item"><div class="check"></div><div class="info"><div class="name">Измерение</div><div class="date">20:55</div></div><div class="right-side"><span class="type-icon">📏</span><div class="value">2350,6 мм</div></div></div>
+      <div class="item"><div class="check"></div><div class="info"><div class="name">Угол</div><div class="date">20:54</div></div><div class="right-side"><span class="type-icon">📐</span><div class="value">45,2°</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== ③ Штатив (красный) + ActionMode ====== -->
+<div class="layout-group">
+  <div class="layout-label">③ Штатив (красный) + режим выделения (долгое нажатие)</div>
+  <div class="phone">
+    <div class="status-bar"><span>12:00</span><span>🔋 85%</span></div>
+    <div class="toolbar tripod">
+      <span class="icon">☰</span><span>Список измерений</span><span class="icon">⋮</span>
+    </div>
+    <div class="action-mode visible">
+      <span class="count">Выбрано: 2</span>
+      <div class="actions">
+        <span class="act-btn">⬜ Интервал</span>
+        <span class="act-btn">Все</span>
+        <span class="act-btn danger">🗑 Удалить</span>
+        <span class="act-btn">✕</span>
+      </div>
+    </div>
+    <div class="remote-panel expanded">
+      <div class="remote-header"><span class="arrow open">▼</span></div>
+      <div class="remote-body">
+        <div class="ref-scroll">
+          <div class="ref-btn" onclick="changeRef('rear')"><span class="ico">⬅</span><span>Задняя</span></div>
+          <div class="ref-btn" onclick="changeRef('front')"><span class="ico">➡</span><span>Передняя</span></div>
+          <div class="ref-btn active" onclick="changeRef('tripod')"><span class="ico">🔺</span><span>Штатив</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="list-header"><span>Измерения</span></div>
+    <div class="list" style="max-height:260px;overflow-y:auto;">
+      <div class="item selected"><div class="check"></div><div class="info"><div class="name">Д-11 П3.2.1-2.Кл7</div><div class="date">20:56</div></div><div class="right-side"><span class="type-icon">↕️</span><div class="value">1033,1 мм</div></div></div>
+      <div class="item"><div class="check"></div><div class="info"><div class="name">Измерение</div><div class="date">20:55</div></div><div class="right-side"><span class="type-icon">📏</span><div class="value">2350,6 мм</div></div></div>
+      <div class="item selected"><div class="check"></div><div class="info"><div class="name">8Л Пр Сн Шт+</div><div class="date">20:54</div></div><div class="right-side"><span class="type-icon">📏</span><div class="value">1314,4 мм</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== ④ Редактирование + История ====== -->
+<div class="layout-group">
+  <div class="layout-label">④ Редактирование: долгое нажатие → выбор из истории или своя подпись</div>
+  <div class="phone" style="position:relative;">
+    <div class="status-bar"><span>12:00</span><span>🔋 85%</span></div>
+    <div class="toolbar rear"><span class="icon">☰</span><span>Список измерений</span><span class="icon">⋮</span></div>
+    <div class="list-header"><span>Измерения</span></div>
+    <div class="list" style="max-height:280px;overflow-y:auto;">
+      <div class="item editing">
+        <div class="check"></div>
+        <div class="info"><div class="name">Д-11 П3.2.1</div><input class="edit-input" value="Д-11 П3.2.1" /><div class="date">25.03.2026 20:56</div></div>
+        <div class="right-side"><span class="type-icon">📏</span><div class="value">1033,1 мм</div></div>
+      </div>
+      <div class="item"><div class="check"></div><div class="info"><div class="name">Измерение</div><div class="date">20:55</div></div><div class="right-side"><span class="type-icon">📏</span><div class="value">2350,6 мм</div></div></div>
+    </div>
+    <div class="history-dialog visible">
+      <h4>📋 Предыдущие подписи</h4>
+      <div class="hist-opt">Д-11 П3.2.1-2.Кл7</div>
+      <div class="hist-opt">Д-11 П3.2.1</div>
+      <div class="hist-opt">Д-11 П3.2</div>
+      <div class="hist-opt custom">✏️ Ввести свою подпись...</div>
+    </div>
+    <div class="fabs"><div class="fab fab-up">⬆</div><div class="fab fab-down">⬇</div></div>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div style="position:fixed;bottom:12px;left:12px;background:#1a1a2e;padding:12px 16px;border-radius:8px;font-size:11px;color:#aaa;max-width:340px;">
+  <b style="color:#fff;">Цвета шапки (точка отсчёта):</b><br>
+  🔵 Задняя — #1565c0 &nbsp; 🟢 Передняя — #2e7d32 &nbsp; 🔴 Штатив — #c62828 &nbsp; 🟠 Pin — #e65100<br><br>
+  <b style="color:#fff;">Панель ДУ:</b> кнопки-иконки с гориз. прокруткой, без надписи "Дистанционное..."<br>
+  <b style="color:#fff;">Значок типа:</b> слева от значения (↕️  📐 📦)<br>
+  <b style="color:#fff;">Разделители:</b> слабоконтрастные полоски, не карточки<br>
+  <b style="color:#fff;">Заголовок:</b> «Список измерений»<br>
+  <b style="color:#fff;">Smart Mode:</b> техкод → капс 1-й буквы ИЛИ замена из словаря<br>
+  <b style="color:#fff;">История:</b> 3 слота → выбор или своя подпись
+</div>
+
+<script>
+function changeRef(val) {
+  document.querySelectorAll('.toolbar').forEach(t => { t.className = 'toolbar ' + (val || 'rear'); });
+}
+document.querySelectorAll('.remote-header').forEach(h => {
+  h.addEventListener('click', () => {
+    const panel = h.parentElement;
+    panel.classList.toggle('collapsed'); panel.classList.toggle('expanded');
+    h.querySelector('.arrow').classList.toggle('open');
+  });
+});
+// Icon button selection
+document.querySelectorAll('.icon-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    b.parentElement.querySelectorAll('.icon-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+  });
+});
+document.querySelectorAll('.ref-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    b.parentElement.querySelectorAll('.ref-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

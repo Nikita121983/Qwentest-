@@ -1,16 +1,19 @@
 package com.glmreader.android.ui
 
 import android.Manifest
+import android.animation.ObjectAnimator
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.DecelerateInterpolator
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -42,14 +45,34 @@ class MeasurementListActivity : AppCompatActivity() {
 
     // Remote Control Views
     private lateinit var panelRemote: LinearLayout
-    private lateinit var btnTrigger: Button
-    private lateinit var btnGetData: Button
-    private lateinit var btnInit: Button
-    private lateinit var btnSendCustom: Button
-    private lateinit var spinnerCommands: Spinner
-    private lateinit var spinnerModes: Spinner
-    private lateinit var spinnerRefs: Spinner
-    private lateinit var tvResponseLog: TextView
+    private lateinit var panelRemoteContent: LinearLayout
+    private lateinit var btnTogglePanel: LinearLayout
+    private lateinit var ivPanelArrow: ImageView
+    private lateinit var refCubeContainer: FrameLayout
+    private lateinit var ivRefIcon: ImageView
+    private lateinit var tvRefLabel: TextView
+    private lateinit var typeCubeContainer: FrameLayout
+    private lateinit var ivTypeIcon: ImageView
+    private lateinit var tvTypeLabel: TextView
+    private lateinit var btnEnableLaser: Button
+
+    // Selection Mode Views
+    private lateinit var selectionModeBar: LinearLayout
+    private lateinit var tvSelectAll: TextView
+    private lateinit var tvInterval: TextView
+    private lateinit var tvDeselect: TextView
+
+    // List Header
+    private lateinit var listHeader: LinearLayout
+    private lateinit var ivDownload: ImageView
+
+    // FAB
+    private lateinit var fabScrollTop: com.google.android.material.floatingactionbutton.FloatingActionButton
+
+    // Ref and Type modes
+    private var currentRefIndex = 0
+    private var currentTypeIndex = 0
+    private var isPanelExpanded = true
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -68,58 +91,91 @@ class MeasurementListActivity : AppCompatActivity() {
         supportActionBar?.title = currentProjectName
 
         recyclerView = findViewById(R.id.recyclerView)
-        tvEmpty = findViewById(R.id.tvEmpty)
+        tvEmpty = TextView(this).apply {
+            text = "Нет измерений"
+            setTextColor(ContextCompat.getColor(this@MeasurementListActivity, R.color.text_secondary))
+            textSize = 18f
+            gravity = android.view.Gravity.CENTER
+            visibility = View.GONE
+        }
         xlsxExporter = XlsxExporter(this)
 
         // Setup Remote Control Panel
         panelRemote = findViewById(R.id.panelRemote)
-        btnTrigger = findViewById(R.id.btnTrigger)
-        btnGetData = findViewById(R.id.btnGetData)
-        btnInit = findViewById(R.id.btnInit)
-        btnSendCustom = findViewById(R.id.btnSendCustom)
-        spinnerCommands = findViewById(R.id.spinnerCommands)
-        spinnerModes = findViewById(R.id.spinnerModes)
-        spinnerRefs = findViewById(R.id.spinnerRefs)
-        tvResponseLog = findViewById(R.id.tvResponseLog)
+        panelRemoteContent = findViewById(R.id.panelRemoteContent)
+        btnTogglePanel = findViewById(R.id.btnTogglePanel)
+        ivPanelArrow = findViewById(R.id.ivPanelArrow)
+        refCubeContainer = findViewById(R.id.refCubeContainer)
+        ivRefIcon = findViewById(R.id.ivRefIcon)
+        tvRefLabel = findViewById(R.id.tvRefLabel)
+        typeCubeContainer = findViewById(R.id.typeCubeContainer)
+        ivTypeIcon = findViewById(R.id.ivTypeIcon)
+        tvTypeLabel = findViewById(R.id.tvTypeLabel)
+        btnEnableLaser = findViewById(R.id.btnEnableLaser)
 
-        // Debug Commands Spinner
-        val commandNames = resources.getStringArray(R.array.glm_commands)
-        val cmdAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, commandNames)
-        cmdAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerCommands.adapter = cmdAdapter
+        // Selection Mode Views
+        selectionModeBar = findViewById(R.id.selectionModeBar)
+        tvSelectAll = findViewById(R.id.tvSelectAll)
+        tvInterval = findViewById(R.id.tvInterval)
+        tvDeselect = findViewById(R.id.tvDeselect)
 
-        // Modes Spinner (Типы измерений)
-        val modeNames = resources.getStringArray(R.array.glm_modes)
-        val modeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, modeNames)
-        modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerModes.adapter = modeAdapter
+        // List Header
+        listHeader = findViewById(R.id.listHeader)
+        ivDownload = findViewById(R.id.ivDownload)
 
-        spinnerModes.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val modes = resources.getIntArray(R.array.glm_modes_values)
-                if (bleManager.isConnected && position in modes.indices) {
-                    bleManager.setMeasurementType(modes[position])
-                    appendLog("TX", "Set Mode: ${modeNames[position]}")
-                }
+        // FAB
+        fabScrollTop = findViewById(R.id.fabScrollTop)
+
+        // Toggle Panel
+        btnTogglePanel.setOnClickListener {
+            isPanelExpanded = !isPanelExpanded
+            panelRemoteContent.visibility = if (isPanelExpanded) View.VISIBLE else View.GONE
+            ObjectAnimator.ofFloat(ivPanelArrow, "rotation", if (isPanelExpanded) 0f else 180f).apply {
+                duration = 300
+                start()
             }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        // References Spinner (Точки отсчета)
-        val refNames = resources.getStringArray(R.array.glm_refs)
-        val refAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, refNames)
-        refAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerRefs.adapter = refAdapter
+        // Ref Cube Flip
+        refCubeContainer.setOnClickListener {
+            flipRefCube()
+        }
 
-        spinnerRefs.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val refs = resources.getIntArray(R.array.glm_refs_values)
-                if (bleManager.isConnected && position in refs.indices) {
-                    bleManager.setReferencePoint(refs[position])
-                    appendLog("TX", "Set Ref: ${refNames[position]}")
-                }
+        // Type Cube Flip
+        typeCubeContainer.setOnClickListener {
+            flipTypeCube()
+        }
+
+        // Enable Laser
+        btnEnableLaser.setOnClickListener {
+            val isOn = btnEnableLaser.text.toString().contains("Включить")
+            btnEnableLaser.text = if (isOn) "Выключить" else "Включить"
+            // TODO: Send laser command
+        }
+
+        // Selection Mode Buttons
+        tvSelectAll.setOnClickListener {
+            adapter.selectAll()
+        }
+        tvInterval.setOnClickListener {
+            Toast.makeText(this, "Интервал (в разработке)", Toast.LENGTH_SHORT).show()
+        }
+        tvDeselect.setOnClickListener {
+            adapter.clearSelection()
+        }
+
+        // Long Press on Download
+        var isLongPressing = false
+        ivDownload.setOnLongClickListener {
+            adapter.toggleSelectionMode(true)
+            isLongPressing = true
+            true
+        }
+        ivDownload.setOnTouchListener { _, event ->
+            if (event.action == android.view.MotionEvent.ACTION_UP && isLongPressing) {
+                isLongPressing = false
             }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            false
         }
 
         // Measurement Adapter
@@ -128,12 +184,32 @@ class MeasurementListActivity : AppCompatActivity() {
             { uuid -> viewModel.deleteMeasurement(uuid) },
             { selectedUuids ->
                 runOnUiThread {
-                    supportActionBar?.title = if (selectedUuids.isNotEmpty()) "Выбрано: ${selectedUuids.size}" else currentProjectName
+                    if (selectedUuids.isEmpty()) {
+                        adapter.toggleSelectionMode(false)
+                        supportActionBar?.title = currentProjectName
+                    } else {
+                        supportActionBar?.title = "Выбрано: ${selectedUuids.size}"
+                    }
                 }
             }
         )
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // Scroll to Top FAB
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (!recyclerView.canScrollVertically(-1)) {
+                    fabScrollTop.visibility = View.GONE
+                } else {
+                    fabScrollTop.visibility = View.VISIBLE
+                }
+            }
+        })
+
+        fabScrollTop.setOnClickListener {
+            recyclerView.smoothScrollToPosition(0)
+        }
 
         lifecycleScope.launch {
             viewModel.measurements.collectLatest { measurements ->
@@ -145,65 +221,93 @@ class MeasurementListActivity : AppCompatActivity() {
         bleManager = GlmBleManager(this)
         setupBleCallbacks()
         checkPermissionsAndScan()
+    }
 
-        // Remote Control Clicks
-        btnTrigger.setOnClickListener { sendCmd("Trigger") { bleManager.sendTrigger() } }
-        btnGetData.setOnClickListener { sendCmd("Get Data") { bleManager.sendGetSettings() } }
-        btnInit.setOnClickListener { sendCmd("Init") { bleManager.sendInit() } }
-        btnSendCustom.setOnClickListener {
-            val pos = spinnerCommands.selectedItemPosition
-            val hexCommands = resources.getStringArray(R.array.glm_commands_hex)
-            if (pos in hexCommands.indices) {
-                val bytes = hexCommands[pos].replace(" ", "").chunked(2).map { it.toInt(16).toByte() }.toByteArray()
-                bleManager.sendRawCommand(bytes, commandNames[pos])
-                appendLog("TX", commandNames[pos])
-            }
+    private fun flipRefCube() {
+        val refNames = arrayOf("Задняя", "Передняя", "Штатив")
+        val refIcons = arrayOf(
+            R.drawable.ic_ref_rear,
+            R.drawable.ic_ref_front,
+            R.drawable.ic_ref_tripod
+        )
+        currentRefIndex = (currentRefIndex + 1) % refNames.size
+
+        // Animation
+        val animOut = ObjectAnimator.ofFloat(refCubeContainer, "rotationY", 0f, -90f).apply {
+            duration = 200
+            interpolator = DecelerateInterpolator()
+            addListener(object : android.animation.AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: android.animation.Animator) {
+                    ivRefIcon.setImageResource(refIcons[currentRefIndex])
+                    tvRefLabel.text = refNames[currentRefIndex]
+                    ObjectAnimator.ofFloat(refCubeContainer, "rotationY", 90f, 0f).apply {
+                        duration = 200
+                        interpolator = DecelerateInterpolator()
+                        start()
+                    }
+                }
+            })
         }
-        findViewById<Button>(R.id.btnClearLog).setOnClickListener { tvResponseLog.text = "" }
+        animOut.start()
+
+        // Send command
+        if (bleManager.isConnected) {
+            bleManager.setReferencePoint(currentRefIndex)
+        }
+    }
+
+    private fun flipTypeCube() {
+        val typeNames = arrayOf(
+            "Прямой", "Непрерыв.", "Косв. выс.", "Косв. длина",
+            "Двойная", "Мин/Макс", "Угол", "Площадь", "Стена", "Объём", "Разбивка", "Трапеция"
+        )
+        val typeIcons = arrayOf(
+            R.drawable.ic_distance, R.drawable.ic_continuous, R.drawable.ic_indirect_height,
+            R.drawable.ic_indirect_length, R.drawable.ic_double_indirect, R.drawable.ic_minmax,
+            R.drawable.ic_angle, R.drawable.ic_area, R.drawable.ic_wall, R.drawable.ic_volume,
+            R.drawable.ic_stakeout, R.drawable.ic_trapezoid
+        )
+        currentTypeIndex = (currentTypeIndex + 1) % typeNames.size
+
+        // Animation
+        val animOut = ObjectAnimator.ofFloat(typeCubeContainer, "rotationY", 0f, -90f).apply {
+            duration = 200
+            interpolator = DecelerateInterpolator()
+            addListener(object : android.animation.AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: android.animation.Animator) {
+                    ivTypeIcon.setImageResource(typeIcons[currentTypeIndex])
+                    tvTypeLabel.text = typeNames[currentTypeIndex]
+                    ObjectAnimator.ofFloat(typeCubeContainer, "rotationY", 90f, 0f).apply {
+                        duration = 200
+                        interpolator = DecelerateInterpolator()
+                        start()
+                    }
+                }
+            })
+        }
+        animOut.start()
+
+        // Send command
+        if (bleManager.isConnected) {
+            val modeValues = arrayOf(1, 2, 10, 11, 12, 3, 8, 4, 14, 7, 15, 26)
+            bleManager.setMeasurementType(modeValues[currentTypeIndex])
+        }
     }
 
     private fun setupBleCallbacks() {
         bleManager.onConnectionStateChanged = { connected ->
             runOnUiThread {
                 panelRemote.visibility = if (connected) View.VISIBLE else View.GONE
-                appendLog(if (connected) "✅ Connected" else "❌ Disconnected", bleManager.connectedDeviceName ?: "")
             }
         }
 
         bleManager.onDataReceived = { bytes ->
-            val hex = bytes.joinToString(" ") { "%02X".format(it) }
-            runOnUiThread {
-                appendLog("RX", hex)
-            }
             // Try parsing
             val parsed = BlePacketParser.parse(bytes)
             if (parsed != null) {
-                val inclino = InclinoLogic.determineType(parsed.comp2Value, parsed.resultValue)
-                runOnUiThread {
-                    appendLog("PARSED", "${inclino.displayName} = ${parsed.resultValue}m (Angle: ${parsed.comp2Value}°)")
-                }
                 viewModel.onBleMeasurement(parsed, currentProjectId)
             }
         }
-    }
-
-    private fun sendCmd(name: String, action: () -> Unit) {
-        if (!bleManager.isConnected) {
-            appendLog("⚠️", "Not connected!")
-            return
-        }
-        action()
-        appendLog("TX", name)
-    }
-
-    private fun appendLog(type: String, msg: String) {
-        val prefix = when (type) {
-            "TX" -> "📤"
-            "RX" -> "📥"
-            "PARSED" -> "📊"
-            else -> "ℹ️"
-        }
-        tvResponseLog.text = "$prefix [$type] $msg\n${tvResponseLog.text}"
     }
 
     private fun checkPermissionsAndScan() {
@@ -230,11 +334,11 @@ class MeasurementListActivity : AppCompatActivity() {
             true
         }
         R.id.action_export -> {
-            if (adapter.isSelectionMode()) adapter.deleteSelected() else exportToXlsx()
+            exportToXlsx()
             true
         }
         R.id.action_settings -> {
-            if (adapter.isSelectionMode()) adapter.selectAll() else startActivity(Intent(this, SettingsActivity::class.java))
+            startActivity(Intent(this, SettingsActivity::class.java))
             true
         }
         else -> super.onOptionsItemSelected(item)
@@ -274,7 +378,6 @@ class MeasurementListActivity : AppCompatActivity() {
         val bluetoothAdapter = bluetoothManager.adapter
         val prefs = getSharedPreferences("ble_prefs", MODE_PRIVATE)
 
-        // Local copies for lambda capture
         var lastMac = prefs.getString("last_device_mac", null)
         var lastName = prefs.getString("last_device_name", null)
 
