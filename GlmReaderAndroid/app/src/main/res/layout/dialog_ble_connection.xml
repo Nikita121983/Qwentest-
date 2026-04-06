@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Сохраненные устройства"
+        android:text="Доступные устройства"
         android:textStyle="bold"
         android:layout_marginBottom="8dp" />
 
@@ -78,5 +78,15 @@
         android:gravity="center"
         android:layout_marginTop="8dp"
         android:textColor="@color/text_secondary" />
+
+    <!-- Кнопка забыть -->
+    <Button
+        android:id="@+id/btnForget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Забыть устройство"
+        android:enabled="false"
+        android:layout_marginTop="8dp"
+        style="?android:attr/buttonBarButtonStyle" />
 
 </LinearLayout>

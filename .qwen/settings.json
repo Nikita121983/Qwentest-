@@ -59,7 +59,10 @@
       "Bash(echo *)",
       "Bash(time *)",
       "Read(C:\\Users\\Nik\\Documents\\WindowsPowerShell/**)",
-      "Bash(git pull *)"
+      "Bash(git pull *)",
+      "Bash(adb *)",
+      "Bash(\"c:\\users\\nik\\appdata\\local\\android\\sdk\\platform-tools\\adb.exe\" *)",
+      "Bash(git restore *)"
     ]
   },
   "$version": 3,

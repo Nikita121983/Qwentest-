@@ -1,0 +1,67 @@
+--------- beginning of main
+04-06 04:12:28.592  2526  4233 D BluetoothAdapter: getActiveDevices(profile= A2DP)
+04-06 04:12:28.602  2526  4233 D BluetoothAdapter: getActiveDevices(profile= HEADSET)
+04-06 04:12:28.606  2526  4233 D BluetoothAdapter: getActiveDevices(profile= LE_AUDIO)
+04-06 04:12:30.606 17221 17221 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:12:30.610 17221 12712 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=6 mScannerId=0
+04-06 04:12:34.323 17221 17221 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:12:35.624 17221 17221 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:12:35.629 17221 12712 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=6 mScannerId=0
+04-06 04:13:03.489  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:13:03.490  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:13:03.502  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:13:03.570  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:13:03.583  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:13:03.589  9968 11526 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=3 mScannerId=0
+04-06 04:13:03.598  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:13:03.602  9968 11526 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=4 mScannerId=0
+04-06 04:13:08.113 17221 17221 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:14:03.554  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:14:03.554  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:14:03.567  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:14:03.634  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:14:03.647  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:14:03.654  9968  7478 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=3 mScannerId=0
+04-06 04:14:03.658  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:14:03.662  9968  7478 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=4 mScannerId=0
+04-06 04:15:03.613  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:15:03.614  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:15:03.623  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:15:03.688  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:15:03.692  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:15:03.696  9968  7478 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=3 mScannerId=0
+04-06 04:15:03.702  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:15:03.707  9968  7478 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=4 mScannerId=0
+04-06 04:15:03.903  2526  4233 D BluetoothAdapter: getActiveDevices(profile= A2DP)
+04-06 04:15:03.910  2526  4233 D BluetoothAdapter: getActiveDevices(profile= HEADSET)
+04-06 04:15:03.912  2526  4233 D BluetoothAdapter: getActiveDevices(profile= LE_AUDIO)
+04-06 04:15:03.940  2526  4233 D BluetoothAdapter: getActiveDevices(profile= A2DP)
+04-06 04:15:03.941  2526  4233 D BluetoothAdapter: getActiveDevices(profile= HEADSET)
+04-06 04:15:03.942  2526  4233 D BluetoothAdapter: getActiveDevices(profile= LE_AUDIO)
+04-06 04:15:04.072  2526  4233 D BluetoothAdapter: getActiveDevices(profile= A2DP)
+04-06 04:15:04.079  2526  4233 D BluetoothAdapter: getActiveDevices(profile= HEADSET)
+04-06 04:15:04.080  2526  4233 D BluetoothAdapter: getActiveDevices(profile= LE_AUDIO)
+04-06 04:15:29.337  2526  4233 D BluetoothAdapter: getActiveDevices(profile= A2DP)
+04-06 04:15:29.352  2526  4233 D BluetoothAdapter: getActiveDevices(profile= HEADSET)
+04-06 04:15:29.354  2526  4233 D BluetoothAdapter: getActiveDevices(profile= LE_AUDIO)
+04-06 04:15:34.453 32450 32450 D BluetoothAdapter: startLeScan(): null
+04-06 04:15:34.454 32450 32450 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:15:34.458 32450 15475 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=6 mScannerId=0
+04-06 04:15:37.654 32450 32450 D BluetoothAdapter: stopLeScan()
+04-06 04:15:37.654 32450 32450 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:15:38.470 32450 32450 D BluetoothAdapter: startLeScan(): null
+04-06 04:15:38.471 32450 32450 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:15:38.473 32450 15475 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=6 mScannerId=0
+04-06 04:16:03.675  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:16:03.675  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:16:03.688  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:16:03.755  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:16:03.762  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:16:03.767  9968 11526 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=3 mScannerId=0
+04-06 04:16:03.774  9968  8009 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:16:03.777  9968 11526 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=4 mScannerId=0
+04-06 04:16:13.380 32450 32450 D BluetoothAdapter: stopLeScan()
+04-06 04:16:13.380 32450 32450 D BluetoothAdapter: isLeEnabled(): ON
+04-06 04:16:13.965  2526  4233 D BluetoothAdapter: getActiveDevices(profile= A2DP)
+04-06 04:16:13.976  2526  4233 D BluetoothAdapter: getActiveDevices(profile= HEADSET)
+04-06 04:16:13.977  2526  4233 D BluetoothAdapter: getActiveDevices(profile= LE_AUDIO)

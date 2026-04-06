@@ -1,0 +1,218 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        ea33ba4 com.glmreader.android/.ui.ProjectListActivity filter c848d0d
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        c7834c2 com.glmreader.android/androidx.profileinstaller.ProfileInstallReceiver filter 179ed09
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        c7834c2 com.glmreader.android/androidx.profileinstaller.ProfileInstallReceiver filter f4dc2d3
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      androidx.profileinstaller.action.SKIP_FILE:
+        c7834c2 com.glmreader.android/androidx.profileinstaller.ProfileInstallReceiver filter 7aa6e10
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        c7834c2 com.glmreader.android/androidx.profileinstaller.ProfileInstallReceiver filter 518db0e
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+
+Domain verification status:
+
+Permissions:
+  Permission [com.glmreader.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (8a28768):
+    sourcePackage=com.glmreader.android
+    uid=10426 gids=[] type=0 prot=signature
+    perm=PermissionInfo{a5ca8fd com.glmreader.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    flags=0x0
+
+Registered ContentProviders:
+  com.glmreader.android/androidx.startup.InitializationProvider:
+    Provider{59f39f2 com.glmreader.android/androidx.startup.InitializationProvider}
+
+ContentProvider Authorities:
+  [com.glmreader.android.androidx-startup]:
+    Provider{59f39f2 com.glmreader.android/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{4e58781 com.glmreader.android}
+
+Key Set Manager:
+  [com.glmreader.android]
+      Signing KeySets: 265
+
+Packages:
+  Package [com.glmreader.android] (9de721):
+    appId=10426
+    pkg=Package{a2a6ec0 com.glmreader.android}
+    codePath=/data/app/~~K8UQGk1ZACfwtH1cpHJNmA==/com.glmreader.android-SZ5T3r55USi_KWHN_De5jw==
+    resourcePath=/data/app/~~K8UQGk1ZACfwtH1cpHJNmA==/com.glmreader.android-SZ5T3r55USi_KWHN_De5jw==
+    legacyNativeLibraryDir=/data/app/~~K8UQGk1ZACfwtH1cpHJNmA==/com.glmreader.android-SZ5T3r55USi_KWHN_De5jw==/lib
+    extractNativeLibs=false
+    primaryCpuAbi=null
+    secondaryCpuAbi=null
+    cpuAbiOverride=null
+    versionCode=1 minSdk=26 targetSdk=35
+    minExtensionVersions=[]
+    versionName=1.0
+    hiddenApiEnforcementPolicy=2
+    usesNonSdkApi=false
+    isMiuiPreinstall=false
+    splits=[base]
+    apkSigningVersion=2
+    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PARTIALLY_DIRECT_BOOT_AWARE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    forceQueryable=false
+    scannedAsStoppedSystemApp=false
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2026-04-06 03:43:39
+    lastUpdateTime=2026-04-06 03:43:45
+    installerPackageName=null
+    installerPackageUid=-1
+    initiatingPackageName=com.android.shell
+    originatingPackageName=null
+    packageSource=1
+    appMetadataFilePath=null
+    appMetadataSource=0
+    signatures=PackageSignatures{a4fd7f9 version:2, signatures:[7ff8ea2c], past signatures:[]}
+    installPermissionsFixed=false
+    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    privatePkgFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PARTIALLY_DIRECT_BOOT_AWARE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    apexModuleName=null
+    declared permissions:
+      com.glmreader.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature
+    requested permissions:
+      com.glmreader.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+      android.permission.BLUETOOTH_CONNECT
+      android.permission.BLUETOOTH_ADVERTISE
+      android.permission.BLUETOOTH_SCAN
+    install permissions:
+      com.glmreader.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+    User 0: ceDataInode=1050337 deDataInode=1050340 installed=true hidden=false suspended=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false quarantined=false
+      installReason=0
+      dataDir=/data/user/0/com.glmreader.android
+      firstInstallTime=2026-04-06 03:30:43
+      uninstallReason=0
+      overlay paths:
+        /data/resource-cache/com.android.systemui-neutral-hG2e.frro
+        /data/resource-cache/com.android.systemui-accent-PT5Q.frro
+        /data/resource-cache/com.android.systemui-dynamic-Kv05.frro
+      runtime permissions:
+        android.permission.BLUETOOTH_CONNECT: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.BLUETOOTH_ADVERTISE: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.BLUETOOTH_SCAN: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+
+Queries:
+  system apps queryable: false
+  queries via forceQueryable:
+  queries via package name:
+  queries via component:
+    com.android.thememanager:
+      com.glmreader.android
+    com.mi.appfinder:
+      com.glmreader.android
+    com.mi.globalbrowser:
+      com.glmreader.android
+    com.miui.gallery:
+      com.glmreader.android
+    com.xiaomi.calendar:
+      com.glmreader.android
+    com.miui.player:
+      com.glmreader.android
+    com.google.android.as.oss:
+      com.glmreader.android
+    com.android.settings.intelligence:
+      com.glmreader.android
+    com.ezviz:
+      com.glmreader.android
+    com.miui.global.packageinstaller:
+      com.glmreader.android
+    com.miui.videoplayer:
+      com.glmreader.android
+    com.xiaomi.account:
+      com.glmreader.android
+    com.xiaomi.glgm:
+      com.glmreader.android
+    com.xiaomi.payment:
+      com.glmreader.android
+    com.xiaomi.mipicks:
+      com.glmreader.android
+    com.chipsea.btcontrol.en:
+      com.glmreader.android
+    ru.megamarket.marketplace:
+      com.glmreader.android
+    com.miui.weather2:
+      com.glmreader.android
+    com.xiaomi.midrop:
+      com.glmreader.android
+    com.mi.global.pocostore:
+      com.glmreader.android
+    com.dv.adm:
+      com.glmreader.android
+    com.fun.mxw:
+      com.glmreader.android
+    com.glodon.drawingexplorer:
+      com.glmreader.android
+    ru.ozon.app.android:
+      com.glmreader.android
+    com.whatsapp:
+      com.glmreader.android
+    com.wildberries.ru:
+      com.glmreader.android
+    com.vkontakte.android:
+      com.glmreader.android
+    com.notissimus.allinstruments.android:
+      com.glmreader.android
+    ru.mts.mymts:
+      com.glmreader.android
+    ru.yandex.taxi:
+      com.glmreader.android
+    ru.sberbankmobile:
+      com.glmreader.android
+    com.gstarmc.android:
+      com.glmreader.android
+    com.estrongs.android.pop:
+      com.glmreader.android
+    com.openbank:
+      com.glmreader.android
+    ru.goods.marketplace:
+      com.glmreader.android
+    ru.sberbank.spasibo:
+      com.glmreader.android
+    ru.dublgis.dgismobile:
+      com.glmreader.android
+    com.ghisler.android.TotalCommander:
+      com.glmreader.android
+    com.xiaomi.aicr:
+      com.glmreader.android
+    com.mi.globalminusscreen:
+      com.glmreader.android
+    com.vk.vkvideo:
+      com.glmreader.android
+    com.xiaomi.smarthome:
+      com.glmreader.android
+    starter.dobriygruzin.client:
+      com.glmreader.android
+    ru.vtb24.mobilebanking.android:
+      com.glmreader.android
+  queryable via interaction:
+    User 0:
+      [com.xiaomi.trustservice,com.android.localtransport,com.xiaomi.mirror,com.xiaomi.mtb,com.miui.powerkeeper,com.android.dynsystem,com.mi.android.globalminusscreen,com.android.location.fused,vendor.qti.qesdk.sysservice,com.android.keychain,com.android.server.telecom,com.miui.qr,com.android.DeviceAsWebcam,com.android.systemui,com.xiaomi.joyose,com.android.providers.settings,com.miui.audiomonitor,com.miui.daemon,com.xiaomi.aiasst.vision,com.android.inputdevices,com.xiaomi.barrage,android,miui.systemui.plugin,com.miui.cit,com.xiaomi.touchservice,com.miui.screenrecorder,com.miui.bugreport,com.miui.aod,com.qualcomm.qti.xrvd.service,com.miui.face,com.miui.securitycenter,com.miui.misightservice,com.miui.securitycore,com.bsp.catchlog,com.miui.notification,com.xiaomi.mi_connect_service,com.novatek.novavis,com.xiaomi.misettings,com.android.settings,com.android.provision,com.miui.touchassistant,com.qualcomm.qti.services.systemhelper]:
+        com.glmreader.android
+      [com.google.android.gsf,com.google.android.gms]:
+        com.glmreader.android
+      com.google.android.inputmethod.latin:
+        com.glmreader.android
+  queryable via uses-library:
+
+Dexopt state:
+  [com.glmreader.android]
+    path: /data/app/~~K8UQGk1ZACfwtH1cpHJNmA==/com.glmreader.android-SZ5T3r55USi_KWHN_De5jw==/base.apk
+      arm64: [status=run-from-apk] [reason=unknown] [primary-abi]
+        [location is error]
+    base APK odex file size: Oops,Some thing wrong when get dex file output paths!
+
+Compiler stats:
+  [com.glmreader.android]
+     base.apk - 1756

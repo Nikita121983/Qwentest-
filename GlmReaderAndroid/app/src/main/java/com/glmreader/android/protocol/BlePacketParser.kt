@@ -101,12 +101,14 @@ object BlePacketParser {
      * @return ParsedMeasurement или null если пакет невалидный
      */
     fun parse(rawBytes: ByteArray): ParsedMeasurement? {
-        if (rawBytes.size < 19) return null // Минимальный размер пакета
+        if (rawBytes.size < 11) return null // Минимум: Header(3) + Result(4) + Status(4)
 
         // Валидация заголовка
-        if (rawBytes[0].toUInt() != 0xC0u) return null // FrameMode != LONG
-        if (rawBytes[1].toUInt() != 0x55u) return null // Command != EDC
-        if (rawBytes[6].toUInt() != 0x71u) return null // Константа
+        if (rawBytes[0].toInt() and 0xFF != 0xC0) return null // FrameMode != LONG
+        if (rawBytes[1].toInt() and 0xFF != 0x55) return null // Command != EDC
+
+        // Разрешаем любые значения в байтах [2] и [6], главное чтобы были данные
+        // Это нужно для разных прошивок рулетки
 
         // DevModeRef: [refEdge:2][devMode:6]
         val devModeRef = rawBytes[3].toInt() and 0xFF

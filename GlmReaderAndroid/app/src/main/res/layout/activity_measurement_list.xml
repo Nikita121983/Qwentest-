@@ -17,11 +17,12 @@
             android:background="@color/toolbar_background"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+        <!-- Панель дистанционного управления -->
         <LinearLayout
             android:id="@+id/panelRemote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/selection_highlight"
+            android:background="@color/card_background"
             android:orientation="vertical"
             android:padding="12dp"
             android:visibility="gone">
@@ -29,17 +30,137 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="📡 Дистанционное измерение"
+                android:text="📡 Дистанционное управление"
                 android:textColor="@color/text_heading"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
 
-            <Button
-                android:id="@+id/btnEnable"
+            <!-- Главные кнопки -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <Button
+                    android:id="@+id/btnTrigger"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="📏 Замер"
+                    android:layout_marginEnd="4dp"
+                    style="?android:attr/buttonBarButtonStyle" />
+
+                <Button
+                    android:id="@+id/btnGetData"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="📥 Данные"
+                    android:layout_marginEnd="4dp"
+                    style="?android:attr/buttonBarButtonStyle" />
+
+                <Button
+                    android:id="@+id/btnInit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="⚡ Init"
+                    style="?android:attr/buttonBarButtonStyle" />
+            </LinearLayout>
+
+            <!-- Выбор команды и отправка (Отладка) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <Spinner
+                    android:id="@+id/spinnerCommands"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp" />
+
+                <Button
+                    android:id="@+id/btnSendCustom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📤" />
+            </LinearLayout>
+
+            <!-- Настройки рулетки (Режим и Точка отсчета) -->
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Включить" />
+                android:text="⚙️ Настройки рулетки:"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:layout_marginBottom="4dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <Spinner
+                    android:id="@+id/spinnerModes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp" />
+
+                <Spinner
+                    android:id="@+id/spinnerRefs"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp" />
+            </LinearLayout>
+
+            <!-- Лог ответов -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="📜 Ответ:"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary" />
+
+                <Button
+                    android:id="@+id/btnClearLog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Очистить"
+                    android:textSize="10sp"
+                    style="?android:attr/buttonBarButtonStyle" />
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="#1A000000"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/tvResponseLog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ожидание команды..."
+                    android:textSize="11sp"
+                    android:fontFamily="monospace"
+                    android:textIsSelectable="true"
+                    android:textColor="@color/text_primary" />
+            </ScrollView>
         </LinearLayout>
 
         <TextView
@@ -63,7 +184,7 @@
 
     </LinearLayout>
 
-    <!-- FABs: Scroll to top/bottom -->
+    <!-- FABs -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

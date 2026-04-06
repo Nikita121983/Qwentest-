@@ -1,0 +1,74 @@
+﻿📤 [TX] Trigger
+📤 [TX] Trigger
+📤 [TX] Set Ref: 📌 Pin
+📤 [TX] Trigger
+📤 [TX] Trigger
+📤 [TX] Set Ref: ➡️ Задняя (Back)
+📤 [TX] Trigger
+📤 [TX] Trigger
+📤 [TX] Set Ref: 📍 Штатив (Tripod)
+📤 [TX] Set Mode: 📏 Прямой (Direct)
+📤 [TX] Trigger
+📤 [TX] Trigger
+📤 [TX] Set Mode: 📐 Площадь (Area)
+📤 [TX] Trigger
+📤 [TX] Trigger
+📤 [TX] Set Mode: 📦 Объем (Volume)
+📤 [TX] Trigger
+📤 [TX] Trigger
+📤 [TX] Set Mode: 📏 Непрерывный (Continuous)
+📤 [TX] Trigger
+📤 [TX] Trigger
+📤 [TX] Set Mode: 📐 Угол (Angle)
+📤 [TX] Trigger
+📤 [TX] Trigger
+📤 [TX] Set Mode: 📏 Косв. Высота (IndHeight)
+📤 [TX] Trigger
+📤 [TX] Trigger
+📤 [TX] Set Mode: 📏 Косв. Длина (IndLength)
+📤 [TX] Trigger
+📤 [TX] Trigger
+📤 [TX] Set Mode: 📏 Косв. Высота (IndHeight)
+📥 [RX] C0 55 10 06 08 4B 72 66 D5 FF 3F 00 00 00 00 00 00 00 00 90
+📤 [TX] 4. Get Settings (Temp/Batt)
+📥 [RX] C0 55 10 02 09 4A 72 00 00 00 00 00 00 00 00 00 00 00 00 3E
+📤 [TX] 4. Get Settings (Temp/Batt)
+📥 [RX] C0 55 10 06 08 4A 72 3B DF FF 3F 00 00 00 00 00 00 00 00 40
+📤 [TX] 4. Get Settings (Temp/Batt)
+📥 [RX] C0 55 10 02 09 49 72 00 00 00 00 00 00 00 00 00 00 00 00 8A
+📤 [TX] 4. Get Settings (Temp/Batt)
+📥 [RX] C0 55 10 06 08 49 72 98 DD FF 3F 00 00 00 00 00 00 00 00 DE
+📤 [TX] 4. Get Settings (Temp/Batt)
+📥 [RX] C0 55 10 02 09 48 72 00 00 00 00 00 00 00 00 00 00 00 00 E6
+📤 [TX] 4. Get Settings (Temp/Batt)
+📤 [TX] 3. Sync History (Last Item)
+📤 [TX] 3. Sync History (Last Item)
+📤 [TX] 3. Sync History (Last Item)
+📤 [TX] 3. Sync History (Last Item)
+📤 [TX] 2. Trigger (Remote Measure)
+📤 [TX] 2. Trigger (Remote Measure)
+📤 [TX] 2. Trigger (Remote Measure)
+📤 [TX] 2. Trigger (Remote Measure)
+📤 [TX] 1. Init (AutoSync ON)
+📤 [TX] 1. Init (AutoSync ON)
+📤 [TX] 1. Init (AutoSync ON)
+📤 [TX] 1. Init (AutoSync ON)
+📤 [TX] Init
+📤 [TX] Init
+📥 [RX] C0 55 10 06 08 43 72 98 DD FF 3F 00 00 00 00 00 00 00 00 2A
+📤 [TX] Get Data
+📥 [RX] C0 55 10 02 09 42 72 00 00 00 00 00 00 00 00 00 00 00 00 12
+📤 [TX] Get Data
+📥 [RX] C0 55 10 06 08 42 72 F4 DB FF 3F 00 00 00 00 00 00 00 00 EE
+📤 [TX] Trigger
+📥 [RX] C0 55 10 02 09 41 72 00 00 00 00 00 00 00 00 00 00 00 00 A6
+📤 [TX] Trigger
+📥 [RX] C0 55 10 06 08 41 72 F4 DB FF 3F 00 00 00 00 00 00 00 00 5A
+📤 [TX] Trigger
+📥 [RX] C0 55 10 02 09 40 72 00 00 00 00 00 00 00 00 00 00 00 00 CA
+📤 [TX] Trigger
+📥 [RX] C0 55 10 06 08 40 72 98 DD FF 3F 00 00 00 00 00 00 00 00 9E
+📤 [TX] Set Ref: ⬅️ Передняя (Front)
+📤 [TX] Set Mode: 📏 Прямой (Direct)
+ℹ️ [✅ Connected] Bosch GLM50C x9370
+Ожидание команды...

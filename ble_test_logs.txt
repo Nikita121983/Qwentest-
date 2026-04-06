@@ -1,0 +1,31 @@
+--------- beginning of main
+04-06 04:10:34.662 16477 16477 D BLE     : Disconnected
+04-06 04:10:34.690 16477 16477 D MainActivity: BLE Manager created
+04-06 04:10:34.690 16477 16477 D MainActivity: Callbacks setup done
+04-06 04:10:34.690 16477 16477 D MainActivity: checkPermissionsAndScan start
+04-06 04:10:34.690 16477 16477 D MainActivity: Permissions: android.permission.BLUETOOTH_SCAN, android.permission.BLUETOOTH_CONNECT
+04-06 04:10:34.690 16477 16477 D MainActivity: All permissions granted: true
+04-06 04:10:34.690 16477 16477 D BLE     : Scan started (no filter)
+04-06 04:10:34.695 16477 16477 D BLE     : Scanner started successfully, isScanning=true
+04-06 04:10:34.695 16477 16477 D MainActivity: checkPermissionsAndScan called
+04-06 04:10:41.994 16477 16477 D BLE     : Disconnected
+04-06 04:10:42.028 16477 16477 D MainActivity: BLE Manager created
+04-06 04:10:42.028 16477 16477 D MainActivity: Callbacks setup done
+04-06 04:10:42.028 16477 16477 D MainActivity: checkPermissionsAndScan start
+04-06 04:10:42.028 16477 16477 D MainActivity: Permissions: android.permission.BLUETOOTH_SCAN, android.permission.BLUETOOTH_CONNECT
+04-06 04:10:42.028 16477 16477 D MainActivity: All permissions granted: true
+04-06 04:10:42.028 16477 16477 D BLE     : Scan started (no filter)
+04-06 04:10:42.031 16477 16477 D BLE     : Scanner started successfully, isScanning=true
+04-06 04:10:42.031 16477 16477 D MainActivity: checkPermissionsAndScan called
+04-06 04:12:30.606 17221 17221 D MainActivity: BLE Manager created
+04-06 04:12:30.606 17221 17221 D MainActivity: Callbacks setup done
+04-06 04:12:30.606 17221 17221 D MainActivity: checkPermissionsAndScan start
+04-06 04:12:30.606 17221 17221 D MainActivity: Permissions: android.permission.BLUETOOTH_SCAN, android.permission.BLUETOOTH_CONNECT
+04-06 04:12:30.606 17221 17221 D MainActivity: All permissions granted: true
+04-06 04:12:30.606 17221 17221 D BLE     : Scan started (no filter)
+04-06 04:12:30.614 17221 17221 D BLE     : Scanner started successfully with emptyList(), isScanning=true
+04-06 04:12:30.614 17221 17221 D MainActivity: checkPermissionsAndScan called
+04-06 04:12:34.327 17221 17221 D BLE     : Scan stopped
+04-06 04:12:35.624 17221 17221 D BLE     : Scan started (no filter)
+04-06 04:12:35.635 17221 17221 D BLE     : Scanner started successfully with emptyList(), isScanning=true
+04-06 04:13:08.118 17221 17221 D BLE     : Scan stopped

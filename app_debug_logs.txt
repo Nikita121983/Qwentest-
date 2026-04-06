@@ -1,0 +1,22 @@
+--------- beginning of main
+04-06 04:08:18.736 16477 16477 D MainActivity: BLE Manager created
+04-06 04:08:18.736 16477 16477 D MainActivity: Callbacks setup done
+04-06 04:08:18.736 16477 16477 D MainActivity: checkPermissionsAndScan start
+04-06 04:08:18.736 16477 16477 D MainActivity: Permissions: android.permission.BLUETOOTH_SCAN, android.permission.BLUETOOTH_CONNECT
+04-06 04:08:18.737 16477 16477 D MainActivity: All permissions granted: true
+04-06 04:08:18.737 16477 16477 D BLE     : Scan started (no filter)
+04-06 04:08:18.747 16477 16477 D BLE     : Scanner started successfully, isScanning=true
+04-06 04:08:18.747 16477 16477 D MainActivity: checkPermissionsAndScan called
+04-06 04:08:24.891 16477 16477 D BLE     : Scan stopped
+04-06 04:08:35.833 16477 16477 D BLE     : Scan started (no filter)
+04-06 04:08:35.844 16477 16477 D BLE     : Scanner started successfully, isScanning=true
+04-06 04:09:11.861 16477 16477 D BLE     : Scan stopped
+04-06 04:10:34.662 16477 16477 D BLE     : Disconnected
+04-06 04:10:34.690 16477 16477 D MainActivity: BLE Manager created
+04-06 04:10:34.690 16477 16477 D MainActivity: Callbacks setup done
+04-06 04:10:34.690 16477 16477 D MainActivity: checkPermissionsAndScan start
+04-06 04:10:34.690 16477 16477 D MainActivity: Permissions: android.permission.BLUETOOTH_SCAN, android.permission.BLUETOOTH_CONNECT
+04-06 04:10:34.690 16477 16477 D MainActivity: All permissions granted: true
+04-06 04:10:34.690 16477 16477 D BLE     : Scan started (no filter)
+04-06 04:10:34.695 16477 16477 D BLE     : Scanner started successfully, isScanning=true
+04-06 04:10:34.695 16477 16477 D MainActivity: checkPermissionsAndScan called
