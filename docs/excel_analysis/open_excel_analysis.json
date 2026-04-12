@@ -1,0 +1,7406 @@
+{
+  "Сводная таблица": {
+    "rows": 6,
+    "cols": 24,
+    "spill_formulas": [
+      {
+        "cell": "$A$1",
+        "formula": "=PIVOTBY(Замер!D1:D499,Замер!G1:H499, --(Замер!K1:K499<>\"\"),SUM,1,,,,)",
+        "spill_to": "$A$1:$X$6"
+      },
+      {
+        "cell": "$B$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$C$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$D$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$H$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$I$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$J$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$K$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$L$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$M$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$N$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$O$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$P$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$R$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$S$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$T$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$U$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$W$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$A$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$B$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$C$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$D$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$H$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$I$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$J$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$K$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$L$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$M$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$N$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$O$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$P$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$R$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$S$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$T$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$U$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$W$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$A$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$B$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$C$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$D$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$H$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$I$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$J$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$K$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$L$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$M$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$N$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$O$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$P$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$R$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$S$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$T$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$U$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$W$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$A$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$B$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$C$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$D$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$H$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$I$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$J$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$K$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$L$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$M$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$N$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$O$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$P$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$R$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$S$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$T$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$U$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$W$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$A$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$B$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$C$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$D$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$H$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$I$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$J$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$K$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$L$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$M$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$N$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$O$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$P$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$R$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$S$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$T$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$U$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$W$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$A$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$B$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$C$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$D$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$H$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$I$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$J$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$K$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$L$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$M$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$N$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$O$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$P$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$R$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$S$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$T$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$U$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$W$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$6",
+        "formula": "",
+        "spill_to": "?"
+      }
+    ],
+    "dynamic_ranges": [],
+    "column_analysis": {}
+  },
+  "Шахматка без формул": {
+    "rows": 120,
+    "cols": 59,
+    "spill_formulas": [],
+    "dynamic_ranges": [],
+    "column_analysis": {
+      "A": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!A4"
+      },
+      "B": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!B4"
+      },
+      "C": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!C4"
+      },
+      "D": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!F4"
+      },
+      "E": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!G4"
+      },
+      "F": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!H4"
+      },
+      "G": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!I4"
+      },
+      "H": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!L4"
+      },
+      "I": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!M4"
+      },
+      "J": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!N4"
+      },
+      "K": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!O4"
+      },
+      "L": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!R4"
+      },
+      "M": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!S4"
+      },
+      "N": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!T4"
+      },
+      "O": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!U4"
+      },
+      "P": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!X4"
+      },
+      "Q": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!Y4"
+      },
+      "R": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!Z4"
+      },
+      "S": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AA4"
+      },
+      "T": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AD4"
+      },
+      "U": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AE4"
+      },
+      "V": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AF4"
+      },
+      "W": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AG4"
+      },
+      "X": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AJ4"
+      },
+      "Y": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AK4"
+      },
+      "Z": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AL4"
+      },
+      "AA": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AM4"
+      },
+      "AB": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AP4"
+      },
+      "AC": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AQ4"
+      },
+      "AD": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AR4"
+      },
+      "AE": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AS4"
+      },
+      "AF": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AV4"
+      },
+      "AG": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AW4"
+      },
+      "AH": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AX4"
+      },
+      "AI": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!AY4"
+      },
+      "AJ": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BB4"
+      },
+      "AK": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BC4"
+      },
+      "AL": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BD4"
+      },
+      "AM": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BE4"
+      },
+      "AN": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BH4"
+      },
+      "AO": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BI4"
+      },
+      "AP": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BJ4"
+      },
+      "AQ": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BK4"
+      },
+      "AR": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BN4"
+      },
+      "AS": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BO4"
+      },
+      "AT": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BP4"
+      },
+      "AU": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BQ4"
+      },
+      "AV": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BT4"
+      },
+      "AW": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BU4"
+      },
+      "AX": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BV4"
+      },
+      "AY": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BW4"
+      },
+      "AZ": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!BZ4"
+      },
+      "BA": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!CA4"
+      },
+      "BB": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!CB4"
+      },
+      "BC": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!CC4"
+      },
+      "BD": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!CF4"
+      },
+      "BE": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!CG4"
+      },
+      "BF": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!CH4"
+      },
+      "BG": {
+        "type": "cross_sheet",
+        "formula": "=Шахматка!CI4"
+      }
+    }
+  },
+  "Шахматка": {
+    "rows": 120,
+    "cols": 87,
+    "spill_formulas": [],
+    "dynamic_ranges": [
+      {
+        "cell": "$E$3",
+        "formula": "=CONCAT($B3,\" \",$C3,\" \",D3)"
+      },
+      {
+        "cell": "$K$3",
+        "formula": "=CONCAT($B3,\" \",$C3,\" \",J3)"
+      },
+      {
+        "cell": "$Q$3",
+        "formula": "=CONCAT($B3,\" \",$C3,\" \",P3)"
+      },
+      {
+        "cell": "$W$3",
+        "formula": "=CONCAT($B3,\" \",$C3,\" \",V3)"
+      },
+      {
+        "cell": "$AC$3",
+        "formula": "=CONCAT($B3,\" \",$C3,\" \",AB3)"
+      },
+      {
+        "cell": "$AI$3",
+        "formula": "=CONCAT($B3,\" \",$C3,\" \",AH3)"
+      },
+      {
+        "cell": "$AO$3",
+        "formula": "=CONCAT($B3,\" \",$C3,\" \",AN3)"
+      },
+      {
+        "cell": "$AU$3",
+        "formula": "=CONCAT($B3,\" \",$C3,\" \",AT3)"
+      },
+      {
+        "cell": "$E$4",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",D4)"
+      },
+      {
+        "cell": "$K$4",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",J4)"
+      },
+      {
+        "cell": "$Q$4",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",P4)"
+      },
+      {
+        "cell": "$W$4",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",V4)"
+      },
+      {
+        "cell": "$AC$4",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",AB4)"
+      },
+      {
+        "cell": "$AI$4",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",AH4)"
+      },
+      {
+        "cell": "$AO$4",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",AN4)"
+      },
+      {
+        "cell": "$AU$4",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",AT4)"
+      }
+    ],
+    "column_analysis": {
+      "B": {
+        "type": "spill",
+        "formula": "=TRIM('Список фильтр'!AB5)"
+      },
+      "C": {
+        "type": "spill",
+        "formula": "=TRIM('Список фильтр'!AC5)"
+      },
+      "D": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",$F$1,\"\")"
+      },
+      "E": {
+        "type": "dynamic_range",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",D4)"
+      },
+      "F": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$D:$D,MATCH($E4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "G": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$K:$K,MATCH($E4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "H": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($E4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "I": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($E4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "J": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",$L$1,\"\")"
+      },
+      "K": {
+        "type": "dynamic_range",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",J4)"
+      },
+      "L": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$D:$D,MATCH($K4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "M": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$K:$K,MATCH($K4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "N": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($K4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "O": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AD:$AD,MATCH(K4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "P": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",$R$1,\"\")"
+      },
+      "Q": {
+        "type": "dynamic_range",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",P4)"
+      },
+      "R": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$D:$D,MATCH($Q4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "S": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$K:$K,MATCH($Q4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "T": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($Q4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "U": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AD:$AD,MATCH(Q4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "V": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",$W$1,\"\")"
+      },
+      "W": {
+        "type": "dynamic_range",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",V4)"
+      },
+      "X": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$D:$D,MATCH($W4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "Y": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$K:$K,MATCH($W4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "Z": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($W4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AA": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AD:$AD,MATCH(W4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AB": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",$AD$1,\"\")"
+      },
+      "AC": {
+        "type": "dynamic_range",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",AB4)"
+      },
+      "AD": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$D:$D,MATCH($AC4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AE": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$K:$K,MATCH($AC4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AF": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($AC4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AG": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AD:$AD,MATCH(AC4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AH": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",$AJ$1,\"\")"
+      },
+      "AI": {
+        "type": "dynamic_range",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",AH4)"
+      },
+      "AJ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$D:$D,MATCH($AI4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AK": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$K:$K,MATCH($AI4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AL": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($AI4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AM": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AD:$AD,MATCH(AI4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AN": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",$AP$1,\"\")"
+      },
+      "AO": {
+        "type": "dynamic_range",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",AN4)"
+      },
+      "AP": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$D:$D,MATCH($AO4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AQ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$K:$K,MATCH($AO4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AR": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($AO4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AS": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AD:$AD,MATCH(AO4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AT": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",$AV$1,\"\")"
+      },
+      "AU": {
+        "type": "dynamic_range",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",AT4)"
+      },
+      "AV": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$D:$D,MATCH($AU4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AW": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$K:$K,MATCH($AU4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AX": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($AU4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AY": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AD:$AD,MATCH(AU4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "AZ": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",$BB$1,\"\")"
+      },
+      "BA": {
+        "type": "dynamic_range",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",AZ4)"
+      },
+      "BB": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$D:$D,MATCH($BA4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BC": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$K:$K,MATCH($BA4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BD": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($BA4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BE": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AD:$AD,MATCH(BA4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BF": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",$BH$1,\"\")"
+      },
+      "BG": {
+        "type": "dynamic_range",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",BF4)"
+      },
+      "BH": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$D:$D,MATCH($BG4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BI": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$K:$K,MATCH($BG4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BJ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($BG4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BK": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AD:$AD,MATCH(BG4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BL": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",$BN$1,\"\")"
+      },
+      "BM": {
+        "type": "dynamic_range",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",BL4)"
+      },
+      "BN": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$D:$D,MATCH($BM4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BO": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$K:$K,MATCH($BM4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BP": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($BM4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BQ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AD:$AD,MATCH(BM4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BR": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",$BT$1,\"\")"
+      },
+      "BS": {
+        "type": "dynamic_range",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",BR4)"
+      },
+      "BT": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$D:$D,MATCH($BS4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BU": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$K:$K,MATCH($BS4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BV": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($BS4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BW": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($BS4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "BX": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",$BZ$1,\"\")"
+      },
+      "BY": {
+        "type": "dynamic_range",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",BX4)"
+      },
+      "BZ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$D:$D,MATCH($BY4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "CA": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$K:$K,MATCH($BY4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "CB": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($BY4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "CC": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AD:$AD,MATCH(BY4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "CD": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",$CF$1,\"\")"
+      },
+      "CE": {
+        "type": "dynamic_range",
+        "formula": "=CONCAT($B4,\" \",$C4,\" \",CD4)"
+      },
+      "CF": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$D:$D,MATCH($CE4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "CG": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$K:$K,MATCH($CE4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "CH": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CE4,Замер!$BY:$BY,0)),\"\")"
+      },
+      "CI": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CE4,Замер!$BY:$BY,0)),\"\")"
+      }
+    }
+  },
+  "Новый шаблон": {
+    "rows": 500,
+    "cols": 33,
+    "spill_formulas": [],
+    "dynamic_ranges": [],
+    "column_analysis": {
+      "A": {
+        "type": "cross_sheet",
+        "formula": "=Расчет!A4"
+      },
+      "B": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CN:CN,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "C": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CO:CO,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "D": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CP:CP,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "E": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CQ:CQ,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "F": {
+        "type": "cross_sheet",
+        "formula": "=Замер!C3"
+      },
+      "G": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CL:CL,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "H": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CM:CM,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "I": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CJ:CJ,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "J": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!L:L,MATCH($A4,'Список измерений обработаны"
+      },
+      "K": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CX:CX,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "L": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CY:CY,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "M": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CT:CT,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "N": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CU:CU,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "O": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FO:FO,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "P": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FP:FP,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "Q": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FT:FT,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "S": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FX:FX,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AG": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GE:GE,MATCH($A4,Расчет!$A:$A,0))"
+      }
+    }
+  },
+  "Дефектная ведомость": {
+    "rows": 499,
+    "cols": 24,
+    "spill_formulas": [],
+    "dynamic_ranges": [],
+    "column_analysis": {
+      "A": {
+        "type": "cross_sheet",
+        "formula": "=Замер!C4"
+      },
+      "B": {
+        "type": "cross_sheet",
+        "formula": "=Замер!D4"
+      },
+      "C": {
+        "type": "cross_sheet",
+        "formula": "=Замер!E4"
+      },
+      "D": {
+        "type": "cross_sheet",
+        "formula": "=Замер!G4"
+      },
+      "E": {
+        "type": "cross_sheet",
+        "formula": "=Замер!H4"
+      },
+      "F": {
+        "type": "cross_sheet",
+        "formula": "=Замер!I4"
+      },
+      "G": {
+        "type": "cross_sheet",
+        "formula": "=Замер!J4"
+      },
+      "H": {
+        "type": "cross_sheet",
+        "formula": "=Замер!N4"
+      },
+      "I": {
+        "type": "cross_sheet",
+        "formula": "=Замер!O4"
+      },
+      "J": {
+        "type": "cross_sheet",
+        "formula": "=Замер!L4"
+      },
+      "K": {
+        "type": "cross_sheet",
+        "formula": "=Замер!M4"
+      },
+      "L": {
+        "type": "cross_sheet",
+        "formula": "=Замер!K4"
+      },
+      "M": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BG4"
+      },
+      "N": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BH4"
+      },
+      "O": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AH4"
+      },
+      "P": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AI4"
+      },
+      "Q": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AM4"
+      },
+      "R": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AD4"
+      },
+      "S": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AE4"
+      },
+      "T": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AF4"
+      },
+      "U": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AG4"
+      },
+      "V": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BA4"
+      },
+      "W": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BK4"
+      },
+      "X": {
+        "type": "calc",
+        "formula": "=\"\""
+      }
+    }
+  },
+  "Дефектная ведомость (старый)": {
+    "rows": 499,
+    "cols": 38,
+    "spill_formulas": [],
+    "dynamic_ranges": [],
+    "column_analysis": {
+      "A": {
+        "type": "cross_sheet",
+        "formula": "=Замер!A4"
+      },
+      "B": {
+        "type": "cross_sheet",
+        "formula": "=Замер!C4"
+      },
+      "C": {
+        "type": "cross_sheet",
+        "formula": "=Замер!D4"
+      },
+      "D": {
+        "type": "cross_sheet",
+        "formula": "=Замер!E4"
+      },
+      "E": {
+        "type": "cross_sheet",
+        "formula": "=Замер!G4"
+      },
+      "F": {
+        "type": "cross_sheet",
+        "formula": "=Замер!H4"
+      },
+      "G": {
+        "type": "cross_sheet",
+        "formula": "=Замер!I4"
+      },
+      "H": {
+        "type": "cross_sheet",
+        "formula": "=Замер!J4"
+      },
+      "I": {
+        "type": "cross_sheet",
+        "formula": "=Замер!N4"
+      },
+      "J": {
+        "type": "cross_sheet",
+        "formula": "=Замер!O4"
+      },
+      "K": {
+        "type": "cross_sheet",
+        "formula": "=Замер!L4"
+      },
+      "L": {
+        "type": "cross_sheet",
+        "formula": "=Замер!M4"
+      },
+      "M": {
+        "type": "cross_sheet",
+        "formula": "=Замер!K4"
+      },
+      "N": {
+        "type": "cross_sheet",
+        "formula": "=Замер!S4"
+      },
+      "O": {
+        "type": "cross_sheet",
+        "formula": "=Замер!T4"
+      },
+      "P": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BG4"
+      },
+      "Q": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BH4"
+      },
+      "R": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BI4"
+      },
+      "S": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BJ4"
+      },
+      "T": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BC4"
+      },
+      "U": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BD4"
+      },
+      "V": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BE4"
+      },
+      "W": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BF4"
+      },
+      "X": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AH4"
+      },
+      "Y": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AI4"
+      },
+      "Z": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AM4"
+      },
+      "AA": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AD4"
+      },
+      "AB": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AE4"
+      },
+      "AC": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AF4"
+      },
+      "AD": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AG4"
+      },
+      "AE": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BA4"
+      },
+      "AF": {
+        "type": "calc",
+        "formula": "=\"\""
+      },
+      "AG": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BK4"
+      },
+      "AH": {
+        "type": "calc",
+        "formula": "=\"\""
+      },
+      "AI": {
+        "type": "cross_sheet",
+        "formula": "=IF(ISBLANK(Замер!BB4),\"\",Замер!BB4)"
+      },
+      "AJ": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AK4"
+      },
+      "AK": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AL4"
+      },
+      "AL": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BL4"
+      }
+    }
+  },
+  "Дефектная перепад полов": {
+    "rows": 499,
+    "cols": 45,
+    "spill_formulas": [],
+    "dynamic_ranges": [],
+    "column_analysis": {
+      "A": {
+        "type": "cross_sheet",
+        "formula": "=Замер!A4"
+      },
+      "B": {
+        "type": "cross_sheet",
+        "formula": "=Замер!C4"
+      },
+      "C": {
+        "type": "cross_sheet",
+        "formula": "=Замер!D4"
+      },
+      "D": {
+        "type": "cross_sheet",
+        "formula": "=Замер!E4"
+      },
+      "E": {
+        "type": "cross_sheet",
+        "formula": "=Замер!G4"
+      },
+      "F": {
+        "type": "cross_sheet",
+        "formula": "=Замер!H4"
+      },
+      "G": {
+        "type": "cross_sheet",
+        "formula": "=Замер!I4"
+      },
+      "H": {
+        "type": "cross_sheet",
+        "formula": "=Замер!J4"
+      },
+      "I": {
+        "type": "cross_sheet",
+        "formula": "=Замер!N4"
+      },
+      "J": {
+        "type": "cross_sheet",
+        "formula": "=Замер!O4"
+      },
+      "K": {
+        "type": "cross_sheet",
+        "formula": "=Замер!L4"
+      },
+      "L": {
+        "type": "cross_sheet",
+        "formula": "=Замер!M4"
+      },
+      "M": {
+        "type": "cross_sheet",
+        "formula": "=Замер!K4"
+      },
+      "N": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AH4"
+      },
+      "O": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AI4"
+      },
+      "P": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AO4"
+      },
+      "Q": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AQ4"
+      },
+      "R": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AP4"
+      },
+      "S": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AR4"
+      },
+      "T": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AT4"
+      },
+      "U": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AU4"
+      },
+      "V": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AV4"
+      },
+      "W": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BL4"
+      },
+      "X": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BM4"
+      },
+      "Y": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BN4"
+      },
+      "Z": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BO4"
+      },
+      "AA": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BP4"
+      },
+      "AB": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AW4"
+      },
+      "AC": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AY4"
+      },
+      "AD": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BQ4"
+      },
+      "AE": {
+        "type": "cross_sheet",
+        "formula": "=Замер!S4"
+      },
+      "AF": {
+        "type": "cross_sheet",
+        "formula": "=Замер!T4"
+      },
+      "AG": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BG4"
+      },
+      "AH": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BH4"
+      },
+      "AI": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BC4"
+      },
+      "AJ": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BD4"
+      },
+      "AK": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BE4"
+      },
+      "AL": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BF4"
+      },
+      "AM": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AD4"
+      },
+      "AN": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AE4"
+      },
+      "AO": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AF4"
+      },
+      "AP": {
+        "type": "cross_sheet",
+        "formula": "=Замер!AG4"
+      },
+      "AQ": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BA4"
+      },
+      "AR": {
+        "type": "cross_sheet",
+        "formula": "=Замер!BK4"
+      },
+      "AS": {
+        "type": "calc",
+        "formula": "=\"\""
+      }
+    }
+  },
+  "Дефектная ведомость САМОЛЕТ": {
+    "rows": 499,
+    "cols": 32,
+    "spill_formulas": [],
+    "dynamic_ranges": [],
+    "column_analysis": {
+      "A": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!A4"
+      },
+      "B": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!B4"
+      },
+      "C": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!C4"
+      },
+      "D": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!D4"
+      },
+      "E": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!E4"
+      },
+      "F": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!F4"
+      },
+      "G": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!G4"
+      },
+      "H": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!H4"
+      },
+      "I": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!I4"
+      },
+      "J": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!J4"
+      },
+      "K": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!K4"
+      },
+      "L": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!L4"
+      },
+      "M": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!M4"
+      },
+      "N": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!N4"
+      },
+      "O": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!O4"
+      },
+      "P": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!P4"
+      },
+      "Q": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!Q4"
+      },
+      "R": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!R4"
+      },
+      "S": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!S4"
+      },
+      "T": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!T4"
+      },
+      "U": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!U4"
+      },
+      "V": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!V4"
+      },
+      "W": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!W4"
+      },
+      "X": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!X4"
+      },
+      "Y": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!Y4"
+      },
+      "Z": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!Z4"
+      },
+      "AA": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!AA4"
+      },
+      "AB": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!AB4"
+      },
+      "AC": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!AC4"
+      },
+      "AD": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!AD4"
+      },
+      "AE": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!AE4"
+      },
+      "AF": {
+        "type": "cross_sheet",
+        "formula": "='Дефектная ведомость (старый)'!AG4"
+      }
+    }
+  },
+  "Минимум": {
+    "rows": 500,
+    "cols": 23,
+    "spill_formulas": [],
+    "dynamic_ranges": [],
+    "column_analysis": {
+      "A": {
+        "type": "spill",
+        "formula": "=TRIM('Список фильтр'!AO6)"
+      },
+      "B": {
+        "type": "spill",
+        "formula": "=IF(A4<>\"\",HYPERLINK(\"#\"&CELL(\"адрес\",INDEX('[Юнтолово 8 корпус 1-22 этажи Кварт"
+      },
+      "C": {
+        "type": "spill",
+        "formula": "=IFERROR(VALUE('Список фильтр'!AQ6),\"\")"
+      },
+      "D": {
+        "type": "spill",
+        "formula": "=IFERROR(VALUE('Список фильтр'!AR6),\"\")"
+      },
+      "E": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!D4)"
+      },
+      "F": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!AH4)"
+      },
+      "G": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!AI4)"
+      },
+      "H": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!AD4)"
+      },
+      "I": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!AE4)"
+      },
+      "J": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!G4)"
+      },
+      "K": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!H4)"
+      },
+      "L": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!I4)"
+      },
+      "M": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!J4)"
+      },
+      "N": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!K4)"
+      },
+      "O": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!L4)"
+      },
+      "P": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!M4)"
+      },
+      "Q": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!P4)"
+      },
+      "R": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!U4)"
+      },
+      "S": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!AM4)"
+      },
+      "T": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!AN4)"
+      },
+      "U": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!BC4)"
+      },
+      "V": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!BA4)"
+      },
+      "W": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Замер!BB4)"
+      }
+    }
+  },
+  "Замер": {
+    "rows": 499,
+    "cols": 83,
+    "spill_formulas": [],
+    "dynamic_ranges": [],
+    "column_analysis": {
+      "A": {
+        "type": "spill",
+        "formula": "=TRIM('Список фильтр'!AO6)"
+      },
+      "B": {
+        "type": "cross_sheet",
+        "formula": "=IFERROR(VALUE(Расчет!C5),\"\")"
+      },
+      "C": {
+        "type": "cross_sheet",
+        "formula": "=IFERROR(VALUE(Расчет!D5),\"\")"
+      },
+      "D": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CL:CL,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "E": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CM:CM,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "F": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CJ:CJ,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "G": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CN:CN,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "H": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CO:CO,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "I": {
+        "type": "index_match",
+        "formula": "=INDEX(Маркировка!I:I,MATCH($A4,Маркировка!$B:$B,0))"
+      },
+      "J": {
+        "type": "index_match",
+        "formula": "=INDEX(Маркировка!J:J,MATCH($A4,Маркировка!$B:$B,0))"
+      },
+      "K": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CS:CS,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "L": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CV:CV,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "M": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CW:CW,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "N": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CX:CX,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "O": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CY:CY,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "P": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!CZ:CZ,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "Q": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FM:FM,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "R": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FN:FN,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "S": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FO:FO,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "T": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FP:FP,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "U": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FQ:FQ,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "V": {
+        "type": "calc",
+        "formula": "=IF(W4<>\"\",W4,\nIF(Z4<>\"\",\"\",\nIF(AND(W4=\"\",X4<>\"\"),X4+AN4,\nIF(AND(W4=\"\",Y4<>\"\"),Y"
+      },
+      "W": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!H:H,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "X": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!I:I,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "Y": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!J:J,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "Z": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!O:O,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AA": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!AE:AE,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AB": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!AF:AF,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AC": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!AG:AG,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AD": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FT:FT,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AE": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FX:FX,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AF": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FY:FY,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AG": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FZ:FZ,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AH": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!EI:EI,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AI": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!EJ:EJ,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AJ": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!EK:EK,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AK": {
+        "type": "index_match",
+        "formula": "=IF(Расчет!EL5<>\"\",INDEX(Расчет!EL:EL,MATCH($A4,Расчет!$A:$A,0)),INDEX(Расчет!EM"
+      },
+      "AL": {
+        "type": "index_match",
+        "formula": "=IF(Расчет!EY5<>\"\",INDEX(Расчет!EY:EY,MATCH($A4,Расчет!$A:$A,0)),INDEX(Расчет!FB"
+      },
+      "AM": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!EO:EO,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AN": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!EQ:EQ,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AO": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!ES:ES,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AP": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!ET:ET,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AQ": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!EV:EV,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AR": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!EW:EW,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AS": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FE:FE,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AT": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FF:FF,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AU": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FG:FG,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AV": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FH:FH,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AW": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FI:FI,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AX": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FJ:FJ,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AY": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FK:FK,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "AZ": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!FL:FL,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BA": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GE:GE,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BC": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GA:GA,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BD": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GB:GB,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BE": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GC:GC,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BF": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GD:GD,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BG": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GJ:GJ,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BH": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GK:GK,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BI": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GN:GN,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BJ": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GO:GO,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BK": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GP:GP,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BL": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GS:GS,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BM": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GV:GV,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BN": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GW:GW,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BO": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GX:GX,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BP": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!GY:GY,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BQ": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!HA:HA,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BR": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!DD:DD,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BS": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!DV:DV,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BT": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!EB:EB,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BU": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!BK:BK,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BV": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!BL:BL,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BW": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!BM:BM,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BX": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!BN:BN,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "BY": {
+        "type": "index_match",
+        "formula": "=INDEX(Маркировка!DT:DT,MATCH(A4,Маркировка!$B:$B,0))"
+      },
+      "BZ": {
+        "type": "index_match",
+        "formula": "=INDEX(Расчет!HB:HB,MATCH($A4,Расчет!$A:$A,0))"
+      },
+      "CA": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Маркировка!DM:DM,MATCH($A4,Маркировка!$B:$B,0)),\"\")"
+      },
+      "CB": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Маркировка!DN:DN,MATCH($A4,Маркировка!$B:$B,0)),\"\")"
+      },
+      "CC": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Маркировка!DO:DO,MATCH($A4,Маркировка!$B:$B,0)),\"\")"
+      },
+      "CD": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Маркировка!DP:DP,MATCH($A4,Маркировка!$B:$B,0)),\"\")"
+      },
+      "CE": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Маркировка!DQ:DQ,MATCH($A4,Маркировка!$B:$B,0)),\"\")"
+      }
+    }
+  },
+  "Расчет": {
+    "rows": 500,
+    "cols": 223,
+    "spill_formulas": [
+      {
+        "cell": "$E$1",
+        "formula": "=TRANSPOSE('Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xlsx'!Таблица_Замер_сокращений[Заголовок])",
+        "spill_to": "$E$1:$AQ$1"
+      },
+      {
+        "cell": "$F$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$H$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$I$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$J$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$K$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$L$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$M$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$N$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$O$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$P$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$R$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$S$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$T$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$U$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$W$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AD$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AK$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AL$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AM$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AN$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AP$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AQ$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$2",
+        "formula": "=TRANSPOSE('Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xlsx'!Таблица_Замер_сокращений[Замер словарь сокращений])",
+        "spill_to": "$E$2:$AQ$2"
+      },
+      {
+        "cell": "$F$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$H$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$I$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$J$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$K$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$L$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$M$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$N$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$O$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$P$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$R$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$S$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$T$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$U$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$W$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AD$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AK$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AL$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AM$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AN$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AP$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AQ$2",
+        "formula": "",
+        "spill_to": "?"
+      }
+    ],
+    "dynamic_ranges": [],
+    "column_analysis": {
+      "A": {
+        "type": "spill",
+        "formula": "=TRIM('Список фильтр'!AO5)"
+      },
+      "B": {
+        "type": "spill",
+        "formula": "=IF(A4<>\"\",HYPERLINK(\"#\"&CELL(\"адрес\",INDEX('[Юнтолово 8 корпус 1-22 этажи Кварт"
+      },
+      "C": {
+        "type": "spill",
+        "formula": "=IFERROR(VALUE('Список фильтр'!AQ5),\"\")"
+      },
+      "D": {
+        "type": "spill",
+        "formula": "=IFERROR(VALUE('Список фильтр'!AR5),\"\")"
+      },
+      "E": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!P:P,MATCH($A4,'Список измерений обработаны"
+      },
+      "F": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!Q:Q,MATCH($A4,'Список измерений обработаны"
+      },
+      "G": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!R:R,MATCH($A4,'Список измерений обработаны"
+      },
+      "H": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!S:S,MATCH($A4,'Список измерений обработаны"
+      },
+      "I": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!T:T,MATCH($A4,'Список измерений обработаны"
+      },
+      "J": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!U:U,MATCH($A4,'Список измерений обработаны"
+      },
+      "K": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!V:V,MATCH($A4,'Список измерений обработаны"
+      },
+      "L": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!W:W,MATCH($A4,'Список измерений обработаны"
+      },
+      "M": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!X:X,MATCH($A4,'Список измерений обработаны"
+      },
+      "N": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!Y:Y,MATCH($A4,'Список измерений обработаны"
+      },
+      "O": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!Z:Z,MATCH($A4,'Список измерений обработаны"
+      },
+      "P": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AA:AA,MATCH($A4,'Список измерений обработа"
+      },
+      "Q": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AB:AB,MATCH($A4,'Список измерений обработа"
+      },
+      "R": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AC:AC,MATCH($A4,'Список измерений обработа"
+      },
+      "S": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AD:AD,MATCH($A4,'Список измерений обработа"
+      },
+      "T": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AE:AE,MATCH($A4,'Список измерений обработа"
+      },
+      "U": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AF:AF,MATCH($A4,'Список измерений обработа"
+      },
+      "V": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AG:AG,MATCH($A4,'Список измерений обработа"
+      },
+      "W": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AH:AH,MATCH($A4,'Список измерений обработа"
+      },
+      "X": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AI:AI,MATCH($A4,'Список измерений обработа"
+      },
+      "Y": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AJ:AJ,MATCH($A4,'Список измерений обработа"
+      },
+      "Z": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AK:AK,MATCH($A4,'Список измерений обработа"
+      },
+      "AA": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AL:AL,MATCH($A4,'Список измерений обработа"
+      },
+      "AB": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AM:AM,MATCH($A4,'Список измерений обработа"
+      },
+      "AC": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AN:AN,MATCH($A4,'Список измерений обработа"
+      },
+      "AD": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AO:AO,MATCH($A4,'Список измерений обработа"
+      },
+      "AE": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AP:AP,MATCH($A4,'Список измерений обработа"
+      },
+      "AF": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AQ:AQ,MATCH($A4,'Список измерений обработа"
+      },
+      "AG": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AR:AR,MATCH($A4,'Список измерений обработа"
+      },
+      "AH": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AS:AS,MATCH($A4,'Список измерений обработа"
+      },
+      "AI": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AT:AT,MATCH($A4,'Список измерений обработа"
+      },
+      "AJ": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AU:AU,MATCH($A4,'Список измерений обработа"
+      },
+      "AK": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AV:AV,MATCH($A4,'Список измерений обработа"
+      },
+      "AL": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AW:AW,MATCH($A4,'Список измерений обработа"
+      },
+      "AM": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AX:AX,MATCH($A4,'Список измерений обработа"
+      },
+      "AN": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AY:AY,MATCH($A4,'Список измерений обработа"
+      },
+      "AO": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!AZ:AZ,MATCH($A4,'Список измерений обработа"
+      },
+      "AP": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!BA:BA,MATCH($A4,'Список измерений обработа"
+      },
+      "AQ": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!BB:BB,MATCH($A4,'Список измерений обработа"
+      },
+      "AS": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!BC:BC,MATCH($A4,'Список измерений обработа"
+      },
+      "AT": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!BD:BD,MATCH($A4,'Список измерений обработа"
+      },
+      "AU": {
+        "type": "calc",
+        "formula": "=E4"
+      },
+      "AV": {
+        "type": "calc",
+        "formula": "=IF($F4<>\"\",$F4,\nIF(AND($F4=\"\",$V4=\"\",$W4<>\"\"),E4-W4,\nIF(AND($F4=\"\",$V4<>\"\",$W4="
+      },
+      "AW": {
+        "type": "calc",
+        "formula": "=G4"
+      },
+      "AX": {
+        "type": "calc",
+        "formula": "=IFERROR(IF($H4<>\"\",$H4,\nIF(AND($J4<>\"\",$H4=\"\"),$AZ4-$EP4,\"\")),\"\")"
+      },
+      "AY": {
+        "type": "calc",
+        "formula": "=IFERROR(IF($I4<>\"\",$I4,\nIF(AND($H4<>\"\",$FF4<>\"\"),$H4-$FF4,\nIF($H4<>\"\",$H4-$EQ4,"
+      },
+      "AZ": {
+        "type": "calc",
+        "formula": "=IF(AND($S4<>\"\",J4<>\"\"),J4+$S4,J4)"
+      },
+      "BA": {
+        "type": "calc",
+        "formula": "=IF(AND($S4<>\"\",K4<>\"\"),K4+$S4,K4)"
+      },
+      "BB": {
+        "type": "calc",
+        "formula": "=IF($L4<>\"\",$L4,\"\")"
+      },
+      "BC": {
+        "type": "calc",
+        "formula": "=IFERROR(IF($M4<>\"\",$M4,\nIF(AND($BA4<>\"\",$BB4=\"\"),$BA4-$EK4,\nIF(AND($BA4<>\"\",$BB"
+      },
+      "BD": {
+        "type": "calc",
+        "formula": "=IF($N4<>\"\",$N4,\nIF(AND($BK4<>\"\",$BA4<>\"\"),$BA4+$BK4,$N4))"
+      },
+      "BE": {
+        "type": "calc",
+        "formula": "=IF($N4<>\"\",$N4,\nIF($O4<>\"\",$O4,\nIF($P4<>\"\",$P4,\nIF(AND($J4<>\"\",$BK4<>\"\"),$AZ4-$"
+      },
+      "BF": {
+        "type": "calc",
+        "formula": "=P4"
+      },
+      "BG": {
+        "type": "cross_sheet",
+        "formula": "=IFERROR(IF(AND($BH4<>\"\",$EI4='[Юнтолово 8 корпус 1-22 этажи Квартиры Список изм"
+      },
+      "BH": {
+        "type": "calc",
+        "formula": "=IFERROR(IF(Q4=\"\",BF4+BK4,\nIF(AND($S4<>\"\",Q4<>\"\"),Q4+$S4,Q4)),\"\")"
+      },
+      "BI": {
+        "type": "calc",
+        "formula": "=R4"
+      },
+      "BJ": {
+        "type": "calc",
+        "formula": "=IF(AND(S4=\"\",J4<>\"\",R4<>\"\"),J4-R4,S4)"
+      },
+      "BK": {
+        "type": "calc",
+        "formula": "=IF(AND(T4=\"\",O4<>\"\",H4<>\"\"),H4-O4,\nIF(AND(T4=\"\",O4<>\"\",I4<>\"\"),I4-O4,\nIF(AND(T4"
+      },
+      "BL": {
+        "type": "calc",
+        "formula": "=IF(AND(U4=\"\",Q4<>\"\",AZ4<>\"\"),AZ4-$Q4,\nIF(AND(U4=\"\",Q4<>\"\",AX4<>\"\"),AX4-$Q4,U4))"
+      },
+      "BM": {
+        "type": "calc",
+        "formula": "=IF(AND($AV4<>\"\",$V4=\"\",$W4=\"\"),($E4-$AV4)/2,\nIF(AND($AV4<>\"\",$V4=\"\",$W4<>\"\"),($"
+      },
+      "BN": {
+        "type": "calc",
+        "formula": "=IF(AND($AV4<>\"\",$V4=\"\",$W4=\"\"),($E4-$AV4)/2,\nIF(AND($AV4<>\"\",$V4=\"\",$W4<>\"\"),$W"
+      },
+      "BO": {
+        "type": "calc",
+        "formula": "=X4"
+      },
+      "BP": {
+        "type": "calc",
+        "formula": "=Y4"
+      },
+      "BQ": {
+        "type": "calc",
+        "formula": "=Z4"
+      },
+      "BR": {
+        "type": "calc",
+        "formula": "=AA4"
+      },
+      "BS": {
+        "type": "calc",
+        "formula": "=IF(AND($J4<>\"\",$BU4<>\"\"),$AZ4-$BU4,\nIF(AND($K4<>\"\",$BU4<>\"\"),$BA4-$BU4,\nIF(AND("
+      },
+      "BT": {
+        "type": "calc",
+        "formula": "=AC4"
+      },
+      "BU": {
+        "type": "calc",
+        "formula": "=IF(AND(AD4=\"\",AB4<>\"\",H4<>\"\"),H4-AB4,\nIF(AND(AD4=\"\",AB4<>\"\",I4<>\"\"),I4-AB4,\nIF("
+      },
+      "BV": {
+        "type": "calc",
+        "formula": "=IFERROR(IF($AE4<>\"\",$AE4,\nIF($AG4<>\"\",$AG4-$EX4,\"\")),\"\")"
+      },
+      "BW": {
+        "type": "calc",
+        "formula": "=IFERROR(IF($AF4<>\"\",$AF4,\nIF(AND($AE4<>\"\",$FH4<>\"\"),$AE4-$FH4,\nIF(AND($AE4<>\"\","
+      },
+      "BX": {
+        "type": "calc",
+        "formula": "=AG4"
+      },
+      "BY": {
+        "type": "calc",
+        "formula": "=AH4"
+      },
+      "BZ": {
+        "type": "calc",
+        "formula": "=AI4"
+      },
+      "CA": {
+        "type": "calc",
+        "formula": "=IFERROR(IF($AJ4<>\"\",$AJ4,\nIF($AL4<>\"\",$AL4-$EX4,\"\")),\"\")"
+      },
+      "CB": {
+        "type": "calc",
+        "formula": "=IFERROR(IF($AK4<>\"\",$AK4,\nIF(AND($AJ4<>\"\",$FG4<>\"\"),$AJ4-$FG4,\nIF($AJ4<>\"\",$AJ4"
+      },
+      "CC": {
+        "type": "calc",
+        "formula": "=AL4"
+      },
+      "CD": {
+        "type": "calc",
+        "formula": "=AO4"
+      },
+      "CE": {
+        "type": "calc",
+        "formula": "=AP4"
+      },
+      "CF": {
+        "type": "calc",
+        "formula": "=AQ4"
+      },
+      "CG": {
+        "type": "calc",
+        "formula": "=AR4"
+      },
+      "CH": {
+        "type": "calc",
+        "formula": "=AS4"
+      },
+      "CI": {
+        "type": "calc",
+        "formula": "=AT4"
+      },
+      "CJ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX('[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xls"
+      },
+      "CK": {
+        "type": "index_match",
+        "formula": "=INDEX(Маркировка!AW:AW,MATCH($A4,Маркировка!$B:$B,0))"
+      },
+      "CL": {
+        "type": "index_match",
+        "formula": "=INDEX(Маркировка!C:C,MATCH($A4,Маркировка!$B:$B,0))"
+      },
+      "CM": {
+        "type": "index_match",
+        "formula": "=INDEX(Маркировка!F:F,MATCH($A4,Маркировка!$B:$B,0))"
+      },
+      "CN": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Маркировка!G:G,MATCH($A4,Маркировка!$B:$B,0)),\"\")"
+      },
+      "CO": {
+        "type": "index_match",
+        "formula": "=INDEX(Маркировка!H:H,MATCH($A4,Маркировка!$B:$B,0))"
+      },
+      "CP": {
+        "type": "index_match",
+        "formula": "=INDEX(Маркировка!I:I,MATCH($A4,Маркировка!$B:$B,0))"
+      },
+      "CQ": {
+        "type": "index_match",
+        "formula": "=INDEX(Маркировка!J:J,MATCH($A4,Маркировка!$B:$B,0))"
+      },
+      "CR": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX('[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xls"
+      },
+      "CS": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!L:L,MATCH($A4,'Список измерений обработаны"
+      },
+      "CT": {
+        "type": "cross_sheet",
+        "formula": "=IF(AND(DA4='[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xlsx]С"
+      },
+      "CU": {
+        "type": "cross_sheet",
+        "formula": "=IF(DC4='[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xlsx]Слова"
+      }
+    }
+  },
+  "Список фильтр": {
+    "rows": 1402,
+    "cols": 50,
+    "spill_formulas": [
+      {
+        "cell": "$G$4",
+        "formula": "=FILTER(F4:F1402,NOT(F4:F1402=\"\"))",
+        "spill_to": "$G$4:$G$243"
+      },
+      {
+        "cell": "$Q$4",
+        "formula": "=TRIM(SORT(UNIQUE(FILTER(INDIRECT('Список фильтр'!$M$1),NOT(ISBLANK(INDIRECT('Список фильтр'!$M$1)))))))",
+        "spill_to": "$Q$4:$Q$15"
+      },
+      {
+        "cell": "$T$4",
+        "formula": "=TRIM(SORT(UNIQUE(INDIRECT('Список фильтр'!$N$1))))",
+        "spill_to": "$T$4:$T$6"
+      },
+      {
+        "cell": "$V$4",
+        "formula": "=TRIM(SORTBY(Q5:Q50,P5:P50))",
+        "spill_to": "$V$4:$V$49"
+      },
+      {
+        "cell": "$W$4",
+        "formula": "=TRIM(SORTBY(UNIQUE(INDIRECT('Список фильтр'!$J$1)),UNIQUE(INDIRECT('Список фильтр'!$I$1))))",
+        "spill_to": "$W$4:$W$5"
+      },
+      {
+        "cell": "$X$4",
+        "formula": "=IFERROR(TRIM(SORTBY(UNIQUE(INDIRECT('Список фильтр'!$L$1)),UNIQUE(INDIRECT('Список фильтр'!$K$1)))),UNIQUE(INDIRECT(AK1)))",
+        "spill_to": "$X$4:$X$25"
+      },
+      {
+        "cell": "$Z$4",
+        "formula": "=FILTER(X4:X202,(X4:X202)<>\"\")",
+        "spill_to": "$Z$4:$Z$24"
+      },
+      {
+        "cell": "$AA$4",
+        "formula": "=TOCOL(TOCOL($Y$4:INDEX($Y$4:$Y$50,MATCH(\"ЯЯЯяяя\",$Y$4:$Y$50))&AA3&TOROW($Z$4:INDEX($Z$4:$Z$50,MATCH(\"ЯЯЯяяя\",$Z$4:$Z$50)))))",
+        "spill_to": "$AA$4:$AA$24"
+      },
+      {
+        "cell": "$AB$4",
+        "formula": "=IFERROR(TEXTSPLIT(AA4,$AA$3),\"\")",
+        "spill_to": "$AB$4:$AC$4"
+      },
+      {
+        "cell": "$AC$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$4",
+        "formula": "=SORTBY(UNIQUE(INDIRECT('Список фильтр'!$L$1)),UNIQUE(INDIRECT('Список фильтр'!$K$1)))",
+        "spill_to": "$AG$4:$AG$25"
+      },
+      {
+        "cell": "$AI$4",
+        "formula": "=FILTER(INDIRECT('Список фильтр'!$L$1),COUNTIF(INDIRECT('Список фильтр'!$L$1),INDIRECT('Список фильтр'!$L$1))>1)",
+        "spill_to": "$AI$4:$AI$1400"
+      },
+      {
+        "cell": "$AJ$4",
+        "formula": "=FILTER(INDIRECT('Список фильтр'!$M$1),COUNTIF(INDIRECT('Список фильтр'!$M$1),INDIRECT('Список фильтр'!$M$1))>1)",
+        "spill_to": "$AJ$4:$AJ$1400"
+      },
+      {
+        "cell": "$AO$4",
+        "formula": "=TRIM(SORTBY(INDIRECT('Список фильтр'!$G$1),INDIRECT('Список фильтр'!$I$1),1,INDIRECT('Список фильтр'!$K$1),1,INDIRECT(AK1),1))",
+        "spill_to": "$AO$4:$AO$1400"
+      },
+      {
+        "cell": "$G$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$T$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$W$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$5",
+        "formula": "=IFERROR(TEXTSPLIT(AA5,$AA$3),\"\")",
+        "spill_to": "$AB$5:$AC$5"
+      },
+      {
+        "cell": "$AC$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$T$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$6",
+        "formula": "=IFERROR(TEXTSPLIT(AA6,$AA$3),\"\")",
+        "spill_to": "$AB$6:$AC$6"
+      },
+      {
+        "cell": "$AC$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$7",
+        "formula": "=IFERROR(TEXTSPLIT(AA7,$AA$3),\"\")",
+        "spill_to": "$AB$7:$AC$7"
+      },
+      {
+        "cell": "$AC$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$8",
+        "formula": "=IFERROR(TEXTSPLIT(AA8,$AA$3),\"\")",
+        "spill_to": "$AB$8:$AC$8"
+      },
+      {
+        "cell": "$AC$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$9",
+        "formula": "=IFERROR(TEXTSPLIT(AA9,$AA$3),\"\")",
+        "spill_to": "$AB$9:$AC$9"
+      },
+      {
+        "cell": "$AC$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$10",
+        "formula": "=IFERROR(TEXTSPLIT(AA10,$AA$3),\"\")",
+        "spill_to": "$AB$10:$AC$10"
+      },
+      {
+        "cell": "$AC$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$11",
+        "formula": "=IFERROR(TEXTSPLIT(AA11,$AA$3),\"\")",
+        "spill_to": "$AB$11:$AC$11"
+      },
+      {
+        "cell": "$AC$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$12",
+        "formula": "=IFERROR(TEXTSPLIT(AA12,$AA$3),\"\")",
+        "spill_to": "$AB$12:$AC$12"
+      },
+      {
+        "cell": "$AC$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$13",
+        "formula": "=IFERROR(TEXTSPLIT(AA13,$AA$3),\"\")",
+        "spill_to": "$AB$13:$AC$13"
+      },
+      {
+        "cell": "$AC$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$14",
+        "formula": "=IFERROR(TEXTSPLIT(AA14,$AA$3),\"\")",
+        "spill_to": "$AB$14:$AC$14"
+      },
+      {
+        "cell": "$AC$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Q$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$15",
+        "formula": "=IFERROR(TEXTSPLIT(AA15,$AA$3),\"\")",
+        "spill_to": "$AB$15:$AC$15"
+      },
+      {
+        "cell": "$AC$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$16",
+        "formula": "=IFERROR(TEXTSPLIT(AA16,$AA$3),\"\")",
+        "spill_to": "$AB$16:$AC$16"
+      },
+      {
+        "cell": "$AC$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$17",
+        "formula": "=IFERROR(TEXTSPLIT(AA17,$AA$3),\"\")",
+        "spill_to": "$AB$17:$AC$17"
+      },
+      {
+        "cell": "$AC$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$18",
+        "formula": "=IFERROR(TEXTSPLIT(AA18,$AA$3),\"\")",
+        "spill_to": "$AB$18:$AC$18"
+      },
+      {
+        "cell": "$AC$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$G$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$19",
+        "formula": "=IFERROR(TEXTSPLIT(AA19,$AA$3),\"\")",
+        "spill_to": "$AB$19:$AC$19"
+      },
+      {
+        "cell": "$AC$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$19",
+        "formula": "",
+        "spill_to": "?"
+      }
+    ],
+    "dynamic_ranges": [
+      {
+        "cell": "$F$1",
+        "formula": "=CONCAT(\"$F$4:\",\"$F$\",'Список фильтр'!$F$2)"
+      },
+      {
+        "cell": "$G$1",
+        "formula": "=CONCAT(\"$G4:\",\"$G$\",'Список фильтр'!$F$2)"
+      },
+      {
+        "cell": "$I$1",
+        "formula": "=CONCAT(\"$I$4:\",\"$I$\",'Список фильтр'!$F$2)"
+      },
+      {
+        "cell": "$J$1",
+        "formula": "=CONCAT(\"$J4:\",\"$J$\",'Список фильтр'!$F$2)"
+      },
+      {
+        "cell": "$K$1",
+        "formula": "=CONCAT(\"$K$4:\",\"$K$\",'Список фильтр'!$F$2)"
+      },
+      {
+        "cell": "$L$1",
+        "formula": "=CONCAT(\"$L$4:\",\"$L$\",'Список фильтр'!$F$2)"
+      },
+      {
+        "cell": "$M$1",
+        "formula": "=CONCAT(\"$M$4:\",\"$M$\",'Список фильтр'!$F$2)"
+      },
+      {
+        "cell": "$N$1",
+        "formula": "=CONCAT(\"$N$4:\",\"$N$\",'Список фильтр'!$F$2)"
+      },
+      {
+        "cell": "$U$1",
+        "formula": "=CONCAT(\"$U4:\",\"$U$\",'Список фильтр'!$F$2)"
+      },
+      {
+        "cell": "$AK$1",
+        "formula": "=CONCAT(\"$AK4:\",\"$AK$\",'Список фильтр'!$F$2)"
+      },
+      {
+        "cell": "$B$2",
+        "formula": "=CONCAT(\"$B$3:\",\"$B$\",'Список фильтр'!$F$2)"
+      },
+      {
+        "cell": "$C$2",
+        "formula": "=CONCAT(\"$C$3:\",\"$C$\",'Список фильтр'!$F$2)"
+      },
+      {
+        "cell": "$E$2",
+        "formula": "=CONCAT(\"$E$3:\",\"$E$\",'Список фильтр'!$F$2)"
+      },
+      {
+        "cell": "$O$2",
+        "formula": "=CONCAT(\"$O$3:\",\"$O$\",'Список фильтр'!$F$2)"
+      },
+      {
+        "cell": "$P$2",
+        "formula": "=CONCAT(\"$P$3:\",\"$P$\",'Список фильтр'!$F$2)"
+      }
+    ],
+    "column_analysis": {
+      "A": {
+        "type": "calc",
+        "formula": "=IF(B4=\"\",\"\",COUNTA($B$4:B4))"
+      },
+      "B": {
+        "type": "cross_sheet",
+        "formula": "=TRIM('Медиана и список'!E3)"
+      },
+      "C": {
+        "type": "cross_sheet",
+        "formula": "=TRIM('Медиана и список'!G3)"
+      },
+      "D": {
+        "type": "index_match",
+        "formula": "=INDEX(Маркировка!D:D,MATCH($B4,Маркировка!$B:$B,0))"
+      },
+      "E": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX('[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xls"
+      },
+      "F": {
+        "type": "calc",
+        "formula": "=IF(SUMPRODUCT(--ISNUMBER(SEARCH($O$4:$O$6,E4)))>0,B4,\"\")"
+      },
+      "G": {
+        "type": "calc",
+        "formula": "=FILTER(F4:F1402,NOT(F4:F1402=\"\"))"
+      },
+      "H": {
+        "type": "calc",
+        "formula": "=IF(G4=\"\",\"\",COUNTA($G$4:G4))"
+      },
+      "I": {
+        "type": "calc",
+        "formula": "=IF(J4<>\"\",IFERROR(LEFT(J4,MATCH(FALSE,ISNUMBER(MID(J4,ROW(INDIRECT(\"1:\"&LEN(J4)"
+      },
+      "J": {
+        "type": "index_match",
+        "formula": "=IFERROR(TRIM(INDEX(Маркировка!G:G,MATCH($G4,Маркировка!$B:$B,0))),\"\")"
+      },
+      "K": {
+        "type": "calc",
+        "formula": "=IF(L4=\"подвал\",0,\nIF(L4=\"Автостоянка\",-1,\nIF(L4=\"Тех. Этаж\",-2,\nIF(L4<>\"\",IFERR"
+      },
+      "L": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Маркировка!H:H,MATCH($G4,Маркировка!$B:$B,0)),\"\")"
+      },
+      "M": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Маркировка!I:I,MATCH($G4,Маркировка!$B:$B,0)),\"\")"
+      },
+      "N": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Маркировка!D:D,MATCH($G4,Маркировка!$B:$B,0)),\"\")"
+      },
+      "P": {
+        "type": "calc",
+        "formula": "=IF(Q4<>\"\",IFERROR(RIGHT(Q4,SUM(LEN(Q4)-LEN(SUBSTITUTE(Q4,{\"0\",\"1\",\"2\",\"3\",\"4\",\""
+      },
+      "Q": {
+        "type": "spill",
+        "formula": "=TRIM(SORT(UNIQUE(FILTER(INDIRECT('Список фильтр'!$M$1),NOT(ISBLANK(INDIRECT('Сп"
+      },
+      "R": {
+        "type": "calc",
+        "formula": "=IFERROR(LEFT(Q4,MATCH(FALSE,ISNUMBER(MID(Q4,ROW(INDIRECT(\"1:\"&LEN(Q4)+1)),1)*1)"
+      },
+      "S": {
+        "type": "spill",
+        "formula": "=COUNTIF(INDIRECT('Список фильтр'!$M$1),Q4)"
+      },
+      "T": {
+        "type": "spill",
+        "formula": "=TRIM(SORT(UNIQUE(INDIRECT('Список фильтр'!$N$1))))"
+      },
+      "U": {
+        "type": "calc",
+        "formula": "=IF(V4=\"\",\"\",COUNTA($V$4:V4))"
+      },
+      "V": {
+        "type": "calc",
+        "formula": "=TRIM(SORTBY(Q5:Q50,P5:P50))"
+      },
+      "W": {
+        "type": "spill",
+        "formula": "=TRIM(SORTBY(UNIQUE(INDIRECT('Список фильтр'!$J$1)),UNIQUE(INDIRECT('Список филь"
+      },
+      "X": {
+        "type": "spill",
+        "formula": "=IFERROR(TRIM(SORTBY(UNIQUE(INDIRECT('Список фильтр'!$L$1)),UNIQUE(INDIRECT('Спи"
+      },
+      "Y": {
+        "type": "calc",
+        "formula": "=IFERROR(FILTER(W4:W202,(W4:W202)<>\"\"),\"\")"
+      },
+      "Z": {
+        "type": "calc",
+        "formula": "=FILTER(X4:X202,(X4:X202)<>\"\")"
+      },
+      "AA": {
+        "type": "index_match",
+        "formula": "=TOCOL(TOCOL($Y$4:INDEX($Y$4:$Y$50,MATCH(\"ЯЯЯяяя\",$Y$4:$Y$50))&AA3&TOROW($Z$4:IN"
+      },
+      "AB": {
+        "type": "calc",
+        "formula": "=IFERROR(TEXTSPLIT(AA4,$AA$3),\"\")"
+      },
+      "AG": {
+        "type": "spill",
+        "formula": "=SORTBY(UNIQUE(INDIRECT('Список фильтр'!$L$1)),UNIQUE(INDIRECT('Список фильтр'!$"
+      },
+      "AH": {
+        "type": "index_match",
+        "formula": "=INDEX(Маркировка!DT:DT,MATCH($B4,Маркировка!$B:$B,0))"
+      },
+      "AI": {
+        "type": "spill",
+        "formula": "=FILTER(INDIRECT('Список фильтр'!$L$1),COUNTIF(INDIRECT('Список фильтр'!$L$1),IN"
+      },
+      "AJ": {
+        "type": "spill",
+        "formula": "=FILTER(INDIRECT('Список фильтр'!$M$1),COUNTIF(INDIRECT('Список фильтр'!$M$1),IN"
+      },
+      "AK": {
+        "type": "calc",
+        "formula": "=IF(AJ4<>\"\",AI4,\"\")"
+      },
+      "AL": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX('Список измерений обработаный'!D:D,MATCH($B4,'Список измерений об"
+      },
+      "AN": {
+        "type": "calc",
+        "formula": "=IF(M4<>\"\",IFERROR(RIGHT(M4,SUM(LEN(M4)-LEN(SUBSTITUTE(M4,{\"0\",\"1\",\"2\",\"3\",\"4\",\""
+      },
+      "AO": {
+        "type": "spill",
+        "formula": "=TRIM(SORTBY(INDIRECT('Список фильтр'!$G$1),INDIRECT('Список фильтр'!$I$1),1,IND"
+      },
+      "AP": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(C:C,MATCH($AO4,$B:$B,0)),\"\")"
+      },
+      "AQ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(H:H,MATCH($AO4,$G:$G,0)),\"\")"
+      },
+      "AR": {
+        "type": "calc",
+        "formula": "=IF(AO4=\"\",\"\",COUNTA($AO$4:AO4))"
+      },
+      "AS": {
+        "type": "calc",
+        "formula": "=IF(T4=0,\"\",T4)"
+      },
+      "AU": {
+        "type": "index_match",
+        "formula": "=INDEX($Y$4:$Y$26,MATCH(\"ЯЯЯяяя\",$Y$4:$Y$26))"
+      }
+    }
+  },
+  "Медиана и список": {
+    "rows": 3000,
+    "cols": 7,
+    "spill_formulas": [
+      {
+        "cell": "$E$3",
+        "formula": "=FILTER(IFERROR(INDIRECT('Список фильтр'!$C$2),\"\"),TRIM(IFERROR(INDIRECT('Список фильтр'!$C$2),\"\"))<>\"\",\"нет данных\")",
+        "spill_to": "$E$3:$E$242"
+      },
+      {
+        "cell": "$F$3",
+        "formula": "=FILTER(IFERROR(INDIRECT('Список фильтр'!$B$2),\"\"),TRIM(IFERROR(INDIRECT('Список фильтр'!$B$2),\"\"))<>\"\",\"нет данных\")",
+        "spill_to": "$F$3:$F$243"
+      },
+      {
+        "cell": "$E$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$E$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$F$19",
+        "formula": "",
+        "spill_to": "?"
+      }
+    ],
+    "dynamic_ranges": [],
+    "column_analysis": {
+      "A": {
+        "type": "cross_sheet",
+        "formula": "='Список измерений обработаный'!B5"
+      },
+      "B": {
+        "type": "spill",
+        "formula": "=IFERROR(IFS(A4=\"Измерение\",\"\",\nSUM(COUNTIF(Фильтр_помещений,TEXTSPLIT(D4,\" \")))"
+      },
+      "C": {
+        "type": "spill",
+        "formula": "=IFERROR(IFS(A4=\"Измерение\",\"\",\nA4=\"0 П00\",\"\",\nSUM(COUNTIF(Фильтр_помещений,TEXT"
+      },
+      "D": {
+        "type": "cross_sheet",
+        "formula": "='Список измерений обработаный'!J5"
+      },
+      "G": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX('Список измерений обработаный'!A:A,MATCH($E4,'Список измерений об"
+      }
+    }
+  },
+  "Список измерений обработаный": {
+    "rows": 3000,
+    "cols": 101,
+    "spill_formulas": [
+      {
+        "cell": "$P$1",
+        "formula": "=TRANSPOSE('Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xlsx'!Таблица_Замер_сокращений[Заголовок])",
+        "spill_to": "$P$1:$BB$1"
+      },
+      {
+        "cell": "$Q$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$R$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$S$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$T$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$U$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$W$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AD$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AK$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AL$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AM$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AN$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AP$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AQ$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AR$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AS$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AT$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AU$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AV$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AW$1",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$P$2",
+        "formula": "=TRANSPOSE('Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xlsx'!Таблица_Замер_сокращений[Замер словарь сокращений])",
+        "spill_to": "$P$2:$BB$2"
+      },
+      {
+        "cell": "$Q$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$R$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$S$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$T$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$U$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$W$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AD$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AK$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AL$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AM$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AN$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AP$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AQ$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AR$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AS$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AT$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AU$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AV$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AW$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$P$3",
+        "formula": "=TRANSPOSE('Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xlsx'!Таблица_Замер_сокращений[Для фактического проема])",
+        "spill_to": "$P$3:$BB$3"
+      },
+      {
+        "cell": "$Q$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$R$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$S$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$T$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$U$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$V$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$W$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$X$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Z$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AA$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AB$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AD$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AK$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AL$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AM$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AN$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AO$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AP$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AQ$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AR$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AS$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AT$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AU$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AV$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AW$3",
+        "formula": "",
+        "spill_to": "?"
+      }
+    ],
+    "dynamic_ranges": [
+      {
+        "cell": "$L$4",
+        "formula": "=IF(ISNUMBER(SEARCH(\"незамерен\",$B4)),\"Проем не замерен\",\nIF(ISNUMBER(SEARCH(\"закрыто\",$B4)),\"Закрыто, проем не замерен\",\nIF(ISNUMBER(SEARCH(\"нетпроема\",$B4)),\"Нет проема\",\nIF(ISNUMBER(SEARCH(\"нетстен"
+      }
+    ],
+    "column_analysis": {
+      "A": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Автомаркировка!G2)"
+      },
+      "B": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Автомаркировка!H2)"
+      },
+      "C": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Автомаркировка!I2)"
+      },
+      "D": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Автомаркировка!K2)"
+      },
+      "E": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Автомаркировка!L2)"
+      },
+      "F": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Автомаркировка!N2)"
+      },
+      "G": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Автомаркировка!O2)"
+      },
+      "H": {
+        "type": "calc",
+        "formula": "=IFERROR(IF(ISNUMBER(SEARCH(\"Лед+\",B4)),SUBSTITUTE(B4,\"Лед+\",\"\"),MROUND(G4,5)),\""
+      },
+      "I": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Автомаркировка!Q2)"
+      },
+      "J": {
+        "type": "cross_sheet",
+        "formula": "=TRIM(Автомаркировка!R2)"
+      },
+      "K": {
+        "type": "calc",
+        "formula": "=IF(COUNTIF(Сокращение_Пом,J4)>0,\"Пом\",J4)"
+      },
+      "L": {
+        "type": "dynamic_range",
+        "formula": "=IF(ISNUMBER(SEARCH(\"незамерен\",$B4)),\"Проем не замерен\",\nIF(ISNUMBER(SEARCH(\"за"
+      },
+      "M": {
+        "type": "calc",
+        "formula": "=IF(ISNUMBER(MATCH(K4,Сокращение_Пом,0)),SUBSTITUTE(ADDRESS(1,COLUMN($H:$H),4),1"
+      },
+      "N": {
+        "type": "calc",
+        "formula": "=IF(ISNUMBER(MATCH(K4,Сокращение_Пом,0)),SUBSTITUTE(ADDRESS(1,COLUMN($K:$K),4),1"
+      },
+      "P": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(P$2,INDIRECT($N4),0)),\"\")"
+      },
+      "Q": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(Q$2,INDIRECT($N4),0)),\"\")"
+      },
+      "R": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(R$2,INDIRECT($N4),0)),\"\")"
+      },
+      "S": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(S$2,INDIRECT($N4),0)),\"\")"
+      },
+      "T": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(T$2,INDIRECT($N4),0)),\"\")"
+      },
+      "U": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(U$2,INDIRECT($N4),0)),\"\")"
+      },
+      "V": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(V$2,INDIRECT($N4),0)),\"\")"
+      },
+      "W": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(W$2,INDIRECT($N4),0)),\"\")"
+      },
+      "X": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(X$2,INDIRECT($N4),0)),\"\")"
+      },
+      "Y": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(Y$2,INDIRECT($N4),0)),\"\")"
+      },
+      "Z": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(Z$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AA": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AA$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AB": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AB$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AC": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AC$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AD": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AD$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AE": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AE$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AF": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AF$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AG": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AG$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AH": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AH$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AI": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AI$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AJ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AJ$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AK": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AK$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AL": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AL$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AM": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AM$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AN": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AN$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AO": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AO$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AP": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AP$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AQ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AQ$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AR": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AR$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AS": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AS$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AT": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AT$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AU": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AU$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AV": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AV$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AW": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AW$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AX": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AX$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AY": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AY$2,INDIRECT($N4),0)),\"\")"
+      },
+      "AZ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(AZ$2,INDIRECT($N4),0)),\"\")"
+      },
+      "BA": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(BA$2,INDIRECT($N4),0)),\"\")"
+      },
+      "BB": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(BB$2,INDIRECT($N4),0)),\"\")"
+      },
+      "BC": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(BC$2,INDIRECT($N4),0)),\"\")"
+      },
+      "BD": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(INDIRECT($M4),MATCH(BD$2,INDIRECT($N4),0)),\"\")"
+      },
+      "BE": {
+        "type": "dynamic_range",
+        "formula": "=IF(IF(OR(S4<>\"\",T4<>\"\",U4<>\"\",V4<>\"\",W4<>\"\",X4<>\"\",Y4<>\"\",Z4<>\"\",AA4<>\"\",AB4<>\""
+      },
+      "BF": {
+        "type": "dynamic_range",
+        "formula": "=IF(Q4<>\"\",CONCAT(\" (\",Q4,Q$3),\"\")"
+      },
+      "BG": {
+        "type": "dynamic_range",
+        "formula": "=IF(R4<>\"\",CONCAT(\" (\",R4,R$3),\"\")"
+      },
+      "BH": {
+        "type": "dynamic_range",
+        "formula": "=IF(S4<>\"\",IF(OR(T4<>\"\",U4<>\"\"),CONCAT(\" (\",S4,S$3,\") \"),\nCONCAT(,S4,S$3,)),\"\")"
+      },
+      "BI": {
+        "type": "dynamic_range",
+        "formula": "=IF(T4<>\"\",IF(OR(U4<>\"\",S4<>\"\"),CONCAT(\" (\",T4,T$3,\") \"),\nCONCAT(,T4,T$3,)),\nIF("
+      },
+      "BJ": {
+        "type": "dynamic_range",
+        "formula": "=IF(U4<>\"\",IF(OR(S4<>\"\",T4<>\"\"),CONCAT(\" (\",U4,U$3,\") \"),\nCONCAT(,U4,U$3,)),\"\")"
+      },
+      "BK": {
+        "type": "dynamic_range",
+        "formula": "=IF(V4<>\"\",IF(U4<>\"\",CONCAT(\" (\",V4,V$3,\") \"),\nCONCAT(,V4,V$3,)),\"\")"
+      },
+      "BL": {
+        "type": "dynamic_range",
+        "formula": "=IF(W4<>\"\",IF(V4<>\"\",CONCAT(\" (\",W4,W$3,\") \"),\nCONCAT(,W4,W$3,)),\"\")"
+      },
+      "BM": {
+        "type": "dynamic_range",
+        "formula": "=IF(X4<>\"\",CONCAT(\" (\",X4,X$3),\"\")"
+      },
+      "BN": {
+        "type": "dynamic_range",
+        "formula": "=IF(Y4<>\"\",CONCAT(\" (\",Y4,Y$3),\"\")"
+      },
+      "BO": {
+        "type": "dynamic_range",
+        "formula": "=IF(Z4<>\"\",IF(OR(AA4<>\"\",S4<>\"\",T4<>\"\",U4<>\"\",Y4<>\"\"),CONCAT(\" (\",Z4,Z$3,\") \"),\n"
+      },
+      "BP": {
+        "type": "dynamic_range",
+        "formula": "=IF(AA4<>\"\",CONCAT(\" (\",AA4,AA$3),\"\")"
+      },
+      "BQ": {
+        "type": "dynamic_range",
+        "formula": "=IF(AB4<>\"\",CONCAT(\" (\",AB4,AB$3),\"\")"
+      },
+      "BR": {
+        "type": "dynamic_range",
+        "formula": "=IF(AC4<>\"\",IF(OR(S4<>\"\",U4<>\"\"),CONCAT(\" (\",AC4,AC$3,\") \"),\nCONCAT(,AC4,AC$3,))"
+      },
+      "BS": {
+        "type": "dynamic_range",
+        "formula": "=IF(AD4<>\"\",CONCAT(\" (\",AD4,AD$3),\"\")"
+      },
+      "BT": {
+        "type": "dynamic_range",
+        "formula": "=IF(AE4<>\"\",CONCAT(\" (\",AE4,AE$3,\") \"),\"\")"
+      },
+      "BU": {
+        "type": "dynamic_range",
+        "formula": "=IF(AF4<>\"\",CONCAT(\" (\",AF4,AF$3),\"\")"
+      },
+      "BV": {
+        "type": "dynamic_range",
+        "formula": "=IF(AG4<>\"\",CONCAT(\" (\",AG4,AG$3),\"\")"
+      },
+      "BW": {
+        "type": "dynamic_range",
+        "formula": "=IF(AH4<>\"\",CONCAT(\" (\",AH4,AH$3),\"\")"
+      },
+      "BX": {
+        "type": "dynamic_range",
+        "formula": "=IF(AI4<>\"\",CONCAT(\" (\",AI4,AI$3,\") \"),\"\")"
+      },
+      "BY": {
+        "type": "dynamic_range",
+        "formula": "=IF(AJ4<>\"\",CONCAT(\" (\",AJ4,AJ$3),\"\")"
+      },
+      "BZ": {
+        "type": "dynamic_range",
+        "formula": "=IF(AK4<>\"\",CONCAT(\" (\",AK4,AK$3),\"\")"
+      },
+      "CA": {
+        "type": "dynamic_range",
+        "formula": "=IF(AL4<>\"\",CONCAT(\" (\",AL4,AL$3),\"\")"
+      },
+      "CB": {
+        "type": "dynamic_range",
+        "formula": "=IF(AM4<>\"\",CONCAT(\" (\",AM4,AM$3),\"\")"
+      },
+      "CC": {
+        "type": "dynamic_range",
+        "formula": "=IF(AN4<>\"\",CONCAT(\" (\",AN4,AN$3),\"\")"
+      },
+      "CD": {
+        "type": "dynamic_range",
+        "formula": "=IF(AO4<>\"\",CONCAT(\" (\",AO4,AO$3),\"\")"
+      },
+      "CE": {
+        "type": "dynamic_range",
+        "formula": "=IF(AP4<>\"\",IF(OR(BH4<>\"\",BI4<>\"\",BJ4<>\"\",BK4<>\"\",AQ4<>\"\",AS4<>\"\",AR4<>\"\"),CONCA"
+      },
+      "CF": {
+        "type": "dynamic_range",
+        "formula": "=IF(AQ4<>\"\",IF(OR(BI4<>\"\",BJ4<>\"\",BK4<>\"\",BH4<>\"\",AR4<>\"\",AP4<>\"\",AS4<>\"\"),CONCA"
+      },
+      "CG": {
+        "type": "dynamic_range",
+        "formula": "=IF(AR4<>\"\",IF(OR(BJ4<>\"\",BK4<>\"\",BH4<>\"\",BI4<>\"\",AS4<>\"\",AQ4<>\"\",AP4<>\"\"),CONCA"
+      },
+      "CH": {
+        "type": "dynamic_range",
+        "formula": "=IF(AS4<>\"\",CONCAT(\" (\",AS4,AS$3),\"\")"
+      },
+      "CI": {
+        "type": "dynamic_range",
+        "formula": "=IF(AT4<>\"\",CONCAT(\" (\",AT4,AT$3),\"\")"
+      },
+      "CJ": {
+        "type": "dynamic_range",
+        "formula": "=IF(AU4<>\"\",IF(OR(BH4<>\"\",BI4<>\"\",BJ4<>\"\",BK4<>\"\",AV4<>\"\",AX4<>\"\",AW4<>\"\",BL4<>\""
+      },
+      "CK": {
+        "type": "dynamic_range",
+        "formula": "=IF(AV4<>\"\",IF(OR(BI4<>\"\",BJ4<>\"\",BK4<>\"\",BH4<>\"\",AW4<>\"\",AU4<>\"\",AX4<>\"\"),CONCA"
+      },
+      "CL": {
+        "type": "dynamic_range",
+        "formula": "=IF(AW4<>\"\",IF(OR(BJ4<>\"\",BK4<>\"\",BH4<>\"\",BI4<>\"\",AX4<>\"\",AV4<>\"\",AU4<>\"\"),CONCA"
+      },
+      "CM": {
+        "type": "dynamic_range",
+        "formula": "=IF(AX4<>\"\",IF(OR(BK4<>\"\",BL4<>\"\",BI4<>\"\",BJ4<>\"\",AY4<>\"\",AW4<>\"\",AV4<>\"\",BM4<>\""
+      },
+      "CN": {
+        "type": "dynamic_range",
+        "formula": "=IF(AY4<>\"\",CONCAT(\" (\",AY4,AY$3),\"\")"
+      },
+      "CO": {
+        "type": "dynamic_range",
+        "formula": "=IF(AZ4<>\"\",CONCAT(\" (\",AZ4,AZ$3),\"\")"
+      },
+      "CS": {
+        "type": "index_match",
+        "formula": "=IF(M4<>\"\",INDEX(Маркировка!BD:BD,MATCH($B4,Маркировка!$B:$B,0)),\"\")"
+      },
+      "CT": {
+        "type": "index_match",
+        "formula": "=IF($M4<>\"\",INDEX(Маркировка!CL:CL,MATCH($B4,Маркировка!$B:$B,0)),\"\")"
+      },
+      "CU": {
+        "type": "index_match",
+        "formula": "=IF($M4<>\"\",INDEX(Маркировка!CM:CM,MATCH($B4,Маркировка!$B:$B,0)),\"\")"
+      }
+    }
+  },
+  "Автомаркировка": {
+    "rows": 3000,
+    "cols": 191,
+    "spill_formulas": [],
+    "dynamic_ranges": [
+      {
+        "cell": "$AC$2",
+        "formula": "=IF(ISNUMBER(Y2),CONCAT(R2,Y2),\"\")"
+      },
+      {
+        "cell": "$AD$2",
+        "formula": "=IF(ISNUMBER(Y2),CONCAT(AB2&\".\",AC2),\"\")"
+      },
+      {
+        "cell": "$AE$2",
+        "formula": "=IF(ISNUMBER(Y2),CONCAT(Z2&\".\",AC2),\"\")"
+      },
+      {
+        "cell": "$AF$2",
+        "formula": "=IF(ISNUMBER(Y2),CONCAT(Z2&\".\",AB2&\".\",AC2),\"\")"
+      },
+      {
+        "cell": "$AG$2",
+        "formula": "=IF(AC2<>\"\",CONCAT(\"П\",Z2,\".\",AB2,\".\",AC2),\"\")"
+      },
+      {
+        "cell": "$AL$2",
+        "formula": "=IF(AND(AK2<>\"\",CD2=\"\"),CONCAT(AB2&\".\",AJ2),\nIF(AND(AK2<>\"\",CD2<>\"\",AK2=AF2),CONCAT(AB2&\".\",AJ2),AK2))"
+      },
+      {
+        "cell": "$AN$2",
+        "formula": "=IF(AND(AJ2<>\"\",$Z2<>\"\"),CONCAT($Z2,\".\",AJ2),AJ2)"
+      },
+      {
+        "cell": "$AO$2",
+        "formula": "=IF(AND(AL2<>\"\",$Z2<>\"\"),CONCAT($Z2,\".\",AL2),AL2)"
+      },
+      {
+        "cell": "$AR$2",
+        "formula": "=IF(AM2<>\"\",CONCAT(\"П\",Z2,\".\",AB2,\".\",AJ2),\"\")"
+      },
+      {
+        "cell": "$AC$3",
+        "formula": "=IF(ISNUMBER(Y3),CONCAT(R3,Y3),\"\")"
+      },
+      {
+        "cell": "$AD$3",
+        "formula": "=IF(ISNUMBER(Y3),CONCAT(AB3&\".\",AC3),\"\")"
+      },
+      {
+        "cell": "$AE$3",
+        "formula": "=IF(ISNUMBER(Y3),CONCAT(Z3&\".\",AC3),\"\")"
+      },
+      {
+        "cell": "$AF$3",
+        "formula": "=IF(ISNUMBER(Y3),CONCAT(Z3&\".\",AB3&\".\",AC3),\"\")"
+      },
+      {
+        "cell": "$AG$3",
+        "formula": "=IF(AC3<>\"\",CONCAT(\"П\",Z3,\".\",AB3,\".\",AC3),\"\")"
+      },
+      {
+        "cell": "$AL$3",
+        "formula": "=IF(AND(AK3<>\"\",CD3=\"\"),CONCAT(AB3&\".\",AJ3),\nIF(AND(AK3<>\"\",CD3<>\"\",AK3=AF3),CONCAT(AB3&\".\",AJ3),AK3))"
+      },
+      {
+        "cell": "$AN$3",
+        "formula": "=IF(AND(AJ3<>\"\",$Z3<>\"\"),CONCAT($Z3,\".\",AJ3),AJ3)"
+      },
+      {
+        "cell": "$AO$3",
+        "formula": "=IF(AND(AL3<>\"\",$Z3<>\"\"),CONCAT($Z3,\".\",AL3),AL3)"
+      },
+      {
+        "cell": "$AR$3",
+        "formula": "=IF(AM3<>\"\",CONCAT(\"П\",Z3,\".\",AB3,\".\",AJ3),\"\")"
+      },
+      {
+        "cell": "$AC$4",
+        "formula": "=IF(ISNUMBER(Y4),CONCAT(R4,Y4),\"\")"
+      },
+      {
+        "cell": "$AD$4",
+        "formula": "=IF(ISNUMBER(Y4),CONCAT(AB4&\".\",AC4),\"\")"
+      },
+      {
+        "cell": "$AE$4",
+        "formula": "=IF(ISNUMBER(Y4),CONCAT(Z4&\".\",AC4),\"\")"
+      },
+      {
+        "cell": "$AF$4",
+        "formula": "=IF(ISNUMBER(Y4),CONCAT(Z4&\".\",AB4&\".\",AC4),\"\")"
+      },
+      {
+        "cell": "$AG$4",
+        "formula": "=IF(AC4<>\"\",CONCAT(\"П\",Z4,\".\",AB4,\".\",AC4),\"\")"
+      },
+      {
+        "cell": "$AL$4",
+        "formula": "=IF(AND(AK4<>\"\",CD4=\"\"),CONCAT(AB4&\".\",AJ4),\nIF(AND(AK4<>\"\",CD4<>\"\",AK4=AF4),CONCAT(AB4&\".\",AJ4),AK4))"
+      },
+      {
+        "cell": "$AN$4",
+        "formula": "=IF(AND(AJ4<>\"\",$Z4<>\"\"),CONCAT($Z4,\".\",AJ4),AJ4)"
+      },
+      {
+        "cell": "$AO$4",
+        "formula": "=IF(AND(AL4<>\"\",$Z4<>\"\"),CONCAT($Z4,\".\",AL4),AL4)"
+      },
+      {
+        "cell": "$AR$4",
+        "formula": "=IF(AM4<>\"\",CONCAT(\"П\",Z4,\".\",AB4,\".\",AJ4),\"\")"
+      }
+    ],
+    "column_analysis": {
+      "A": {
+        "type": "spill",
+        "formula": "=IFERROR('Список измерений фильтр'!I3,\"\")"
+      },
+      "B": {
+        "type": "spill",
+        "formula": "=TRIM(IFERROR('Список измерений фильтр'!J3,\"\"))"
+      },
+      "C": {
+        "type": "spill",
+        "formula": "=IF(A4<>\"\",HYPERLINK(\"#\"&CELL(\"адрес\",INDEX('[Юнтолово 8 корпус 1-22 этажи Кварт"
+      },
+      "D": {
+        "type": "calc",
+        "formula": "=IF(B4=E4,1,0)"
+      },
+      "E": {
+        "type": "index_match",
+        "formula": "=IFERROR(IF(COUNTIF(Замер_таблица_соответствия,B4)>0,INDEX(Замер_словарь_сокраще"
+      },
+      "F": {
+        "type": "calc",
+        "formula": "=IF(E4=H4,1,0)"
+      },
+      "G": {
+        "type": "spill",
+        "formula": "=IFERROR('Список измерений фильтр'!I3,\"\")"
+      },
+      "H": {
+        "type": "calc",
+        "formula": "=TRIM(IF(E4=\"0 П00\",\"0 П00\",\nIF(AT4<>\"\",BH4,\nIF(AI4<>\"\",AI4,E4))))"
+      },
+      "I": {
+        "type": "spill",
+        "formula": "=IFERROR('Список измерений фильтр'!K3,\"\")"
+      },
+      "J": {
+        "type": "spill",
+        "formula": "=IFERROR('Список измерений фильтр'!L3,\"\")"
+      },
+      "K": {
+        "type": "spill",
+        "formula": "=IFERROR('Список измерений фильтр'!M3,\"\")"
+      },
+      "L": {
+        "type": "spill",
+        "formula": "=IFERROR('Список измерений фильтр'!N3,\"\")"
+      },
+      "M": {
+        "type": "spill",
+        "formula": "=IFERROR('Список измерений фильтр'!O3,\"\")"
+      },
+      "N": {
+        "type": "calc",
+        "formula": "=IFERROR(I4*1,\"\")"
+      },
+      "O": {
+        "type": "calc",
+        "formula": "=IFERROR(MEDIAN((INDIRECT($W4))),\"\")"
+      },
+      "P": {
+        "type": "calc",
+        "formula": "=IFERROR(IF(ISNUMBER(SEARCH(\"Лед+\",Q4)),SUBSTITUTE(Q4,\"Лед+\",\"\"),MROUND(O4,5)),\""
+      },
+      "Q": {
+        "type": "calc",
+        "formula": "=IF(E4=$E$2,\"Change\",\nIF(COUNTIF(Замер_словарьСКР,E4)>0,\"Change\",\nIF(ISNUMBER(SE"
+      },
+      "R": {
+        "type": "calc",
+        "formula": "=IF(Q4=\"Change\",\nIF(ISNUMBER(MATCH(AJ4,Сокращение_Пом,0)),AJ4,\nIF(AND(E4<>\"Измер"
+      },
+      "S": {
+        "type": "calc",
+        "formula": "=IF(COUNTIF(Сокращение_Пом,R4)>0,\"Пом\",R4)"
+      },
+      "T": {
+        "type": "calc",
+        "formula": "=IF(S4<>\"\",K4,\"\")"
+      },
+      "U": {
+        "type": "calc",
+        "formula": "=IF(X4<>\"\",K4,\"\")"
+      },
+      "W": {
+        "type": "calc",
+        "formula": "=IF(Q4=\"Change\",SUBSTITUTE(ADDRESS(1,COLUMN($N:$N),4),1,\"\")& (ROW()) & \":\"&SUBST"
+      },
+      "X": {
+        "type": "calc",
+        "formula": "=IF(ISNUMBER(MATCH(S4,Сокращение_Пом,0)),SUBSTITUTE(ADDRESS(1,COLUMN($S:$S),4),1"
+      },
+      "Y": {
+        "type": "index_match",
+        "formula": "=IFERROR(IF(R4=\"Кв\",LET(\nСчетПомСекция,COUNTIFS($R$2:R4,\"Кв\",$Z$2:Z4,Z4,$AB$2:AB"
+      },
+      "Z": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",IF(ISNUMBER(AA4),AA4,OFFSET(Z4,-1,0)),\"\")"
+      },
+      "AA": {
+        "type": "calc",
+        "formula": "=IFERROR(IF(CH4<>\"\",VALUE(CH4),SUBSTITUTE(FQ4,\"П\",)*1),\"\")"
+      },
+      "AB": {
+        "type": "calc",
+        "formula": "=IF(B4<>\"\",\nIF(ISNUMBER(CD4),CD4,\nIF(FR4<>\"\",FR4,\nOFFSET(AB4,-1,0))),\"\")"
+      },
+      "AC": {
+        "type": "dynamic_range",
+        "formula": "=IF(ISNUMBER(Y4),CONCAT(R4,Y4),\"\")"
+      },
+      "AD": {
+        "type": "dynamic_range",
+        "formula": "=IF(ISNUMBER(Y4),CONCAT(AB4&\".\",AC4),\"\")"
+      },
+      "AE": {
+        "type": "dynamic_range",
+        "formula": "=IF(ISNUMBER(Y4),CONCAT(Z4&\".\",AC4),\"\")"
+      },
+      "AF": {
+        "type": "dynamic_range",
+        "formula": "=IF(ISNUMBER(Y4),CONCAT(Z4&\".\",AB4&\".\",AC4),\"\")"
+      },
+      "AG": {
+        "type": "dynamic_range",
+        "formula": "=IF(AC4<>\"\",CONCAT(\"П\",Z4,\".\",AB4,\".\",AC4),\"\")"
+      },
+      "AH": {
+        "type": "calc",
+        "formula": "=IF(ISNUMBER(MATCH(AF4,Секция.ЭтажСокращение,0)),AF4,AE4)"
+      },
+      "AI": {
+        "type": "calc",
+        "formula": "=TRIM(IF(AND(R4=\"\",E4=\"Измерение\"),\"\",\nIF(AND(R4=\"\",E4<>\"Измерение\"),\"\",\nIF(AND("
+      },
+      "AJ": {
+        "type": "calc",
+        "formula": "=CE4"
+      },
+      "AK": {
+        "type": "calc",
+        "formula": "=IF(CF4=CJ4,SUBSTITUTE(CF4,\"П\",,1),CF4)"
+      },
+      "AL": {
+        "type": "dynamic_range",
+        "formula": "=IF(AND(AK4<>\"\",CD4=\"\"),CONCAT(AB4&\".\",AJ4),\nIF(AND(AK4<>\"\",CD4<>\"\",AK4=AF4),CON"
+      },
+      "AM": {
+        "type": "calc",
+        "formula": "=IF(ISNUMBER(MATCH(AL4,Сокращение,0)),AL4,AJ4)"
+      },
+      "AN": {
+        "type": "dynamic_range",
+        "formula": "=IF(AND(AJ4<>\"\",$Z4<>\"\"),CONCAT($Z4,\".\",AJ4),AJ4)"
+      },
+      "AO": {
+        "type": "dynamic_range",
+        "formula": "=IF(AND(AL4<>\"\",$Z4<>\"\"),CONCAT($Z4,\".\",AL4),AL4)"
+      },
+      "AP": {
+        "type": "calc",
+        "formula": "=IF(ISNUMBER(MATCH(AO4,Секция.ЭтажСокращение,0)),AO4,AN4)"
+      },
+      "AQ": {
+        "type": "calc",
+        "formula": "=IF(ISNUMBER(MATCH(AM4,Секция.ЭтажСокращение,0)),AM4,AP4)"
+      },
+      "AR": {
+        "type": "dynamic_range",
+        "formula": "=IF(AM4<>\"\",CONCAT(\"П\",Z4,\".\",AB4,\".\",AJ4),\"\")"
+      },
+      "AS": {
+        "type": "calc",
+        "formula": "=SUBSTITUTE(AU4,\"П\",\"\")"
+      },
+      "AT": {
+        "type": "index_match",
+        "formula": "=IFERROR(SUBSTITUTE(IF(CI4<>\"\",CI4,(INDEX(Сокращение_маркировки,MATCH(IF(ISNUMBE"
+      },
+      "AU": {
+        "type": "calc",
+        "formula": "=IFERROR(IF(AND(AR4=\"\",GB4=GD4),AG4,IF(AND(AR4=\"\",GB4=GC4),AG4,IF(AND(CJ4<>\"\",GB"
+      },
+      "AV": {
+        "type": "index_match",
+        "formula": "=IFERROR(SUBSTITUTE(IF(FD4<>\"\",FD4,(INDEX(Стяжка_Сокращение_маркировки,MATCH(IF("
+      },
+      "AW": {
+        "type": "index_match",
+        "formula": "=IFERROR(IF(CL4<>\"\",CL4,(INDEX(Открывание_Сокращение_маркировки,MATCH(IF(ISNUMBE"
+      },
+      "AX": {
+        "type": "index_match",
+        "formula": "=IFERROR(IF(CM4<>\"\",CM4,(INDEX(Наличник_Сокращение_маркировки,MATCH(IF(ISNUMBER("
+      },
+      "AY": {
+        "type": "index_match",
+        "formula": "=IFERROR(IF(CN4<>\"\",CN4,(INDEX(Материал_стен_Сокращение_маркировки,MATCH(IF(ISNU"
+      },
+      "AZ": {
+        "type": "index_match",
+        "formula": "=IFERROR(IF(CO4<>\"\",CO4,(INDEX(Угловой_проем_Сокращение_маркировки,MATCH(IF(ISNU"
+      },
+      "BA": {
+        "type": "index_match",
+        "formula": "=IFERROR(IF(CP4<>\"\",CP4,(INDEX(Штукатурка_в_проеме_наличие_сокращение_маркировки"
+      },
+      "BB": {
+        "type": "index_match",
+        "formula": "=IFERROR(IF(CQ4<>\"\",CQ4,(INDEX(Штукатурка_стен_Сокращение_маркировки,MATCH(IF(IS"
+      },
+      "BC": {
+        "type": "index_match",
+        "formula": "=IFERROR(IF(CR4<>\"\",CR4,(INDEX(Фактическое_чистовое_покрытие_сокращение_маркиров"
+      },
+      "BD": {
+        "type": "index_match",
+        "formula": "=IFERROR(IF(CS4<>\"\",CS4,(INDEX(Порог_Сокращение_маркировки,MATCH(IF(ISNUMBER(MAT"
+      },
+      "BE": {
+        "type": "index_match",
+        "formula": "=IFERROR(IF(CT4<>\"\",CT4,(INDEX(Добор_Сокращение_маркировки,MATCH(IF(ISNUMBER(MAT"
+      },
+      "BF": {
+        "type": "calc",
+        "formula": "=TEXTJOIN(\" \",,EK4:FC4)"
+      },
+      "BG": {
+        "type": "calc",
+        "formula": "=IF(COUNTIF(Замер_словарь_сокращений,DN4)>0,\"\",DN4)"
+      },
+      "BH": {
+        "type": "dynamic_range",
+        "formula": "=IF(AT4=\"Высота_потолка\",CONCAT(AT4,\" \",AU4),\nIF(AT4<>\"\",TEXTJOIN(\" \",,AT4:BG4),"
+      },
+      "BJ": {
+        "type": "calc",
+        "formula": "=IFERROR(TEXTSPLIT(E4,BI4),\"\")"
+      },
+      "CD": {
+        "type": "calc",
+        "formula": "=IFERROR(IF(FR4=\"\",LEFT(CF4,(LEN(CF4)-LEN(CE4))),FR4)*1,\"\")"
+      },
+      "CE": {
+        "type": "index_match",
+        "formula": "=IF(FS4<>\"\",FS4,IF(CF4=\"\",\"\",\nIFERROR(INDEX(Сокращение,MATCH(MAX(LEN(Сокращение)"
+      },
+      "CF": {
+        "type": "calc",
+        "formula": "=IF(BJ4=CI4,\"\",IF(BJ4=\"0\",\"\",IF(IFERROR(MATCH(999,SEARCH(Замер_словарь_сокращени"
+      },
+      "CG": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($BJ4:$BW4,MATCH(TRUE,BYCOL($BJ4:$BW4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "CH": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($BJ4:$BW4,MATCH(TRUE,BYCOL($BJ4:$BW4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "CI": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($BJ4:$BW4,MATCH(TRUE,BYCOL($BJ4:$BW4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "CJ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($BJ4:$BW4,MATCH(TRUE,BYCOL($BJ4:$BW4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "CK": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($BJ4:$BW4,MATCH(TRUE,BYCOL($BJ4:$BW4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "CL": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Открывание,MATCH(INDEX($BJ4:$BW4,MATCH(TRUE,BYCOL($BJ4:$BW4,LAMBD"
+      },
+      "CM": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Наличник_сокращение,MATCH(INDEX($BJ4:$BW4,MATCH(TRUE,BYCOL($BJ4:$"
+      },
+      "CN": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Материал_стен_сокращение,MATCH(INDEX($BJ4:$BW4,MATCH(TRUE,BYCOL($"
+      },
+      "CO": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Угловой_проем_наличие,MATCH(INDEX($BJ4:$BW4,MATCH(TRUE,BYCOL($BJ4"
+      },
+      "CP": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Штукатурка_в_проеме_наличие,MATCH(INDEX($BJ4:$BW4,MATCH(TRUE,BYCO"
+      },
+      "CQ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Штукатурка_стен_наличие,MATCH(INDEX($BJ4:$BW4,MATCH(TRUE,BYCOL($B"
+      },
+      "CR": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Фактическое_чистовое_покрытие_наличие,MATCH(INDEX($BJ4:$BW4,MATCH"
+      },
+      "CS": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Порог,MATCH(INDEX($BJ4:$BW4,MATCH(TRUE,BYCOL($BJ4:$BW4,LAMBDA(col"
+      },
+      "CT": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Добор,MATCH(INDEX($BJ4:$BW4,MATCH(TRUE,BYCOL($BJ4:$BW4,LAMBDA(col"
+      },
+      "CU": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(BJ4,Примечания_сокращение)),BJ4,\"\")"
+      }
+    }
+  },
+  "Список измерений фильтр": {
+    "rows": 3000,
+    "cols": 33,
+    "spill_formulas": [],
+    "dynamic_ranges": [],
+    "column_analysis": {
+      "A": {
+        "type": "calc",
+        "formula": "=IF(C4=\"\",\"\",COUNTA($C$2:C4))"
+      },
+      "B": {
+        "type": "calc",
+        "formula": "=IF(OR(C4=0,C4=\"\"),\"\",COUNTA($C$2:C4))"
+      },
+      "C": {
+        "type": "cross_sheet",
+        "formula": "=IF(ISBLANK('[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xlsx]С"
+      },
+      "D": {
+        "type": "cross_sheet",
+        "formula": "=IF(ISBLANK('[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xlsx]С"
+      },
+      "E": {
+        "type": "cross_sheet",
+        "formula": "=IF(ISBLANK('[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xlsx]С"
+      },
+      "F": {
+        "type": "cross_sheet",
+        "formula": "=IF(ISBLANK('[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xlsx]С"
+      },
+      "G": {
+        "type": "cross_sheet",
+        "formula": "=IF(ISBLANK('[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xlsx]С"
+      },
+      "H": {
+        "type": "cross_sheet",
+        "formula": "=IF(ISBLANK('[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xlsx]С"
+      },
+      "I": {
+        "type": "calc",
+        "formula": "=IFERROR(LARGE(B:B,ROW(B4)),\"\")"
+      },
+      "J": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(C:C,MATCH($I4,$B:$B,0)),\"\")"
+      },
+      "K": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(D:D,MATCH($I4,$B:$B,0)),\"\")"
+      },
+      "L": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(E:E,MATCH($I4,$B:$B,0)),\"\")"
+      },
+      "M": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(F:F,MATCH($I4,$B:$B,0)),\"\")"
+      },
+      "N": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(G:G,MATCH($I4,$B:$B,0)),\"\")"
+      },
+      "O": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(H:H,MATCH($I4,$B:$B,0)),\"\")"
+      },
+      "P": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Автомаркировка!G:G,MATCH($B4,Автомаркировка!G:G,0)),\"\")"
+      },
+      "Q": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Автомаркировка!B:B,MATCH($B4,Автомаркировка!$A:$A,0)),\"\")"
+      },
+      "R": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Автомаркировка!H:H,MATCH($B4,Автомаркировка!$A:$A,0)),\"\")"
+      },
+      "S": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Автомаркировка!I:I,MATCH($B4,Автомаркировка!$A:$A,0)),\"\")"
+      },
+      "T": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Автомаркировка!J:J,MATCH($B4,Автомаркировка!$A:$A,0)),\"\")"
+      },
+      "U": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Автомаркировка!K:K,MATCH($B4,Автомаркировка!$A:$A,0)),\"\")"
+      },
+      "V": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Автомаркировка!L:L,MATCH($B4,Автомаркировка!$A:$A,0)),\"\")"
+      },
+      "W": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Автомаркировка!M:M,MATCH($B4,Автомаркировка!$A:$A,0)),\"\")"
+      }
+    }
+  },
+  "Маркировка": {
+    "rows": 3000,
+    "cols": 131,
+    "spill_formulas": [
+      {
+        "cell": "$Y$2",
+        "formula": "=IFERROR(TEXTSPLIT($M2,\"/\"),\"\")",
+        "spill_to": "$Y$2:$Z$2"
+      },
+      {
+        "cell": "$Z$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$2",
+        "formula": "=IFERROR(TEXTSPLIT($B2,\" \"),\"\")",
+        "spill_to": "$AC$2:$AI$2"
+      },
+      {
+        "cell": "$AD$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$2",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$3",
+        "formula": "=IFERROR(TEXTSPLIT($M3,\"/\"),\"\")",
+        "spill_to": "$Y$3:$Z$3"
+      },
+      {
+        "cell": "$Z$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$3",
+        "formula": "=IFERROR(TEXTSPLIT($B3,\" \"),\"\")",
+        "spill_to": "$AC$3:$AJ$3"
+      },
+      {
+        "cell": "$AD$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$3",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$4",
+        "formula": "=IFERROR(TEXTSPLIT($M4,\"/\"),\"\")",
+        "spill_to": "$Y$4:$Z$4"
+      },
+      {
+        "cell": "$Z$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$4",
+        "formula": "=IFERROR(TEXTSPLIT($B4,\" \"),\"\")",
+        "spill_to": "$AC$4:$AJ$4"
+      },
+      {
+        "cell": "$AD$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$4",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$5",
+        "formula": "=IFERROR(TEXTSPLIT($M5,\"/\"),\"\")",
+        "spill_to": "$Y$5:$Z$5"
+      },
+      {
+        "cell": "$Z$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$5",
+        "formula": "=IFERROR(TEXTSPLIT($B5,\" \"),\"\")",
+        "spill_to": "$AC$5:$AK$5"
+      },
+      {
+        "cell": "$AD$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AK$5",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$6",
+        "formula": "=IFERROR(TEXTSPLIT($M6,\"/\"),\"\")",
+        "spill_to": "$Y$6:$Z$6"
+      },
+      {
+        "cell": "$Z$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$6",
+        "formula": "=IFERROR(TEXTSPLIT($B6,\" \"),\"\")",
+        "spill_to": "$AC$6:$AI$6"
+      },
+      {
+        "cell": "$AD$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$6",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$7",
+        "formula": "=IFERROR(TEXTSPLIT($M7,\"/\"),\"\")",
+        "spill_to": "$Y$7:$Z$7"
+      },
+      {
+        "cell": "$Z$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$7",
+        "formula": "=IFERROR(TEXTSPLIT($B7,\" \"),\"\")",
+        "spill_to": "$AC$7:$AK$7"
+      },
+      {
+        "cell": "$AD$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AK$7",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$8",
+        "formula": "=IFERROR(TEXTSPLIT($M8,\"/\"),\"\")",
+        "spill_to": "$Y$8:$Z$8"
+      },
+      {
+        "cell": "$Z$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$8",
+        "formula": "=IFERROR(TEXTSPLIT($B8,\" \"),\"\")",
+        "spill_to": "$AC$8:$AJ$8"
+      },
+      {
+        "cell": "$AD$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$8",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$9",
+        "formula": "=IFERROR(TEXTSPLIT($M9,\"/\"),\"\")",
+        "spill_to": "$Y$9:$Z$9"
+      },
+      {
+        "cell": "$Z$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$9",
+        "formula": "=IFERROR(TEXTSPLIT($B9,\" \"),\"\")",
+        "spill_to": "$AC$9:$AK$9"
+      },
+      {
+        "cell": "$AD$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AK$9",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$10",
+        "formula": "=IFERROR(TEXTSPLIT($M10,\"/\"),\"\")",
+        "spill_to": "$Y$10:$Z$10"
+      },
+      {
+        "cell": "$Z$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$10",
+        "formula": "=IFERROR(TEXTSPLIT($B10,\" \"),\"\")",
+        "spill_to": "$AC$10:$AK$10"
+      },
+      {
+        "cell": "$AD$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AK$10",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$11",
+        "formula": "=IFERROR(TEXTSPLIT($M11,\"/\"),\"\")",
+        "spill_to": "$Y$11:$Z$11"
+      },
+      {
+        "cell": "$Z$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$11",
+        "formula": "=IFERROR(TEXTSPLIT($B11,\" \"),\"\")",
+        "spill_to": "$AC$11:$AI$11"
+      },
+      {
+        "cell": "$AD$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$11",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$12",
+        "formula": "=IFERROR(TEXTSPLIT($M12,\"/\"),\"\")",
+        "spill_to": "$Y$12:$Z$12"
+      },
+      {
+        "cell": "$Z$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$12",
+        "formula": "=IFERROR(TEXTSPLIT($B12,\" \"),\"\")",
+        "spill_to": "$AC$12:$AJ$12"
+      },
+      {
+        "cell": "$AD$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$12",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$13",
+        "formula": "=IFERROR(TEXTSPLIT($M13,\"/\"),\"\")",
+        "spill_to": "$Y$13:$Z$13"
+      },
+      {
+        "cell": "$Z$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$13",
+        "formula": "=IFERROR(TEXTSPLIT($B13,\" \"),\"\")",
+        "spill_to": "$AC$13:$AJ$13"
+      },
+      {
+        "cell": "$AD$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$13",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$14",
+        "formula": "=IFERROR(TEXTSPLIT($M14,\"/\"),\"\")",
+        "spill_to": "$Y$14:$Z$14"
+      },
+      {
+        "cell": "$Z$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$14",
+        "formula": "=IFERROR(TEXTSPLIT($B14,\" \"),\"\")",
+        "spill_to": "$AC$14:$AL$14"
+      },
+      {
+        "cell": "$AD$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AK$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AL$14",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$15",
+        "formula": "=IFERROR(TEXTSPLIT($M15,\"/\"),\"\")",
+        "spill_to": "$Y$15:$Z$15"
+      },
+      {
+        "cell": "$Z$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$15",
+        "formula": "=IFERROR(TEXTSPLIT($B15,\" \"),\"\")",
+        "spill_to": "$AC$15:$AJ$15"
+      },
+      {
+        "cell": "$AD$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$15",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$16",
+        "formula": "=IFERROR(TEXTSPLIT($M16,\"/\"),\"\")",
+        "spill_to": "$Y$16:$Z$16"
+      },
+      {
+        "cell": "$Z$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$16",
+        "formula": "=IFERROR(TEXTSPLIT($B16,\" \"),\"\")",
+        "spill_to": "$AC$16:$AI$16"
+      },
+      {
+        "cell": "$AD$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$16",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$17",
+        "formula": "=IFERROR(TEXTSPLIT($M17,\"/\"),\"\")",
+        "spill_to": "$Y$17:$Z$17"
+      },
+      {
+        "cell": "$Z$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$17",
+        "formula": "=IFERROR(TEXTSPLIT($B17,\" \"),\"\")",
+        "spill_to": "$AC$17:$AK$17"
+      },
+      {
+        "cell": "$AD$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AK$17",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$18",
+        "formula": "=IFERROR(TEXTSPLIT($M18,\"/\"),\"\")",
+        "spill_to": "$Y$18:$Z$18"
+      },
+      {
+        "cell": "$Z$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$18",
+        "formula": "=IFERROR(TEXTSPLIT($B18,\" \"),\"\")",
+        "spill_to": "$AC$18:$AI$18"
+      },
+      {
+        "cell": "$AD$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$18",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$Y$19",
+        "formula": "=IFERROR(TEXTSPLIT($M19,\"/\"),\"\")",
+        "spill_to": "$Y$19:$Z$19"
+      },
+      {
+        "cell": "$Z$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AC$19",
+        "formula": "=IFERROR(TEXTSPLIT($B19,\" \"),\"\")",
+        "spill_to": "$AC$19:$AK$19"
+      },
+      {
+        "cell": "$AD$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AE$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AF$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AG$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AH$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AI$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AJ$19",
+        "formula": "",
+        "spill_to": "?"
+      },
+      {
+        "cell": "$AK$19",
+        "formula": "",
+        "spill_to": "?"
+      }
+    ],
+    "dynamic_ranges": [
+      {
+        "cell": "$N$2",
+        "formula": "=IF(S2=\"\",\"\",IF(W2<>0,CONCAT(S2,\"/\",W2),S2))"
+      },
+      {
+        "cell": "$O$2",
+        "formula": "=IF(T2=\"\",\"\",IF(V2<>0,CONCAT(T2,\"/\",V2),T2))"
+      },
+      {
+        "cell": "$AA$2",
+        "formula": "=IF(Y2<>\"\",CONCAT(\"пол \",Y2),\"\")"
+      },
+      {
+        "cell": "$AB$2",
+        "formula": "=IF(Z2<>\"\",CONCAT(\"пол \",Z2),\"\")"
+      },
+      {
+        "cell": "$N$3",
+        "formula": "=IF(S3=\"\",\"\",IF(W3<>0,CONCAT(S3,\"/\",W3),S3))"
+      },
+      {
+        "cell": "$O$3",
+        "formula": "=IF(T3=\"\",\"\",IF(V3<>0,CONCAT(T3,\"/\",V3),T3))"
+      },
+      {
+        "cell": "$AA$3",
+        "formula": "=IF(Y3<>\"\",CONCAT(\"пол \",Y3),\"\")"
+      },
+      {
+        "cell": "$AB$3",
+        "formula": "=IF(Z3<>\"\",CONCAT(\"пол \",Z3),\"\")"
+      },
+      {
+        "cell": "$N$4",
+        "formula": "=IF(S4=\"\",\"\",IF(W4<>0,CONCAT(S4,\"/\",W4),S4))"
+      },
+      {
+        "cell": "$O$4",
+        "formula": "=IF(T4=\"\",\"\",IF(V4<>0,CONCAT(T4,\"/\",V4),T4))"
+      },
+      {
+        "cell": "$AA$4",
+        "formula": "=IF(Y4<>\"\",CONCAT(\"пол \",Y4),\"\")"
+      },
+      {
+        "cell": "$AB$4",
+        "formula": "=IF(Z4<>\"\",CONCAT(\"пол \",Z4),\"\")"
+      }
+    ],
+    "column_analysis": {
+      "A": {
+        "type": "calc",
+        "formula": "=IF(B4=\"\",\"\",COUNTA($B$2:B4))"
+      },
+      "B": {
+        "type": "cross_sheet",
+        "formula": "=TRIM('Медиана и список'!E5)"
+      },
+      "C": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX('[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xls"
+      },
+      "D": {
+        "type": "calc",
+        "formula": "=IF(AW4=\"Измерение\",\"\",AW4)"
+      },
+      "E": {
+        "type": "calc",
+        "formula": "=SUBSTITUTE(SUBSTITUTE(AX4,\"Пом\",\"П\"),\"П\",\"Пом. \")"
+      },
+      "F": {
+        "type": "calc",
+        "formula": "=IFERROR(IF(SEARCH(\"Пом. УИ\",E4),SUBSTITUTE(E4,\"Пом. УИ\",\"ПУИ\"),\"\"),E4)"
+      },
+      "G": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Секция_значение,MATCH(DR4,Секция,0)),\"\")"
+      },
+      "H": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Этаж_значение,MATCH(DS4,Сокращение_этажа,0)),\"\")"
+      },
+      "I": {
+        "type": "index_match",
+        "formula": "=IFERROR(IFERROR(INDEX(Помещния_значение,MATCH(DP4,Помещния_сокращение,0)),DP4),"
+      },
+      "J": {
+        "type": "calc",
+        "formula": "=DQ4"
+      },
+      "K": {
+        "type": "calc",
+        "formula": "=LOWER(LEFT(AY4,3))"
+      },
+      "L": {
+        "type": "calc",
+        "formula": "=SUBSTITUTE(M4,\"Z\",\"*\")"
+      },
+      "M": {
+        "type": "calc",
+        "formula": "=MID(AY4,4,50)"
+      },
+      "N": {
+        "type": "dynamic_range",
+        "formula": "=IF(S4=\"\",\"\",IF(W4<>0,CONCAT(S4,\"/\",W4),S4))"
+      },
+      "O": {
+        "type": "dynamic_range",
+        "formula": "=IF(T4=\"\",\"\",IF(V4<>0,CONCAT(T4,\"/\",V4),T4))"
+      },
+      "P": {
+        "type": "calc",
+        "formula": "=Q4"
+      },
+      "Q": {
+        "type": "calc",
+        "formula": "=T4"
+      },
+      "R": {
+        "type": "calc",
+        "formula": "=U4"
+      },
+      "S": {
+        "type": "index_match",
+        "formula": "=IF(AB4<>\"\",INDEX('[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit."
+      },
+      "T": {
+        "type": "index_match",
+        "formula": "=IF(AA4<>\"\",INDEX('[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit."
+      },
+      "U": {
+        "type": "index_match",
+        "formula": "=IF(AA4<>\"\",INDEX('[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit."
+      },
+      "V": {
+        "type": "index_match",
+        "formula": "=IF(AA4<>\"\",IF($AB4<>\"\",INDEX('[Юнтолово 8 корпус 1-22 этажи Квартиры Список изм"
+      },
+      "W": {
+        "type": "index_match",
+        "formula": "=IF(AA4<>\"\",IF($AB4<>\"\",INDEX('[Юнтолово 8 корпус 1-22 этажи Квартиры Список изм"
+      },
+      "X": {
+        "type": "index_match",
+        "formula": "=IF(AA4<>\"\",IF($AB4<>\"\",INDEX('[Юнтолово 8 корпус 1-22 этажи Квартиры Список изм"
+      },
+      "Y": {
+        "type": "calc",
+        "formula": "=IFERROR(TEXTSPLIT($M4,\"/\"),\"\")"
+      },
+      "AA": {
+        "type": "dynamic_range",
+        "formula": "=IF(Y4<>\"\",CONCAT(\"пол \",Y4),\"\")"
+      },
+      "AB": {
+        "type": "dynamic_range",
+        "formula": "=IF(Z4<>\"\",CONCAT(\"пол \",Z4),\"\")"
+      },
+      "AC": {
+        "type": "calc",
+        "formula": "=IFERROR(TEXTSPLIT($B4,\" \"),\"\")"
+      },
+      "AW": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($AC4:$AV4,MATCH(TRUE,BYCOL($AC4:$AV4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "AX": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($AC4:$AV4,MATCH(TRUE,BYCOL($AC4:$AV4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "AY": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($AC4:$AV4,MATCH(TRUE,BYCOL($AC4:$AV4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "AZ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($AC4:$AV4,MATCH(TRUE,BYCOL($AC4:$AV4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "BA": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($AC4:$AV4,MATCH(TRUE,BYCOL($AC4:$AV4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "BB": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($AC4:$AV4,MATCH(TRUE,BYCOL($AC4:$AV4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "BC": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($AC4:$AV4,MATCH(TRUE,BYCOL($AC4:$AV4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "BD": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($AC4:$AV4,MATCH(TRUE,BYCOL($AC4:$AV4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "BE": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($AC4:$AV4,MATCH(TRUE,BYCOL($AC4:$AV4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "BF": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($AC4:$AV4,MATCH(TRUE,BYCOL($AC4:$AV4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "BG": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($AC4:$AV4,MATCH(TRUE,BYCOL($AC4:$AV4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "BH": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX($AC4:$AV4,MATCH(TRUE,BYCOL($AC4:$AV4,LAMBDA(col,SUM(--COUNTIF(col"
+      },
+      "BI": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(AI4,Примечания_сокращение)),AI4,\"\")"
+      },
+      "BJ": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(AJ4,Примечания_сокращение)),AJ4,\"\")"
+      },
+      "BK": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(AK4,Примечания_сокращение)),AK4,\"\")"
+      },
+      "BL": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(AL4,Примечания_сокращение)),AL4,\"\")"
+      },
+      "BM": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(AM4,Примечания_сокращение)),AM4,\"\")"
+      },
+      "BN": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(AN4,Примечания_сокращение)),AN4,\"\")"
+      },
+      "BO": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(AO4,Примечания_сокращение)),AO4,\"\")"
+      },
+      "BP": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(AP4,Примечания_сокращение)),AP4,\"\")"
+      },
+      "BQ": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(AQ4,Примечания_сокращение)),AQ4,\"\")"
+      },
+      "BR": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(AR4,Примечания_сокращение)),AR4,\"\")"
+      },
+      "BS": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(AS4,Примечания_сокращение)),AS4,\"\")"
+      },
+      "BT": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(AT4,Примечания_сокращение)),AT4,\"\")"
+      },
+      "BU": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(AU4,Примечания_сокращение)),AU4,\"\")"
+      },
+      "BV": {
+        "type": "calc",
+        "formula": "=IF(OR(COUNTIF(AV4,Примечания_сокращение)),AV4,\"\")"
+      },
+      "BW": {
+        "type": "calc",
+        "formula": "=TEXTJOIN(\" \",,FILTER(AC4:AV4,ISNUMBER(MATCH(AC4:AV4,AW4:BS4,0))=FALSE))"
+      },
+      "BX": {
+        "type": "index_match",
+        "formula": "=INDEX('Список измерений обработаный'!BC:BC,MATCH($B4,'Список измерений обработа"
+      },
+      "BY": {
+        "type": "calc",
+        "formula": "=IF(B4<>0,TEXTJOIN(\" \",,BI4:BV4),\nIF(B4<=0,\"\"))"
+      },
+      "BZ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX('[Юнтолово 8 корпус 1-22 этажи Квартиры Список измерений edit.xls"
+      },
+      "CA": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Открывание_значение,MATCH(AZ4,Открывание,0)),\"\")"
+      },
+      "CB": {
+        "type": "dynamic_range",
+        "formula": "=IF($BZ4<>$CA4,CONCAT(\"Открывание по спецификации \",$BZ4,\", по чертежу \",$CA4),$"
+      },
+      "CC": {
+        "type": "calc",
+        "formula": "=IF(ISNUMBER(SEARCH(\"Он\",BA4)),SUBSTITUTE(BA4,\"Он\",,1),BA4)"
+      },
+      "CD": {
+        "type": "calc",
+        "formula": "=IF(ISNUMBER(SEARCH(\"Ону\",BA4)),\"Ону\",\nIF(ISNUMBER(SEARCH(\"Он\",BA4)),\"Он\",BA4))"
+      },
+      "CE": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Наличник_значение,MATCH(BA4,Наличник_сокращение,0)),\"\")"
+      },
+      "CF": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Наличник_значение,MATCH(CC4,Наличник_сокращение,0)),\"\")"
+      },
+      "CG": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Наличник_значение,MATCH(CD4,Наличник_сокращение,0)),\"\")"
+      },
+      "CH": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Материал_стен_сокращение,MATCH(BB4,Материал_стен_сокращение,0)),\""
+      },
+      "CI": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Материал_стен_значение,MATCH(CH4,Материал_стен_сокращение,0)),\"\")"
+      },
+      "CJ": {
+        "type": "index_match",
+        "formula": "=IFERROR(INDEX(Угловой_проем_значение,MATCH(BC4,Угловой_проем_наличие,0)),\"\")"
+      },
+      "CK": {
+        "type": "index_match",
+        "formula": "=TRIM(IFERROR(INDEX(Фактическое_чистовое_покрытие_значение,MATCH(BD4,Фактическое"
+      },
+      "CL": {
+        "type": "index_match",
+        "formula": "=IF(COUNTIF(Пл,BD4)>0,INDEX(Фактическое_чистовое_покрытие_высота,MATCH(BD4,Факти"
+      },
+      "CM": {
+        "type": "index_match",
+        "formula": "=IF(COUNTIF(ПлВп,BD4)>0,INDEX(Фактическое_чистовое_покрытие_высота,MATCH(BD4,Фак"
+      },
+      "CN": {
+        "type": "index_match",
+        "formula": "=IF(COUNTIF(ПлЗп,BD4)>0,INDEX(Фактическое_чистовое_покрытие_высота,MATCH(BD4,Фак"
+      },
+      "CO": {
+        "type": "index_match",
+        "formula": "=TRIM(IFERROR(INDEX(Порог_значение,MATCH(BE4,Порог,0)),\"\"))"
+      },
+      "CP": {
+        "type": "index_match",
+        "formula": "=TRIM(IFERROR(INDEX(Порог_высота,MATCH(BE4,Порог,0)),\"\"))"
+      },
+      "CQ": {
+        "type": "index_match",
+        "formula": "=TRIM(IFERROR(INDEX(Добор_значение,MATCH(BF4,Добор,0)),\"\"))"
+      },
+      "CR": {
+        "type": "index_match",
+        "formula": "=TRIM(IFERROR(INDEX(Добор_высота,MATCH(BF4,Добор,0)),\"\"))"
+      },
+      "CS": {
+        "type": "index_match",
+        "formula": "=TRIM(IFERROR(INDEX(Штукатурка_в_проеме_значение,MATCH(BG4,Штукатурка_в_проеме_н"
+      },
+      "CT": {
+        "type": "index_match",
+        "formula": "=TRIM(IFERROR(INDEX(Штукатурка_стен_значение,MATCH(BH4,Штукатурка_стен_наличие,0"
+      },
+      "CU": {
+        "type": "index_match",
+        "formula": "=TRIM(IFERROR(INDEX(Примечания_значение,MATCH(BI4,Примечания_сокращение,0)),\"\"))"
+      }
+    }
+  }
+}

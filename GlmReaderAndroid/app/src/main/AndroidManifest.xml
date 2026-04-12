@@ -48,6 +48,12 @@
             android:exported="false"
             android:parentActivityName=".ui.ProjectListActivity" />
 
+        <activity
+            android:name=".ui.BleDebugActivity"
+            android:exported="false"
+            android:label="BLE Debug"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

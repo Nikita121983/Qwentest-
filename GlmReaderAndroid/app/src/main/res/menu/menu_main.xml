@@ -9,6 +9,12 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/action_ble_debug"
+        android:title="BLE Debug"
+        android:icon="@android:drawable/ic_menu_info_details"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_export"
         android:title="Экспорт XLSX"
         android:icon="@android:drawable/ic_menu_upload"

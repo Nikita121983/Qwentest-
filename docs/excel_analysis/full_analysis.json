@@ -1,0 +1,1685 @@
+{
+  "summary": {
+    "total_cells": 1727042,
+    "total_formulas": 879531,
+    "total_unique_templates": 420,
+    "sheets": {
+      "Сводная таблица": {
+        "formulas": 143,
+        "unique_templates": 1,
+        "total_cells": 144
+      },
+      "Шахматка без формул": {
+        "formulas": 7080,
+        "unique_templates": 1,
+        "total_cells": 7080
+      },
+      "Шахматка": {
+        "formulas": 10232,
+        "unique_templates": 9,
+        "total_cells": 10440
+      },
+      "Новый шаблон": {
+        "formulas": 9462,
+        "unique_templates": 19,
+        "total_cells": 16500
+      },
+      "Дефектная ведомость": {
+        "formulas": 11973,
+        "unique_templates": 2,
+        "total_cells": 11976
+      },
+      "Дефектная ведомость (старый)": {
+        "formulas": 18950,
+        "unique_templates": 3,
+        "total_cells": 18962
+      },
+      "Дефектная перепад полов": {
+        "formulas": 22447,
+        "unique_templates": 2,
+        "total_cells": 22455
+      },
+      "Дефектная ведомость САМОЛЕТ": {
+        "formulas": 15966,
+        "unique_templates": 1,
+        "total_cells": 15968
+      },
+      "Минимум": {
+        "formulas": 10999,
+        "unique_templates": 3,
+        "total_cells": 11500
+      },
+      "Замер": {
+        "formulas": 40836,
+        "unique_templates": 81,
+        "total_cells": 41417
+      },
+      "Расчет": {
+        "formulas": 95250,
+        "unique_templates": 156,
+        "total_cells": 111500
+      },
+      "Список фильтр": {
+        "formulas": 28163,
+        "unique_templates": 34,
+        "total_cells": 70100
+      },
+      "Медиана и список": {
+        "formulas": 9479,
+        "unique_templates": 3,
+        "total_cells": 21000
+      },
+      "Список измерений обработаный": {
+        "formulas": 278721,
+        "unique_templates": 20,
+        "total_cells": 303000
+      },
+      "Автомаркировка": {
+        "formulas": 141017,
+        "unique_templates": 34,
+        "total_cells": 573000
+      },
+      "Список измерений фильтр": {
+        "formulas": 68997,
+        "unique_templates": 19,
+        "total_cells": 99000
+      },
+      "Маркировка": {
+        "formulas": 109816,
+        "unique_templates": 32,
+        "total_cells": 393000
+      }
+    }
+  },
+  "dependencies": {
+    "Шахматка без формул": {
+      "Шахматка": 7080
+    },
+    "Шахматка": {
+      "Список фильтр": 250,
+      "IFERROR(INDEX(Замер": 6608,
+      "Замер": 6608
+    },
+    "Новый шаблон": {
+      "Расчет": 8466,
+      "INDEX(Расчет": 7968,
+      "Замер": 498,
+      "Список измерений обработаный": 996
+    },
+    "Дефектная ведомость": {
+      "Замер": 11475
+    },
+    "Дефектная ведомость (старый)": {
+      "Замер": 17954,
+      "IF(ISBLANK(Замер": 499
+    },
+    "Дефектная перепад полов": {
+      "Замер": 21949
+    },
+    "Дефектная ведомость САМОЛЕТ": {
+      "Дефектная ведомость (старый)": 15966
+    },
+    "Минимум": {
+      "TRIM(Замер": 9502,
+      "Список фильтр": 1497
+    },
+    "Замер": {
+      "Список фильтр": 498,
+      "IFERROR(VALUE(Расчет": 996,
+      "INDEX(Расчет": 35856,
+      "Расчет": 35856,
+      "INDEX(Маркировка": 1494,
+      "Маркировка": 3984,
+      "IF(Расчет": 996,
+      "IFERROR(INDEX(Маркировка": 2490
+    },
+    "Расчет": {
+      "Список измерений обработаный": 43830,
+      "Список фильтр": 1494,
+      "Словарь условий": 69322,
+      "Спецификация заполнения дверей": 5976,
+      "INDEX(Маркировка": 17430,
+      "Маркировка": 19422,
+      "IFERROR(INDEX(Маркировка": 498,
+      "TRIM(INDEX(Маркировка": 1494,
+      "CHOOSE(MATCH(Расчет": 50
+    },
+    "Список фильтр": {
+      "MATH(COUNT(Автомаркировка": 1,
+      "Медиана и список": 2798,
+      "INDEX(Маркировка": 2798,
+      "Маркировка": 8394,
+      "Спецификация заполнения дверей": 2798,
+      "IFERROR(TRIM(INDEX(Маркировка": 1399,
+      "IFERROR(INDEX(Маркировка": 4197,
+      "Список измерений обработаный": 2798
+    },
+    "Медиана и список": {
+      "Список измерений обработаный": 11998
+    },
+    "Список измерений обработаный": {
+      "TRIM(Автомаркировка": 26973,
+      "INDEX(Маркировка": 11988,
+      "Маркировка": 11988
+    },
+    "Автомаркировка": {
+      "Список измерений": 6,
+      "Список измерений фильтр": 23992
+    },
+    "Список измерений фильтр": {
+      "IFERROR(INDEX(Автомаркировка": 24000,
+      "Автомаркировка": 24000,
+      "Список измерений": 35988
+    },
+    "Маркировка": {
+      "Автомаркировка": 1,
+      "Медиана и список": 2999,
+      "Спецификация заполнения дверей": 11996,
+      "Полы": 53982,
+      "Список измерений обработаный": 5998
+    }
+  },
+  "external_refs": {
+    "Расчет": {
+      "1": 75298
+    },
+    "Список фильтр": {
+      "1": 2798
+    },
+    "Автомаркировка": {
+      "1": 6
+    },
+    "Список измерений фильтр": {
+      "1": 35988
+    },
+    "Маркировка": {
+      "1": 65978
+    }
+  },
+  "column_variants": {
+    "Шахматка": {
+      "D": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 118
+        }
+      },
+      "E": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=_xlfn.CONCAT($CELL,\" \",$CELL,\" \",$CELL)": 118
+        }
+      },
+      "F": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "='Список фильтр'!$CELL": 1,
+          "=IFERROR(INDEX(Замер!$D:$D,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "G": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$K:$K,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "H": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "I": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "J": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 118
+        }
+      },
+      "K": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=_xlfn.CONCAT($CELL,\" \",$CELL,\" \",$CELL)": 118
+        }
+      },
+      "L": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "='Список фильтр'!$CELL": 1,
+          "=IFERROR(INDEX(Замер!$D:$D,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "M": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$K:$K,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "N": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "O": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "P": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 118
+        }
+      },
+      "Q": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=_xlfn.CONCAT($CELL,\" \",$CELL,\" \",$CELL)": 118
+        }
+      },
+      "R": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "='Список фильтр'!$CELL": 1,
+          "=IFERROR(INDEX(Замер!$D:$D,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "S": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$K:$K,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "T": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "U": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "V": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 118
+        }
+      },
+      "W": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=_xlfn.CONCAT($CELL,\" \",$CELL,\" \",$CELL)": 118
+        }
+      },
+      "X": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "='Список фильтр'!$CELL": 1,
+          "=IFERROR(INDEX(Замер!$D:$D,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "Y": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$K:$K,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "Z": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AA": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AB": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 118
+        }
+      },
+      "AC": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=_xlfn.CONCAT($CELL,\" \",$CELL,\" \",$CELL)": 118
+        }
+      },
+      "AD": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "='Список фильтр'!$CELL": 1,
+          "=IFERROR(INDEX(Замер!$D:$D,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AE": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$K:$K,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AF": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AG": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AH": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 118
+        }
+      },
+      "AI": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=_xlfn.CONCAT($CELL,\" \",$CELL,\" \",$CELL)": 118
+        }
+      },
+      "AJ": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "='Список фильтр'!$CELL": 1,
+          "=IFERROR(INDEX(Замер!$D:$D,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AK": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$K:$K,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AL": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AM": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AN": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 118
+        }
+      },
+      "AO": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=_xlfn.CONCAT($CELL,\" \",$CELL,\" \",$CELL)": 118
+        }
+      },
+      "AP": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "='Список фильтр'!$CELL": 1,
+          "=IFERROR(INDEX(Замер!$D:$D,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AQ": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$K:$K,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AR": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AS": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AT": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 118
+        }
+      },
+      "AU": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=_xlfn.CONCAT($CELL,\" \",$CELL,\" \",$CELL)": 118
+        }
+      },
+      "AV": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "='Список фильтр'!$CELL": 1,
+          "=IFERROR(INDEX(Замер!$D:$D,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AW": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$K:$K,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AX": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AY": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "AZ": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 118
+        }
+      },
+      "BA": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=_xlfn.CONCAT($CELL,\" \",$CELL,\" \",$CELL)": 118
+        }
+      },
+      "BB": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "='Список фильтр'!$CELL": 1,
+          "=IFERROR(INDEX(Замер!$D:$D,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BC": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$K:$K,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BD": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BE": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BF": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 118
+        }
+      },
+      "BG": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=_xlfn.CONCAT($CELL,\" \",$CELL,\" \",$CELL)": 118
+        }
+      },
+      "BH": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "='Список фильтр'!$CELL": 1,
+          "=IFERROR(INDEX(Замер!$D:$D,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BI": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$K:$K,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BJ": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BK": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BL": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 118
+        }
+      },
+      "BM": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=_xlfn.CONCAT($CELL,\" \",$CELL,\" \",$CELL)": 118
+        }
+      },
+      "BN": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "='Список фильтр'!$CELL": 1,
+          "=IFERROR(INDEX(Замер!$D:$D,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BO": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$K:$K,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BP": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BQ": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BR": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 118
+        }
+      },
+      "BS": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=_xlfn.CONCAT($CELL,\" \",$CELL,\" \",$CELL)": 118
+        }
+      },
+      "BT": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "='Список фильтр'!$CELL": 1,
+          "=IFERROR(INDEX(Замер!$D:$D,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BU": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$K:$K,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BV": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BW": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "BX": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 118
+        }
+      },
+      "BY": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=_xlfn.CONCAT($CELL,\" \",$CELL,\" \",$CELL)": 118
+        }
+      },
+      "BZ": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "='Список фильтр'!$CELL": 1,
+          "=IFERROR(INDEX(Замер!$D:$D,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "CA": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$K:$K,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "CB": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "CC": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "CD": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 118
+        }
+      },
+      "CE": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=_xlfn.CONCAT($CELL,\" \",$CELL,\" \",$CELL)": 118
+        }
+      },
+      "CF": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "='Список фильтр'!$CELL": 1,
+          "=IFERROR(INDEX(Замер!$D:$D,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "CG": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$K:$K,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "CH": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AE:$AE,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      },
+      "CI": {
+        "total": 119,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR(INDEX(Замер!$AD:$AD,MATCH($CELL,Замер!$BY:$BY,0)),\"\")": 118
+        }
+      }
+    },
+    "Минимум": {
+      "A": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=TRIM(Замер!$CELL)": 1,
+          "=TRIM('Список фильтр'!$CELL)": 499
+        }
+      },
+      "C": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=TRIM(Замер!$CELL)": 1,
+          "=IFERROR(VALUE('Список фильтр'!$CELL),\"\")": 499
+        }
+      },
+      "D": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=TRIM(Замер!$CELL)": 1,
+          "=IFERROR(VALUE('Список фильтр'!$CELL),\"\")": 499
+        }
+      }
+    },
+    "Расчет": {
+      "AS": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=TRIM('Список измерений обработаный'!$CELL)": 1,
+          "=INDEX('Список измерений обработаный'!BC:BC,MATCH($CELL,'Список измерений обработаный'!$B:$B,0))": 499
+        }
+      },
+      "AT": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=TRIM('Список измерений обработаный'!$CELL)": 1,
+          "=INDEX('Список измерений обработаный'!BD:BD,MATCH($CELL,'Список измерений обработаный'!$B:$B,0))": 499
+        }
+      },
+      "AV": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IF($CELL<>\"\",$CELL,\nIF(AND($CELL=\"\",$CELL=\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL=\"\",$CELL<>\"\",$CELL=\"\"),$CELL-$CELL,$CELL)))": 498
+        }
+      },
+      "AX": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IFERROR(IF($CELL<>\"\",$CELL,\nIF(AND($CELL<>\"\",$CELL=\"\"),$CELL-$CELL,\"\")),\"\")": 498
+        }
+      },
+      "AY": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IFERROR(IF($CELL<>\"\",$CELL,\nIF(AND($CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF($CELL<>\"\",$CELL-$CELL,\nIF($CELL<>\"\",$CELL-$CELL,\"\")))),\"\")": 498
+        }
+      },
+      "AZ": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IF(AND($CELL<>\"\",$CELL<>\"\"),$CELL+$CELL,$CELL)": 498
+        }
+      },
+      "BA": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IF(AND($CELL<>\"\",$CELL<>\"\"),$CELL+$CELL,$CELL)": 498
+        }
+      },
+      "BB": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IF($CELL<>\"\",$CELL,\"\")": 498
+        }
+      },
+      "BD": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IF($CELL<>\"\",$CELL,\nIF(AND($CELL<>\"\",$CELL<>\"\"),$CELL+$CELL,$CELL))": 498
+        }
+      },
+      "BE": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IF($CELL<>\"\",$CELL,\nIF($CELL<>\"\",$CELL,\nIF($CELL<>\"\",$CELL,\nIF(AND($CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\"\"))))))": 498
+        }
+      },
+      "BH": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IFERROR(IF($CELL=\"\",$CELL+$CELL,\nIF(AND($CELL<>\"\",$CELL<>\"\"),$CELL+$CELL,$CELL)),\"\")": 498
+        }
+      },
+      "BJ": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IF(AND($CELL=\"\",$CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,$CELL)": 498
+        }
+      },
+      "BK": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IF(AND($CELL=\"\",$CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL=\"\",$CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL=\"\",$CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL=\"\",$CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL=\"\",$CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,$CELL)))))": 498
+        }
+      },
+      "BL": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IF(AND($CELL=\"\",$CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL=\"\",$CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,$CELL))": 498
+        }
+      },
+      "BM": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IF(AND($CELL<>\"\",$CELL=\"\",$CELL=\"\"),($CELL-$CELL)/2,\nIF(AND($CELL<>\"\",$CELL=\"\",$CELL<>\"\"),($CELL-$CELL-$CELL),\nIF(AND($CELL<>\"\",$CELL<>\"\",$CELL=\"\"),$CELL,$CELL)))": 498
+        }
+      },
+      "BN": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IF(AND($CELL<>\"\",$CELL=\"\",$CELL=\"\"),($CELL-$CELL)/2,\nIF(AND($CELL<>\"\",$CELL=\"\",$CELL<>\"\"),$CELL,\nIF(AND($CELL<>\"\",$CELL<>\"\",$CELL=\"\"),($CELL-$CELL-$CELL),$CELL)))": 498
+        }
+      },
+      "BS": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IF(AND($CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,$CELL)))": 498
+        }
+      },
+      "BU": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IF(AND($CELL=\"\",$CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL=\"\",$CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL=\"\",$CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL=\"\",$CELL<>\"\"),$CELL-$CELL,$CELL))))": 498
+        }
+      },
+      "BV": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IFERROR(IF($CELL<>\"\",$CELL,\nIF($CELL<>\"\",$CELL-$CELL,\"\")),\"\")": 498
+        }
+      },
+      "BW": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IFERROR(IF($CELL<>\"\",$CELL,\nIF(AND($CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL<>\"\",$CELL=\"\"),$CELL-$CELL,\nIF(AND($CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF(AND($CELL<>\"\",$CELL=\"\"),$CELL-$CELL,\nIF($CELL<>\"\",$CELL-$CELL,\"\")))))),\"\")": 498
+        }
+      },
+      "CA": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IFERROR(IF($CELL<>\"\",$CELL,\nIF($CELL<>\"\",$CELL-$CELL,\"\")),\"\")": 498
+        }
+      },
+      "CB": {
+        "total": 500,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 2,
+          "=IFERROR(IF($CELL<>\"\",$CELL,\nIF(AND($CELL<>\"\",$CELL<>\"\"),$CELL-$CELL,\nIF($CELL<>\"\",$CELL-$CELL,\nIF(AND($CELL<>\"\",$CELL<>\"\",$CELL=\"\"),$CELL-$CELL,\nIF(AND($CELL<>\"\",$CELL=\"\",$CELL=\"\"),$CELL-$CELL,\nIF($CELL<>\"\",$CELL-$CELL,\"\")))))),\"\")": 498
+        }
+      }
+    },
+    "Список фильтр": {
+      "F": {
+        "total": 2,
+        "variant_count": 2,
+        "variants": {
+          "=_xlfn.CONCAT(\"$CELL:\",\"$F$\",'Список фильтр'!$CELL)": 1,
+          "=_xlfn.CEILING.MATH(COUNT(Автомаркировка!G:G)+10,100)": 1
+        }
+      },
+      "G": {
+        "total": 240,
+        "variant_count": 2,
+        "variants": {
+          "=_xlfn.CONCAT(\"$CELL:\",\"$G$\",'Список фильтр'!$CELL)": 1,
+          "=": 239
+        }
+      },
+      "J": {
+        "total": 1400,
+        "variant_count": 2,
+        "variants": {
+          "=_xlfn.CONCAT(\"$CELL:\",\"$J$\",'Список фильтр'!$CELL)": 1,
+          "=IFERROR(TRIM(INDEX(Маркировка!G:G,MATCH($CELL,Маркировка!$B:$B,0))),\"\")": 1399
+        }
+      },
+      "L": {
+        "total": 1400,
+        "variant_count": 2,
+        "variants": {
+          "=_xlfn.CONCAT(\"$CELL:\",\"$L$\",'Список фильтр'!$CELL)": 1,
+          "=IFERROR(INDEX(Маркировка!H:H,MATCH($CELL,Маркировка!$B:$B,0)),\"\")": 1399
+        }
+      },
+      "M": {
+        "total": 1400,
+        "variant_count": 2,
+        "variants": {
+          "=_xlfn.CONCAT(\"$CELL:\",\"$M$\",'Список фильтр'!$CELL)": 1,
+          "=IFERROR(INDEX(Маркировка!I:I,MATCH($CELL,Маркировка!$B:$B,0)),\"\")": 1399
+        }
+      },
+      "N": {
+        "total": 1400,
+        "variant_count": 2,
+        "variants": {
+          "=_xlfn.CONCAT(\"$CELL:\",\"$N$\",'Список фильтр'!$CELL)": 1,
+          "=IFERROR(INDEX(Маркировка!D:D,MATCH($CELL,Маркировка!$B:$B,0)),\"\")": 1399
+        }
+      },
+      "U": {
+        "total": 29,
+        "variant_count": 2,
+        "variants": {
+          "=_xlfn.CONCAT(\"$CELL:\",\"$U$\",'Список фильтр'!$CELL)": 1,
+          "=IF($CELL=\"\",\"\",COUNTA($CELL:$CELL))": 28
+        }
+      },
+      "AK": {
+        "total": 1400,
+        "variant_count": 2,
+        "variants": {
+          "=_xlfn.CONCAT(\"$CELL:\",\"$AK$\",'Список фильтр'!$CELL)": 1,
+          "=IF($CELL<>\"\",$CELL,\"\")": 1399
+        }
+      },
+      "B": {
+        "total": 1400,
+        "variant_count": 2,
+        "variants": {
+          "=_xlfn.CONCAT(\"$CELL:\",\"$B$\",'Список фильтр'!$CELL)": 1,
+          "=TRIM('Медиана и список'!$CELL)": 1399
+        }
+      },
+      "C": {
+        "total": 1400,
+        "variant_count": 2,
+        "variants": {
+          "=_xlfn.CONCAT(\"$CELL:\",\"$C$\",'Список фильтр'!$CELL)": 1,
+          "=TRIM('Медиана и список'!$CELL)": 1399
+        }
+      },
+      "E": {
+        "total": 1400,
+        "variant_count": 2,
+        "variants": {
+          "=_xlfn.CONCAT(\"$CELL:\",\"$E$\",'Список фильтр'!$CELL)": 1,
+          "=IFERROR(INDEX('[1]Спецификация заполнения дверей'!H:H,MATCH($CELL,'[1]Спецификация заполнения дверей'!$A:$A,0)),\"\")": 1399
+        }
+      },
+      "W": {
+        "total": 2,
+        "variant_count": 2,
+        "variants": {
+          "=ROWS($CELL:$CELL)-COUNTIF($CELL:$CELL,\"\")": 1,
+          "=": 1
+        }
+      },
+      "X": {
+        "total": 22,
+        "variant_count": 2,
+        "variants": {
+          "=ROWS($CELL:$CELL)-COUNTIF($CELL:$CELL,\"\")": 1,
+          "=": 21
+        }
+      }
+    },
+    "Автомаркировка": {
+      "G": {
+        "total": 3000,
+        "variant_count": 2,
+        "variants": {
+          "=$CELL": 1,
+          "=IFERROR('Список измерений фильтр'!$CELL,\"\")": 2999
+        }
+      },
+      "H": {
+        "total": 3000,
+        "variant_count": 2,
+        "variants": {
+          "='[1]Список измерений'!$CELL": 1,
+          "=TRIM(IF($CELL=\"0 П00\",\"0 П00\",\nIF($CELL<>\"\",$CELL,\nIF($CELL<>\"\",$CELL,$CELL))))": 2999
+        }
+      },
+      "I": {
+        "total": 3000,
+        "variant_count": 2,
+        "variants": {
+          "='[1]Список измерений'!$CELL": 1,
+          "=IFERROR('Список измерений фильтр'!$CELL,\"\")": 2999
+        }
+      },
+      "J": {
+        "total": 3000,
+        "variant_count": 2,
+        "variants": {
+          "='[1]Список измерений'!$CELL": 1,
+          "=IFERROR('Список измерений фильтр'!$CELL,\"\")": 2999
+        }
+      },
+      "K": {
+        "total": 3000,
+        "variant_count": 2,
+        "variants": {
+          "='[1]Список измерений'!$CELL": 1,
+          "=IFERROR('Список измерений фильтр'!$CELL,\"\")": 2999
+        }
+      },
+      "L": {
+        "total": 3000,
+        "variant_count": 2,
+        "variants": {
+          "='[1]Список измерений'!$CELL": 1,
+          "=IFERROR('Список измерений фильтр'!$CELL,\"\")": 2999
+        }
+      },
+      "M": {
+        "total": 3000,
+        "variant_count": 2,
+        "variants": {
+          "='[1]Список измерений'!$CELL": 1,
+          "=IFERROR('Список измерений фильтр'!$CELL,\"\")": 2999
+        }
+      }
+    },
+    "Список измерений фильтр": {
+      "D": {
+        "total": 3000,
+        "variant_count": 2,
+        "variants": {
+          "=\"\"": 1,
+          "=IF(ISBLANK('[1]Список измерений'!$CELL),\"\",'[1]Список измерений'!$CELL)": 2999
+        }
+      },
+      "E": {
+        "total": 3000,
+        "variant_count": 2,
+        "variants": {
+          "=\"\"": 1,
+          "=IF(ISBLANK('[1]Список измерений'!$CELL),\"\",'[1]Список измерений'!$CELL)": 2999
+        }
+      },
+      "F": {
+        "total": 3000,
+        "variant_count": 2,
+        "variants": {
+          "=\"\"": 1,
+          "=IF(ISBLANK('[1]Список измерений'!$CELL),\"\",'[1]Список измерений'!$CELL)": 2999
+        }
+      },
+      "G": {
+        "total": 3000,
+        "variant_count": 2,
+        "variants": {
+          "=\"\"": 1,
+          "=IF(ISBLANK('[1]Список измерений'!$CELL),\"\",'[1]Список измерений'!$CELL)": 2999
+        }
+      },
+      "H": {
+        "total": 3000,
+        "variant_count": 2,
+        "variants": {
+          "=\"\"": 1,
+          "=IF(ISBLANK('[1]Список измерений'!$CELL),\"\",'[1]Список измерений'!$CELL)": 2999
+        }
+      }
+    },
+    "Маркировка": {
+      "A": {
+        "total": 3000,
+        "variant_count": 2,
+        "variants": {
+          "=Автомаркировка!$CELL": 1,
+          "=IF($CELL=\"\",\"\",COUNTA($CELL:$CELL))": 2999
+        }
+      },
+      "J": {
+        "total": 2999,
+        "variant_count": 2,
+        "variants": {
+          "=IFERROR(IFERROR(INDEX(Помещния_значение,MATCH($CELL,Помещния_сокращение,0)),$CELL),\"\")": 1,
+          "=$CELL": 2998
+        }
+      }
+    }
+  },
+  "dead_zones": {
+    "Расчет": [
+      {
+        "column": "HD",
+        "formulas": 50,
+        "values": 0,
+        "referenced": false
+      }
+    ]
+  },
+  "top_formula_patterns": [
+    {
+      "template": "=IFERROR(INDEX(INDIRECT($CELL),MATCH($CELL,INDIRECT($CELL),0)),\"\")",
+      "count": 122877,
+      "sheets": {
+        "Список измерений обработаный": 122877
+      }
+    },
+    {
+      "template": "=IF($CELL<>\"\",_xlfn.CONCAT(\" (\",$CELL,$CELL),\"\")",
+      "count": 59940,
+      "sheets": {
+        "Список измерений обработаный": 59940
+      }
+    },
+    {
+      "template": "=Замер!$CELL",
+      "count": 51377,
+      "sheets": {
+        "Новый шаблон": 498,
+        "Дефектная ведомость": 11475,
+        "Дефектная ведомость (старый)": 17455,
+        "Дефектная перепад полов": 21949
+      }
+    },
+    {
+      "template": "=TRIM(Автомаркировка!$CELL)",
+      "count": 26973,
+      "sheets": {
+        "Список измерений обработаный": 26973
+      }
+    },
+    {
+      "template": "=$CELL",
+      "count": 24605,
+      "sheets": {
+        "Шахматка": 70,
+        "Расчет": 9540,
+        "Автомаркировка": 3000,
+        "Маркировка": 11995
+      }
+    },
+    {
+      "template": "=IFERROR('Список измерений фильтр'!$CELL,\"\")",
+      "count": 20993,
+      "sheets": {
+        "Автомаркировка": 20993
+      }
+    },
+    {
+      "template": "=IF(ISBLANK('[1]Список измерений'!$CELL),\"\",'[1]Список измерений'!$CELL)",
+      "count": 17994,
+      "sheets": {
+        "Список измерений фильтр": 17994
+      }
+    },
+    {
+      "template": "='Дефектная ведомость (старый)'!$CELL",
+      "count": 15966,
+      "sheets": {
+        "Дефектная ведомость САМОЛЕТ": 15966
+      }
+    },
+    {
+      "template": "=IF($CELL=\"\",\"\",COUNTA($CELL:$CELL))",
+      "count": 10223,
+      "sheets": {
+        "Список фильтр": 4225,
+        "Список измерений фильтр": 2999,
+        "Маркировка": 2999
+      }
+    },
+    {
+      "template": "=IF($CELL<>\"\",$CELL,\"\")",
+      "count": 9547,
+      "sheets": {
+        "Шахматка": 1652,
+        "Расчет": 498,
+        "Список фильтр": 1399,
+        "Автомаркировка": 5998
+      }
+    },
+    {
+      "template": "=TRIM(Замер!$CELL)",
+      "count": 9502,
+      "sheets": {
+        "Минимум": 9502
+      }
+    },
+    {
+      "template": "=IF(ISNUMBER(MATCH($CELL,Секция.ЭтажСокращение,0)),$CELL,$CELL)",
+      "count": 8997,
+      "sheets": {
+        "Автомаркировка": 8997
+      }
+    },
+    {
+      "template": "=IF($CELL<>\"\",IF(OR($CELL<>\"\",$CELL<>\"\"),_xlfn.CONCAT(\" (\",$CELL,$CELL,\") \"),\n_xlfn.CONCAT(,$CELL,$CELL,)),\"\")",
+      "count": 8991,
+      "sheets": {
+        "Список измерений обработаный": 8991
+      }
+    },
+    {
+      "template": "=IF($CELL<>\"\",IF(OR($CELL<>\"\",$CELL<>\"\",$CELL<>\"\",$CELL<>\"\",$CELL<>\"\",$CELL<>\"\",$CELL<>\"\"),_xlfn.CONCAT(\" (\",$CELL,$CELL,\") \"),\n_xlfn.CONCAT(,$CELL,$CELL,)),\"\")",
+      "count": 8991,
+      "sheets": {
+        "Список измерений обработаный": 8991
+      }
+    },
+    {
+      "template": "=",
+      "count": 7118,
+      "sheets": {
+        "Сводная таблица": 143,
+        "Список фильтр": 4589,
+        "Медиана и список": 479,
+        "Автомаркировка": 56,
+        "Маркировка": 1851
+      }
+    },
+    {
+      "template": "=Шахматка!$CELL",
+      "count": 7080,
+      "sheets": {
+        "Шахматка без формул": 7080
+      }
+    },
+    {
+      "template": "='Список измерений обработаный'!$CELL",
+      "count": 6002,
+      "sheets": {
+        "Медиана и список": 6002
+      }
+    },
+    {
+      "template": "=IF($CELL=$CELL,1,0)",
+      "count": 5998,
+      "sheets": {
+        "Автомаркировка": 5998
+      }
+    },
+    {
+      "template": "=IF(ISNUMBER($CELL),_xlfn.CONCAT($CELL&\".\",$CELL),\"\")",
+      "count": 5998,
+      "sheets": {
+        "Автомаркировка": 5998
+      }
+    },
+    {
+      "template": "=IF($CELL<>\"\",_xlfn.CONCAT(\"П\",$CELL,\".\",$CELL,\".\",$CELL),\"\")",
+      "count": 5998,
+      "sheets": {
+        "Автомаркировка": 5998
+      }
+    },
+    {
+      "template": "=IF(AND($CELL<>\"\",$CELL<>\"\"),_xlfn.CONCAT($CELL,\".\",$CELL),$CELL)",
+      "count": 5998,
+      "sheets": {
+        "Автомаркировка": 5998
+      }
+    },
+    {
+      "template": "=_xlfn.TEXTJOIN(\" \",,$CELL:$CELL)",
+      "count": 5998,
+      "sheets": {
+        "Автомаркировка": 5998
+      }
+    },
+    {
+      "template": "=_xlfn.CONCAT($CELL,$CELL)",
+      "count": 5998,
+      "sheets": {
+        "Автомаркировка": 5998
+      }
+    },
+    {
+      "template": "=IF($CELL<>\"\",IF(NOT(LEN($CELL)=0),$CELL,OFFSET($CELL,-1,0)),\"\")",
+      "count": 5998,
+      "sheets": {
+        "Автомаркировка": 5998
+      }
+    },
+    {
+      "template": "=IF($CELL=\"\",\"\",IF($CELL<>0,_xlfn.CONCAT($CELL,\"/\",$CELL),$CELL))",
+      "count": 5998,
+      "sheets": {
+        "Маркировка": 5998
+      }
+    },
+    {
+      "template": "=IF($CELL<>\"\",_xlfn.CONCAT(\"пол \",$CELL),\"\")",
+      "count": 5998,
+      "sheets": {
+        "Маркировка": 5998
+      }
+    },
+    {
+      "template": "=IFERROR(IFERROR(INDEX(Этаж,(MATCH($CELL*1,Этаж,0))),$CELL),\"\")",
+      "count": 5998,
+      "sheets": {
+        "Маркировка": 5998
+      }
+    },
+    {
+      "template": "=IFERROR(IF(ISNUMBER(SEARCH(\"Лед+\",$CELL)),SUBSTITUTE($CELL,\"Лед+\",\"\"),MROUND($CELL,5)),\"\")",
+      "count": 5996,
+      "sheets": {
+        "Список измерений обработаный": 2997,
+        "Автомаркировка": 2999
+      }
+    },
+    {
+      "template": "=IF($CELL<>\"\",IF($CELL<>\"\",_xlfn.CONCAT(\" (\",$CELL,$CELL,\") \"),\n_xlfn.CONCAT(,$CELL,$CELL,)),\"\")",
+      "count": 5994,
+      "sheets": {
+        "Список измерений обработаный": 5994
+      }
+    },
+    {
+      "template": "=IF($CELL<>\"\",_xlfn.CONCAT(\" (\",$CELL,$CELL,\") \"),\"\")",
+      "count": 5994,
+      "sheets": {
+        "Список измерений обработаный": 5994
+      }
+    },
+    {
+      "template": "=TRIM('Медиана и список'!$CELL)",
+      "count": 5797,
+      "sheets": {
+        "Список фильтр": 2798,
+        "Маркировка": 2999
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX(C:C,MATCH($CELL,$B:$B,0)),\"\")",
+      "count": 4099,
+      "sheets": {
+        "Список фильтр": 1099,
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=INDEX('Список измерений обработаный'!BC:BC,MATCH($CELL,'Список измерений обработаный'!$B:$B,0))",
+      "count": 3498,
+      "sheets": {
+        "Расчет": 499,
+        "Маркировка": 2999
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX('[1]Спецификация заполнения дверей'!F:F,MATCH($CELL,'[1]Спецификация заполнения дверей'!$A:$A,0)),\"\")",
+      "count": 3497,
+      "sheets": {
+        "Расчет": 498,
+        "Маркировка": 2999
+      }
+    },
+    {
+      "template": "=IFERROR(LARGE(B:B,ROW($CELL)),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX(D:D,MATCH($CELL,$B:$B,0)),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX(E:E,MATCH($CELL,$B:$B,0)),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX(F:F,MATCH($CELL,$B:$B,0)),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX(G:G,MATCH($CELL,$B:$B,0)),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX(H:H,MATCH($CELL,$B:$B,0)),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX(Автомаркировка!G:G,MATCH($CELL,Автомаркировка!G:G,0)),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX(Автомаркировка!B:B,MATCH($CELL,Автомаркировка!$A:$A,0)),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX(Автомаркировка!H:H,MATCH($CELL,Автомаркировка!$A:$A,0)),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX(Автомаркировка!I:I,MATCH($CELL,Автомаркировка!$A:$A,0)),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX(Автомаркировка!J:J,MATCH($CELL,Автомаркировка!$A:$A,0)),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX(Автомаркировка!K:K,MATCH($CELL,Автомаркировка!$A:$A,0)),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX(Автомаркировка!L:L,MATCH($CELL,Автомаркировка!$A:$A,0)),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=IFERROR(INDEX(Автомаркировка!M:M,MATCH($CELL,Автомаркировка!$A:$A,0)),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Список измерений фильтр": 3000
+      }
+    },
+    {
+      "template": "=IFERROR(IFERROR(INDEX(Помещния_значение,MATCH($CELL,Помещния_сокращение,0)),$CELL),\"\")",
+      "count": 3000,
+      "sheets": {
+        "Маркировка": 3000
+      }
+    },
+    {
+      "template": "=TRIM(IFERROR('Список измерений фильтр'!$CELL,\"\"))",
+      "count": 2999,
+      "sheets": {
+        "Автомаркировка": 2999
+      }
+    }
+  ]
+}

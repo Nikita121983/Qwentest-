@@ -62,7 +62,7 @@ object BlePacketParser {
 
     /** Типы измерений по devMode */
     enum class MeasurementType(val devMode: Int, val displayName: String) {
-        DIRECT(1, "Прямой замер"),
+        DIRECT(1, "Измерение"),
         CONTINUOUS(2, "Непрерывный"),
         MIN_MAX(3, "Min/Max"),
         ADD_SUB(4, "Сложить/Вычесть"),
@@ -118,6 +118,10 @@ object BlePacketParser {
         val devModeRef = rawBytes[3].toInt() and 0xFF
         val refEdge = devModeRef and 0x03          // биты 0-1
         val devMode = (devModeRef shr 2) and 0x3F  // биты 2-7
+
+        // ФИЛЬТР: Игнорируем пакеты статуса (devMode=0) и ответов на команды (devMode=60)
+        // Они создают записи "Неизвестный 0,000 м"
+        if (devMode == 0 || devMode == 60) return null
 
         // DevStatus: [laser:1][temp:1][batt:1][units:1][status:4]
         val devStatus = rawBytes[4].toInt() and 0xFF

@@ -65,7 +65,16 @@
       "Bash(git restore *)",
       "Bash(.\\gradlew.bat *)",
       "Bash(.\\adb.exe *)",
-      "Bash(%localappdata%\\android\\sdk\\platform-tools\\adb.exe *)"
+      "Bash(%localappdata%\\android\\sdk\\platform-tools\\adb.exe *)",
+      "WebFetch(www.alibabacloud.com)",
+      "WebFetch(dev.to)",
+      "WebFetch(qwenlm.github.io)",
+      "Read(C:\\Users\\Nik\\.qwen/**)",
+      "Read(C:\\Users\\Nik\\.claude-code-router/**)",
+      "Bash(ccr *)",
+      "Bash(claude *)",
+      "Bash(node *)",
+      "Bash(git log *)"
     ]
   },
   "$version": 3,

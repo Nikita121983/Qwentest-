@@ -42,6 +42,17 @@
 
     </LinearLayout>
 
+    <!-- Build Info -->
+    <TextView
+        android:id="@+id/tvBuildInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="4dp"
+        android:textSize="11sp"
+        android:textColor="#666666"
+        android:background="#F5F5F5" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddProject"
         android:layout_width="wrap_content"

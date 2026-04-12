@@ -218,7 +218,9 @@ class MeasurementListActivity : AppCompatActivity() {
             }
         }
 
-        bleManager = GlmBleManager(this)
+        // BleManager из Application — НЕ рвётся при выходе из Activity
+        val app = application as com.glmreader.android.GlmReaderApplication
+        bleManager = app.getOrCreateBleManager(this)
         setupBleCallbacks()
         checkPermissionsAndScan()
     }
@@ -333,6 +335,10 @@ class MeasurementListActivity : AppCompatActivity() {
             showBleDialog()
             true
         }
+        R.id.action_ble_debug -> {
+            startActivity(Intent(this, BleDebugActivity::class.java))
+            true
+        }
         R.id.action_export -> {
             exportToXlsx()
             true
@@ -368,142 +374,11 @@ class MeasurementListActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        bleManager.disconnect()
+        // НЕ отключаем BLE — BleManager живёт на уровне Application
     }
 
-    // BLE Dialog (Standard List)
+    // BLE Dialog — делегируем helper'у
     private fun showBleDialog() {
-        val view = layoutInflater.inflate(R.layout.dialog_ble_connection, null)
-        val tvStatus = view.findViewById<TextView>(R.id.tvBleStatus)
-        val btnToggle = view.findViewById<Button>(R.id.btnToggleBle)
-        val btnScan = view.findViewById<Button>(R.id.btnScan)
-        val btnConnect = view.findViewById<Button>(R.id.btnConnect)
-        val tvConnStatus = view.findViewById<TextView>(R.id.tvConnectionStatus)
-        val recycler = view.findViewById<RecyclerView>(R.id.recyclerDevices)
-        val btnForget = view.findViewById<Button>(R.id.btnForget)
-
-        val bluetoothManager = getSystemService(BluetoothManager::class.java)
-        val bluetoothAdapter = bluetoothManager.adapter
-        val prefs = getSharedPreferences("ble_prefs", MODE_PRIVATE)
-
-        var lastMac = prefs.getString("last_device_mac", null)
-        var lastName = prefs.getString("last_device_name", null)
-
-        val foundDevices = mutableListOf<BleDeviceItem>()
-        val deviceAdapter = BleDeviceAdapter(foundDevices) { selected ->
-            runOnUiThread {
-                // Сохраняем выбранное устройство
-                if (selected != null) {
-                    lastMac = selected.mac
-                    lastName = selected.name
-                    prefs.edit()
-                        .putString("last_device_mac", selected.mac)
-                        .putString("last_device_name", selected.name)
-                        .apply()
-                    tvConnStatus.text = "Selected: ${selected.name}"
-                }
-                btnConnect.isEnabled = lastMac != null
-            }
-        }
-        recycler.layoutManager = LinearLayoutManager(this)
-        recycler.adapter = deviceAdapter
-
-        if (lastMac != null && lastName != null) {
-            foundDevices.add(BleDeviceItem(lastName, lastMac, true))
-            deviceAdapter.notifyDataSetChanged()
-        }
-
-        fun updateUi() {
-            val curMac = lastMac
-            val curName = lastName
-            val isBleOn = bluetoothAdapter.isEnabled
-            tvStatus.text = if (isBleOn) "Bluetooth ON" else "Bluetooth OFF"
-            tvStatus.setTextColor(ContextCompat.getColor(this, if (isBleOn) R.color.status_success else R.color.status_error))
-            btnToggle.text = if (isBleOn) "Turn Off" else "Turn On"
-            btnScan.isEnabled = isBleOn
-
-            if (bleManager.isConnected) {
-                tvConnStatus.text = "Connected to ${bleManager.connectedDeviceName}"
-                tvConnStatus.setTextColor(ContextCompat.getColor(this, R.color.status_success))
-                btnScan.text = "Stop"
-                btnConnect.isEnabled = true
-                btnForget.isEnabled = false
-            } else if (bleManager.isScanning) {
-                tvConnStatus.text = "Scanning..."
-                tvConnStatus.setTextColor(ContextCompat.getColor(this, R.color.status_info))
-                btnScan.text = "Stop"
-                btnConnect.isEnabled = false
-                btnForget.isEnabled = false
-            } else {
-                tvConnStatus.text = if (curMac != null) "Saved: $curName" else "Not connected"
-                tvConnStatus.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
-                btnScan.text = "Scan"
-                btnConnect.isEnabled = curMac != null
-                btnForget.isEnabled = curMac != null
-            }
-        }
-
-        bleManager.onDeviceFound = { mac, name ->
-            runOnUiThread {
-                if (foundDevices.none { it.mac == mac }) {
-                    foundDevices.add(BleDeviceItem(name, mac, false))
-                    deviceAdapter.notifyDataSetChanged()
-                }
-            }
-        }
-
-        btnToggle.setOnClickListener {
-            startActivityForResult(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), 1)
-            view.postDelayed({ updateUi() }, 1000)
-        }
-
-        btnScan.setOnClickListener {
-            if (bleManager.isScanning) bleManager.stopScan()
-            else {
-                foundDevices.clear()
-                val curMac = lastMac
-                val curName = lastName
-                if (curMac != null && curName != null) foundDevices.add(BleDeviceItem(curName, curMac, true))
-                deviceAdapter.notifyDataSetChanged()
-                bleManager.startScan()
-            }
-            updateUi()
-        }
-
-        btnConnect.setOnClickListener {
-            val savedMac = lastMac
-            if (savedMac != null) {
-                bleManager.connect(savedMac)
-                updateUi()
-            }
-        }
-
-        btnForget.setOnClickListener {
-            prefs.edit().remove("last_device_mac").remove("last_device_name").apply()
-            lastMac = null
-            lastName = null
-            foundDevices.clear()
-            deviceAdapter.notifyDataSetChanged()
-            updateUi()
-        }
-
-        val origConn = bleManager.onConnectionStateChanged
-        bleManager.onConnectionStateChanged = { connected ->
-            runOnUiThread { updateUi() }
-            origConn?.invoke(connected)
-        }
-
-        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("Connect to Ruler")
-            .setView(view)
-            .setNegativeButton("Close") { _, _ ->
-                bleManager.stopScan()
-                bleManager.onDeviceFound = { _, _ -> }
-                bleManager.onConnectionStateChanged = origConn
-            }
-            .create()
-
-        dialog.show()
-        updateUi()
+        BleDialogHelper.show(this, bleManager)
     }
 }

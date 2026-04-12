@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:fitsSystemWindows="true">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbar_background"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <!-- Status Bar -->
+    <LinearLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="#1A1A1A">
+
+        <TextView
+            android:id="@+id/tvConnStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Не подключено"
+            android:textColor="#FF5252"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvState"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="State: ---"
+            android:textColor="#FFC107"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvQueue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Q:0"
+            android:textColor="#4CAF50"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Counters -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:background="#151515">
+
+        <TextView
+            android:id="@+id/tvRx"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="RX: 0 B"
+            android:textColor="#4FC3F7"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvTx"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TX: 0 B"
+            android:textColor="#81C784"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvMeasurements"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="M: 0"
+            android:textColor="#FFB74D"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <!-- Raw Command Input -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
+
+        <EditText
+            android:id="@+id/etRawCommand"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="HEX: C0 55 02 40 00"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#666666"
+            android:textSize="13sp"
+            android:fontFamily="monospace"
+            android:inputType="textNoSuggestions"
+            android:maxLines="1" />
+
+        <Button
+            android:id="@+id/btnSendRaw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            android:textSize="12sp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp" />
+    </LinearLayout>
+
+    <!-- Quick Commands -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:paddingBottom="4dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnInit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Init"
+                android:textSize="11sp"
+                android:padding="8dp" />
+
+            <Button
+                android:id="@+id/btnTrigger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trigger"
+                android:textSize="11sp"
+                android:padding="8dp" />
+
+            <Button
+                android:id="@+id/btnGetSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GetSet"
+                android:textSize="11sp"
+                android:padding="8dp" />
+
+            <Button
+                android:id="@+id/btnClearLog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clear Log"
+                android:textSize="11sp"
+                android:padding="8dp" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- Log Area -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LOG:"
+        android:textColor="#888888"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:paddingStart="8dp"
+        android:paddingBottom="2dp" />
+
+    <ScrollView
+        android:id="@+id/scrollLog"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#0D0D0D"
+        android:fillViewport="true"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/tvLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#E0E0E0"
+            android:textSize="11sp"
+            android:fontFamily="monospace"
+            android:text="BLE Debug ready...\n" />
+    </ScrollView>
+
+</LinearLayout>
