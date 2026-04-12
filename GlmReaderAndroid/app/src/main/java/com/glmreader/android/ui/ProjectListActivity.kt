@@ -51,15 +51,18 @@ class ProjectListActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        // Версия и дата сборки в title
+        val pkgInfo = packageManager.getPackageInfo(packageName, 0)
+        val verName = pkgInfo.versionName ?: "?"
+        val buildDate = "2026-04-12"
+        supportActionBar?.title = "Мои проекты v$verName/$buildDate"
+
         recyclerView = findViewById(R.id.recyclerView)
         tvEmpty = findViewById(R.id.tvEmpty)
         val fabAddProject: FloatingActionButton = findViewById(R.id.fabAddProject)
         val tvBuildInfo: TextView = findViewById(R.id.tvBuildInfo)
 
         // Версия и дата сборки
-        val pkgInfo = packageManager.getPackageInfo(packageName, 0)
-        val verName = pkgInfo.versionName ?: "?"
-        val buildDate = "2026-04-12"
         tvBuildInfo.text = "Build: v$verName / $buildDate"
 
         // Адаптер

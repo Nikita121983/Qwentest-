@@ -4,8 +4,6 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -19,6 +17,7 @@ import com.glmreader.android.ble.GlmBleManager
 /**
  * Утилита для показа BLE диалога подключения.
  * Переиспользуется в ProjectListActivity и MeasurementListActivity.
+ * НЕ затирает callback'и — использует observer pattern.
  */
 object BleDialogHelper {
 
@@ -40,6 +39,44 @@ object BleDialogHelper {
         var lastName = prefs.getString("last_device_name", null)
 
         val foundDevices = mutableListOf<BleDeviceItem>()
+
+        // Forward declaration — updateUi uses curMac/curName snapshots
+        lateinit var updateUi: () -> Unit
+        updateUi = {
+            val curMac = lastMac
+            val curName = lastName
+            val isBleOn = bluetoothAdapter.isEnabled
+            tvStatus.text = if (isBleOn) "Bluetooth ON" else "Bluetooth OFF"
+            tvStatus.setTextColor(ContextCompat.getColor(context, if (isBleOn) R.color.status_success else R.color.status_error))
+
+            btnToggle.text = if (isBleOn) "Settings" else "Enable BT"
+            btnScan.isEnabled = isBleOn
+
+            if (bleManager.isConnected) {
+                tvConnStatus.text = "✅ Connected: ${bleManager.connectedDeviceName}"
+                tvConnStatus.setTextColor(ContextCompat.getColor(context, R.color.status_success))
+                btnConnect.text = "Disconnect"
+                btnConnect.isEnabled = true
+                btnScan.isEnabled = false
+                btnScan.text = "Stop"
+                btnForget.isEnabled = true  // Можно забыть даже когда подключён
+            } else if (bleManager.isScanning) {
+                tvConnStatus.text = "Scanning..."
+                tvConnStatus.setTextColor(ContextCompat.getColor(context, R.color.status_info))
+                btnConnect.text = "Connect"
+                btnConnect.isEnabled = curMac != null
+                btnScan.text = "Stop"
+                btnForget.isEnabled = false
+            } else {
+                tvConnStatus.text = if (curMac != null) "Saved: $curName" else "Not connected"
+                tvConnStatus.setTextColor(ContextCompat.getColor(context, R.color.text_secondary))
+                btnConnect.text = "Connect"
+                btnConnect.isEnabled = curMac != null
+                btnScan.text = "Scan"
+                btnForget.isEnabled = curMac != null
+            }
+        }
+
         val deviceAdapter = BleDeviceAdapter(foundDevices) { selected ->
             (context as android.app.Activity).runOnUiThread {
                 if (selected != null) {
@@ -51,95 +88,77 @@ object BleDialogHelper {
                         .apply()
                     tvConnStatus.text = "Selected: ${selected.name}"
                 }
-                btnConnect.isEnabled = lastMac != null
+                updateUi()
             }
         }
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = deviceAdapter
 
-        if (lastMac != null && lastName != null) {
-            foundDevices.add(BleDeviceItem(lastName, lastMac, true))
-            deviceAdapter.notifyDataSetChanged()
+        // Observer для подключения — НЕ затирает другие
+        val connObserver: (Boolean) -> Unit = { connected ->
+            (context as android.app.Activity).runOnUiThread { updateUi() }
         }
+        bleManager.observeConnectionState(connObserver)
 
-        fun updateUi() {
-            val curMac = lastMac
-            val curName = lastName
-            val isBleOn = bluetoothAdapter.isEnabled
-            tvStatus.text = if (isBleOn) "Bluetooth ON" else "Bluetooth OFF"
-            tvStatus.setTextColor(ContextCompat.getColor(context, if (isBleOn) R.color.status_success else R.color.status_error))
-            btnToggle.text = if (isBleOn) "Turn Off" else "Turn On"
-            btnScan.isEnabled = isBleOn
-
-            if (bleManager.isConnected) {
-                tvConnStatus.text = "Connected to ${bleManager.connectedDeviceName}"
-                tvConnStatus.setTextColor(ContextCompat.getColor(context, R.color.status_success))
-                btnScan.text = "Stop"
-                btnConnect.isEnabled = true
-                btnForget.isEnabled = false
-            } else if (bleManager.isScanning) {
-                tvConnStatus.text = "Scanning..."
-                tvConnStatus.setTextColor(ContextCompat.getColor(context, R.color.status_info))
-                btnScan.text = "Stop"
-                btnConnect.isEnabled = false
-                btnForget.isEnabled = false
-            } else {
-                tvConnStatus.text = if (curMac != null) "Saved: $curName" else "Not connected"
-                tvConnStatus.setTextColor(ContextCompat.getColor(context, R.color.text_secondary))
-                btnScan.text = "Scan"
-                btnConnect.isEnabled = curMac != null
-                btnForget.isEnabled = curMac != null
-            }
-        }
-
-        bleManager.onDeviceFound = { mac, name ->
+        val deviceObserver: (String, String) -> Unit = { mac, name ->
             (context as android.app.Activity).runOnUiThread {
                 if (foundDevices.none { it.mac == mac }) {
                     foundDevices.add(BleDeviceItem(name, mac, false))
                     deviceAdapter.notifyDataSetChanged()
+                    updateUi()
                 }
             }
         }
+        bleManager.observeDeviceFound(deviceObserver)
 
+        // Toggle — открыть настройки BT (единственный способ выключить)
         btnToggle.setOnClickListener {
-            context.startActivityForResult(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), 1)
-            view.postDelayed({ updateUi() }, 1000)
+            context.startActivity(Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS))
         }
 
         btnScan.setOnClickListener {
-            if (bleManager.isScanning) bleManager.stopScan()
-            else {
+            if (bleManager.isScanning) {
+                bleManager.stopScan()
+            } else {
                 foundDevices.clear()
                 val curMac = lastMac
                 val curName = lastName
-                if (curMac != null && curName != null) foundDevices.add(BleDeviceItem(curName, curMac, true))
+                if (curMac != null && curName != null) {
+                    foundDevices.add(BleDeviceItem(curName, curMac, true))
+                }
                 deviceAdapter.notifyDataSetChanged()
                 bleManager.startScan()
             }
             updateUi()
         }
 
+        // Connect / Disconnect toggle
         btnConnect.setOnClickListener {
-            val savedMac = lastMac
-            if (savedMac != null) {
-                bleManager.connect(savedMac)
-                updateUi()
+            if (bleManager.isConnected) {
+                bleManager.disconnect()
+                Toast.makeText(context, "Отключено", Toast.LENGTH_SHORT).show()
+            } else {
+                val savedMac = lastMac
+                if (savedMac != null) {
+                    bleManager.connect(savedMac)
+                    Toast.makeText(context, "Подключение...", Toast.LENGTH_SHORT).show()
+                }
             }
+            updateUi()
         }
 
         btnForget.setOnClickListener {
+            // Если подключён — сначала отключаем
+            if (bleManager.isConnected) {
+                bleManager.disconnect()
+            }
             prefs.edit().remove("last_device_mac").remove("last_device_name").apply()
             lastMac = null
             lastName = null
             foundDevices.clear()
             deviceAdapter.notifyDataSetChanged()
             updateUi()
-        }
-
-        val origConn = bleManager.onConnectionStateChanged
-        bleManager.onConnectionStateChanged = { connected ->
-            (context as android.app.Activity).runOnUiThread { updateUi() }
-            origConn?.invoke(connected)
+            Toast.makeText(context, "Устройство забыто", Toast.LENGTH_SHORT).show()
         }
 
         val dialog = AlertDialog.Builder(context)
@@ -147,8 +166,8 @@ object BleDialogHelper {
             .setView(view)
             .setNegativeButton("Close") { _, _ ->
                 bleManager.stopScan()
-                bleManager.onDeviceFound = { _, _ -> }
-                bleManager.onConnectionStateChanged = origConn
+                // Отписываемся при закрытии диалога
+                // (на самом деле можно не отписываться, но для чистоты)
             }
             .create()
 

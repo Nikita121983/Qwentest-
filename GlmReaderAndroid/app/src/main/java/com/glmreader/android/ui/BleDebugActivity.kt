@@ -84,20 +84,18 @@ class BleDebugActivity : AppCompatActivity() {
     }
 
     private fun initBleManager() {
-        // Получаем из Application — тот же экземпляр что и в MeasurementListActivity
         val app = application as GlmReaderApplication
         bleManager = app.getOrCreateBleManager(this)
 
-        // Подписываемся на события
-        bleManager.onConnectionStateChanged = { connected ->
-            runOnUiThread {
-                tvConnStatus.text = if (connected) "✅ Connected" else "❌ Disconnected"
-                tvConnStatus.setTextColor(getColor(if (connected) R.color.status_success else R.color.status_error))
-                appendLog(if (connected) "✅ Connected" else "❌ Disconnected")
-            }
+        // Показываем ТЕКУЩЕЕ состояние при открытии
+        refreshUiState()
+
+        // Подписываемся на изменения
+        bleManager.observeConnectionState { _ ->
+            runOnUiThread { refreshUiState() }
         }
 
-        bleManager.onStateChange = { state ->
+        bleManager.observeStateChange { state ->
             runOnUiThread {
                 tvState.text = "State: ${state.name}"
                 val color = when (state) {
@@ -111,31 +109,22 @@ class BleDebugActivity : AppCompatActivity() {
             }
         }
 
-        bleManager.onRawTx = { direction, hex ->
+        bleManager.observeRawTx { direction, hex ->
             runOnUiThread {
                 appendLog("$direction: $hex")
                 if (direction == "TX") {
-                    val currentTx = tvTx.text.toString()
                     val bytes = hex.split(" ").size
-                    val total = parseBytes(currentTx) + bytes
+                    val total = parseBytes(tvTx.text.toString()) + bytes
                     tvTx.text = "TX: ${total} B"
                 } else {
-                    val currentRx = tvRx.text.toString()
                     val bytes = hex.split(" ").size
-                    val total = parseBytes(currentRx) + bytes
+                    val total = parseBytes(tvRx.text.toString()) + bytes
                     tvRx.text = "RX: ${total} B"
                 }
             }
         }
 
-        bleManager.onRawChunk = { chunk, total ->
-            runOnUiThread {
-                // Не логируем каждый чанк — слишком шумно
-                tvRx.text = "RX: $total B"
-            }
-        }
-
-        bleManager.onParsedMeasurement = { parsed ->
+        bleManager.observeParsedMeasurement { parsed ->
             runOnUiThread {
                 measurementCount++
                 tvMeasurements.text = "M: $measurementCount"
@@ -143,12 +132,19 @@ class BleDebugActivity : AppCompatActivity() {
             }
         }
 
-        bleManager.onDataReceived = { bytes ->
-            // Только если не распарсилось — логируем
-        }
-
-        // Обновляем UI таймером
         startUiUpdateTimer()
+    }
+
+    private fun refreshUiState() {
+        if (bleManager.isConnected) {
+            tvConnStatus.text = "✅ Connected: ${bleManager.connectedDeviceName}"
+            tvConnStatus.setTextColor(getColor(R.color.status_success))
+        } else {
+            tvConnStatus.text = "❌ Not connected"
+            tvConnStatus.setTextColor(getColor(R.color.status_error))
+        }
+        tvState.text = "State: ${bleManager.protocolStateName}"
+        tvQueue.text = "Q:${bleManager.queueSize}"
     }
 
     private fun parseBytes(text: String): Int {

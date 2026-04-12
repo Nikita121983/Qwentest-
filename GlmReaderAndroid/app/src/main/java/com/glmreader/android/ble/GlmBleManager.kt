@@ -7,6 +7,7 @@ import android.bluetooth.le.ScanResult
 import android.content.Context
 import android.util.Log
 import com.glmreader.android.protocol.BlePacketParser
+import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.LinkedBlockingDeque
 
 /**
@@ -17,8 +18,7 @@ import java.util.concurrent.LinkedBlockingDeque
  * - BleConnectionManager: сокеты, чтение/запись, буфер (потоко-безопасный)
  * - GlmBleManager: state machine, очередь команд, CRC, парсинг
  *
- * State machine (как в MM/MO):
- * SLAVE_LISTENING → MASTER_READY → MASTER_SENDING → MASTER_RECEIVING → MASTER_READY
+ * Observer pattern (как в MM/MO) — подписчики НЕ затирают друг друга.
  */
 class GlmBleManager(context: Context) {
 
@@ -46,22 +46,87 @@ class GlmBleManager(context: Context) {
     @Volatile private var timeoutPending = false
     private val commandTimeoutMs = 500L
 
-    // Connection retry
-    private var connectAttempt = 0
-
     // Command data class
     private data class QueuedCommand(val payload: ByteArray, val name: String)
 
-    // Callbacks
-    var onDeviceFound: ((String, String) -> Unit)? = null
-    var onDataReceived: ((ByteArray) -> Unit)? = null
-    var onParsedMeasurement: ((BlePacketParser.ParsedMeasurement) -> Unit)? = null
-    var onConnectionStateChanged: ((Boolean) -> Unit)? = null
+    // ==================== OBSERVERS (не затираются!) ====================
 
-    // Debug callbacks
+    private val deviceFoundListeners = CopyOnWriteArrayList<(String, String) -> Unit>()
+    private val dataReceivedListeners = CopyOnWriteArrayList<(ByteArray) -> Unit>()
+    private val parsedMeasurementListeners = CopyOnWriteArrayList<(BlePacketParser.ParsedMeasurement) -> Unit>()
+    private val connectionStateListeners = CopyOnWriteArrayList<(Boolean) -> Unit>()
+    private val stateChangeListeners = CopyOnWriteArrayList<(ProtocolState) -> Unit>()
+    private val rawTxListeners = CopyOnWriteArrayList<(String, String) -> Unit>()
+    private val rawChunkListeners = CopyOnWriteArrayList<(ByteArray, Int) -> Unit>()
+
+    // Legacy API для обратной совместимости
+    // ВАЖНО: НЕ затираем observers — deprecated, но не ломающий
+    @Deprecated("Use observeConnectionState()", level = DeprecationLevel.WARNING)
+    var onConnectionStateChanged: ((Boolean) -> Unit)? = null
+        set(value) {
+            field = value
+            if (value != null) connectionStateListeners.add(value)
+        }
+
+    @Deprecated("Use observeDataReceived()", level = DeprecationLevel.WARNING)
+    var onDataReceived: ((ByteArray) -> Unit)? = null
+        set(value) {
+            field = value
+            if (value != null) dataReceivedListeners.add(value)
+        }
+
+    @Deprecated("Use observeParsedMeasurement()", level = DeprecationLevel.WARNING)
+    var onParsedMeasurement: ((BlePacketParser.ParsedMeasurement) -> Unit)? = null
+        set(value) {
+            field = value
+            if (value != null) parsedMeasurementListeners.add(value)
+        }
+
+    @Deprecated("Use observeStateChange()", level = DeprecationLevel.WARNING)
     var onStateChange: ((ProtocolState) -> Unit)? = null
-    var onRawTx: ((String, String) -> Unit)? = null // direction, hex
-    var onRawChunk: ((ByteArray, Int) -> Unit)? = null // chunk, total
+        set(value) {
+            field = value
+            if (value != null) stateChangeListeners.add(value)
+        }
+
+    @Deprecated("Use observeRawTx()", level = DeprecationLevel.WARNING)
+    var onRawTx: ((String, String) -> Unit)? = null
+        set(value) {
+            field = value
+            if (value != null) rawTxListeners.add(value)
+        }
+
+    @Deprecated("Use observeRawChunk()", level = DeprecationLevel.WARNING)
+    var onRawChunk: ((ByteArray, Int) -> Unit)? = null
+        set(value) {
+            field = value
+            if (value != null) rawChunkListeners.add(value)
+        }
+
+    @Deprecated("Use observeDeviceFound()", level = DeprecationLevel.WARNING)
+    var onDeviceFound: ((String, String) -> Unit)? = null
+        set(value) {
+            field = value
+            if (value != null) deviceFoundListeners.add(value)
+        }
+
+    // Observer методы — подписка БЕЗ затирания
+    fun observeDeviceFound(listener: (String, String) -> Unit) = deviceFoundListeners.add(listener)
+    fun observeDataReceived(listener: (ByteArray) -> Unit) = dataReceivedListeners.add(listener)
+    fun observeParsedMeasurement(listener: (BlePacketParser.ParsedMeasurement) -> Unit) = parsedMeasurementListeners.add(listener)
+    fun observeConnectionState(listener: (Boolean) -> Unit) = connectionStateListeners.add(listener)
+    fun observeStateChange(listener: (ProtocolState) -> Unit) = stateChangeListeners.add(listener)
+    fun observeRawTx(listener: (String, String) -> Unit) = rawTxListeners.add(listener)
+    fun observeRawChunk(listener: (ByteArray, Int) -> Unit) = rawChunkListeners.add(listener)
+
+    // Отписка
+    fun removeDeviceFound(listener: (String, String) -> Unit) = deviceFoundListeners.remove(listener)
+    fun removeDataReceived(listener: (ByteArray) -> Unit) = dataReceivedListeners.remove(listener)
+    fun removeParsedMeasurement(listener: (BlePacketParser.ParsedMeasurement) -> Unit) = parsedMeasurementListeners.remove(listener)
+    fun removeConnectionState(listener: (Boolean) -> Unit) = connectionStateListeners.remove(listener)
+    fun removeStateChange(listener: (ProtocolState) -> Unit) = stateChangeListeners.remove(listener)
+    fun removeRawTx(listener: (String, String) -> Unit) = rawTxListeners.remove(listener)
+    fun removeRawChunk(listener: (ByteArray, Int) -> Unit) = rawChunkListeners.remove(listener)
 
     // Scanning
     var isScanning = false
@@ -78,7 +143,7 @@ class GlmBleManager(context: Context) {
         val mac = device.address
         if (name.contains("Bosch", ignoreCase = true) || name.contains("GLM", ignoreCase = true)) {
             Log.w("BLE_SCAN", ">>> BOSCH FOUND: $name ($mac)")
-            onDeviceFound?.invoke(mac, name)
+            deviceFoundListeners.forEach { it(mac, name) }
         }
     }
 
@@ -88,7 +153,7 @@ class GlmBleManager(context: Context) {
         connectionManager.onDisconnected = { reason -> onTransportDisconnected(reason) }
         connectionManager.onDataReceived = { packet -> onPacketReceived(packet) }
         connectionManager.onRawChunk = { chunk, total ->
-            onRawChunk?.invoke(chunk, total)
+            rawChunkListeners.forEach { it(chunk, total) }
         }
     }
 
@@ -130,29 +195,16 @@ class GlmBleManager(context: Context) {
     fun connect(macAddress: String) {
         Log.d("BLE", "=== Connecting to $macAddress (INSECURE RFCOMM, no bonding) ===")
         stopScan()
-        connectAttempt = 0
-        connectToDevice(macAddress)
-    }
-
-    private fun connectToDevice(macAddress: String) {
-        connectAttempt++
-        val maxAttempts = 3
-        Log.d("BLE", "Connection attempt $connectAttempt/$maxAttempts")
-
-        // Подписываемся на события connectionManager
         connectionManager.connect(macAddress)
     }
 
     /** Транспорт подключился — начинаем инициализацию протокола */
     private fun onTransportConnected() {
         Log.d("BLE", "✅ Transport connected!")
-        onConnectionStateChanged?.invoke(true)
+        connectionStateListeners.forEach { it(true) }
 
-        // State: SLAVE_LISTENING
-        transitionTo(ProtocolState.SLAVE_LISTENING)
-
-        // Пауза чтобы рулетка успела перейти в SLAVE_LISTENING
-        Thread.sleep(200)
+        // Сразу MASTER_READY — мы готовы отправлять команды
+        transitionTo(ProtocolState.MASTER_READY)
 
         // Init — AutoSync ON (как turnAutoSyncOn() в MO/MM)
         enqueueCommand(
@@ -160,7 +212,7 @@ class GlmBleManager(context: Context) {
             "Init"
         )
 
-        // Пауза между командами (как Thread.sleep(50L) в MM)
+        // Пауза между командами
         Thread.sleep(100)
 
         // Get Settings
@@ -172,11 +224,11 @@ class GlmBleManager(context: Context) {
 
     private fun onTransportDisconnected(reason: String?) {
         Log.d("BLE", "Transport disconnected: ${reason ?: "normal"}")
-        onConnectionStateChanged?.invoke(false)
+        connectionStateListeners.forEach { it(false) }
         commandQueue.clear()
         timeoutPending = false
         sendThread = null
-        transitionTo(ProtocolState.SLAVE_LISTENING)
+        protocolState = ProtocolState.SLAVE_LISTENING
     }
 
     // ==================== PACKET RECEIVED ====================
@@ -184,9 +236,9 @@ class GlmBleManager(context: Context) {
     /** Пришёл полный пакет от BleConnectionManager (уже с CRC) */
     private fun onPacketReceived(fullPacket: ByteArray) {
         val hex = fullPacket.joinToString(" ") { "%02X".format(it) }
-        onRawTx?.invoke("RX", hex)
+        rawTxListeners.forEach { it("RX", hex) }
 
-        // CRC валидация (Шаг 4)
+        // CRC валидация
         if (fullPacket.size < 2) {
             Log.w("BLE", "Packet too short: ${fullPacket.size} bytes")
             return
@@ -204,24 +256,21 @@ class GlmBleManager(context: Context) {
         // Heartbeat или измерение?
         if (isHeartbeatPacket(fullPacket)) {
             handleHeartbeat(fullPacket)
-            // Heartbeat — это keep-alive, НЕ переключает state!
-            // Только если мы в MASTER_RECEIVING — значит это ответ на команду
             if (protocolState == ProtocolState.MASTER_RECEIVING) {
                 transitionTo(ProtocolState.MASTER_READY)
             }
         } else {
             // Измерение
-            onDataReceived?.invoke(fullPacket)
+            dataReceivedListeners.forEach { it(fullPacket) }
 
             val parsed = BlePacketParser.parseWithCrc(fullPacket)
             if (parsed != null) {
                 Log.d("BLE", "✅ Parsed: devMode=${parsed.devMode}, ${parsed.resultValue}m, ${parsed.comp2Value}°")
-                onParsedMeasurement?.invoke(parsed)
+                parsedMeasurementListeners.forEach { it(parsed) }
             } else {
                 Log.w("BLE", "⚠️ Parse returned null (likely heartbeat or status packet)")
             }
 
-            // Пришёл ответ на команду — разрешаем следующую
             if (protocolState == ProtocolState.MASTER_RECEIVING) {
                 transitionTo(ProtocolState.MASTER_READY)
             }
@@ -230,24 +279,16 @@ class GlmBleManager(context: Context) {
 
     // ==================== STATE MACHINE ====================
 
-    /**
-     * Переход в новое состояние — СИНХРОНИЗИРОВАНО.
-     * Вызывает notifyAll() чтобы разбудить ждущие потоки.
-     */
     private fun transitionTo(newState: ProtocolState) {
         synchronized(stateLock) {
             val oldState = protocolState
             protocolState = newState
             Log.d("BLE_STATE", "$oldState → $newState")
-            onStateChange?.invoke(newState)
-            stateLock.notifyAll()  // Разбудить SendThread
+            stateChangeListeners.forEach { it(newState) }
+            stateLock.notifyAll()
         }
     }
 
-    /**
-     * Ждать определённое состояние — СИНХРОНИЗИРОВАНО.
-     * Использует wait() с timeout вместо polling.
-     */
     private fun waitForState(targetState: ProtocolState, timeoutMs: Long): Boolean {
         synchronized(stateLock) {
             val endTime = System.currentTimeMillis() + timeoutMs
@@ -269,7 +310,6 @@ class GlmBleManager(context: Context) {
 
     // ==================== COMMAND QUEUE ====================
 
-    /** Поставить команду в очередь */
     fun enqueueCommand(payload: ByteArray, name: String) {
         if (!isConnected) {
             Log.w("BLE", "Not connected, command dropped: $name")
@@ -278,40 +318,32 @@ class GlmBleManager(context: Context) {
         commandQueue.offerLast(QueuedCommand(payload, name))
         Log.d("BLE", "📋 Queued: $name (queue size: ${commandQueue.size})")
 
-        // Если SendThread ещё не запущен — запускаем
         if (sendThread?.isAlive != true) {
             startSendThread()
         }
     }
 
-    /**
-     * SendThread — вытаскивает команды из очереди и отправляет по одной.
-     * Ждёт MASTER_READY через wait()/notifyAll().
-     */
     private fun startSendThread() {
         sendThread = Thread {
             Log.d("BLE", "SendThread started")
             while (!Thread.interrupted() && isConnected) {
                 try {
-                    val cmd = commandQueue.pollFirst() ?: break  // Очередь пуста — выходим
+                    val cmd = commandQueue.pollFirst() ?: break
 
-                    // Ждём MASTER_READY через wait()/notifyAll() (не polling!)
                     val ready = waitForState(ProtocolState.MASTER_READY, 2000)
                     if (!ready || !isConnected) {
                         Log.w("BLE", "⚠️ SendThread: not ready or disconnected, dropping: ${cmd.name}")
                         break
                     }
 
-                    // Переходим в состояние отправки
                     transitionTo(ProtocolState.MASTER_SENDING)
 
-                    // Вычисляем CRC и отправляем
                     val crc = BlePacketParser.calcCrc8(cmd.payload)
                     val fullPacket = cmd.payload + crc.toByte()
                     val hex = fullPacket.joinToString(" ") { "%02X".format(it) }
 
                     val writeOk = connectionManager.write(fullPacket)
-                    onRawTx?.invoke("TX", hex)
+                    rawTxListeners.forEach { it("TX", hex) }
 
                     if (!writeOk) {
                         Log.e("BLE", "❌ Write failed for ${cmd.name}")
@@ -320,13 +352,11 @@ class GlmBleManager(context: Context) {
                         continue
                     }
 
-                    // Ждём ответ
                     transitionTo(ProtocolState.MASTER_RECEIVING)
                     val responseReceived = waitForState(ProtocolState.MASTER_READY, commandTimeoutMs * 2)
 
                     if (!responseReceived) {
                         Log.w("BLE", "⏱️ Command timeout: ${cmd.name} (no response in ${commandTimeoutMs * 2}ms)")
-                        // Продолжаем — может рулетка занята
                         transitionTo(ProtocolState.MASTER_READY)
                     } else {
                         Log.d("BLE", "✅ Response received for ${cmd.name}")
@@ -394,7 +424,6 @@ class GlmBleManager(context: Context) {
 
     private fun isHeartbeatPacket(data: ByteArray): Boolean {
         if (data.size < 5) return false
-        // C0 55 02 F1 ... (PayloadLen=2, DevModeRef=0xF1)
         return data[0] == 0xC0.toByte() &&
                data[1] == 0x55.toByte() &&
                data[2] == 0x02.toByte() &&

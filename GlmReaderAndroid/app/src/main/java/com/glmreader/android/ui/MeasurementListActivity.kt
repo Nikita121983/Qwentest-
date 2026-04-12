@@ -297,13 +297,13 @@ class MeasurementListActivity : AppCompatActivity() {
     }
 
     private fun setupBleCallbacks() {
-        bleManager.onConnectionStateChanged = { connected ->
+        bleManager.observeConnectionState { connected ->
             runOnUiThread {
                 panelRemote.visibility = if (connected) View.VISIBLE else View.GONE
             }
         }
 
-        bleManager.onDataReceived = { bytes ->
+        bleManager.observeDataReceived { bytes ->
             // Try parsing
             val parsed = BlePacketParser.parse(bytes)
             if (parsed != null) {
