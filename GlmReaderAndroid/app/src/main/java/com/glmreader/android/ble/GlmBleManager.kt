@@ -49,6 +49,15 @@ class GlmBleManager(context: Context) {
     // Command data class
     private data class QueuedCommand(val payload: ByteArray, val name: String)
 
+    // AutoConnectThread — как в MM/MO (каждые 2 сек попытка подключения)
+    private var autoConnectThread: Thread? = null
+    @Volatile private var autoConnectRunning = false
+    private val autoConnectDelayMs = 2000L
+    var lastKnownDeviceMac: String? = null
+        private set
+    var lastKnownDeviceName: String? = null
+        private set
+
     // ==================== OBSERVERS (не затираются!) ====================
 
     private val deviceFoundListeners = CopyOnWriteArrayList<(String, String) -> Unit>()
@@ -58,6 +67,16 @@ class GlmBleManager(context: Context) {
     private val stateChangeListeners = CopyOnWriteArrayList<(ProtocolState) -> Unit>()
     private val rawTxListeners = CopyOnWriteArrayList<(String, String) -> Unit>()
     private val rawChunkListeners = CopyOnWriteArrayList<(ByteArray, Int) -> Unit>()
+
+    // Состояние рулетки (обновляется из ответов devMode=60, 62)
+    @Volatile var currentRefEdge = 0
+        private set
+    @Volatile var currentMeasurementType = 0
+        private set
+
+    // Callbacks для UI обратной связи
+    var onRefEdgeChanged: ((Int) -> Unit)? = null
+    var onMeasurementTypeChanged: ((Int) -> Unit)? = null
 
     // Legacy API для обратной совместимости
     // ВАЖНО: НЕ затираем observers — deprecated, но не ломающий
@@ -195,12 +214,14 @@ class GlmBleManager(context: Context) {
     fun connect(macAddress: String) {
         Log.d("BLE", "=== Connecting to $macAddress (INSECURE RFCOMM, no bonding) ===")
         stopScan()
+        stopAutoConnect()
         connectionManager.connect(macAddress)
     }
 
     /** Транспорт подключился — начинаем инициализацию протокола */
     private fun onTransportConnected() {
         Log.d("BLE", "✅ Transport connected!")
+        saveLastKnownDevice()
         connectionStateListeners.forEach { it(true) }
 
         // Сразу MASTER_READY — мы готовы отправлять команды
@@ -222,6 +243,15 @@ class GlmBleManager(context: Context) {
         )
     }
 
+    /**
+     * Сохранить устройство для автоподключения (как lastKnownDeviceForReconnection в MO).
+     */
+    private fun saveLastKnownDevice() {
+        lastKnownDeviceMac = connectionManager.connectedDeviceMac
+        lastKnownDeviceName = connectionManager.connectedDeviceName
+        Log.d("BLE", "Saved last known device: $lastKnownDeviceName ($lastKnownDeviceMac)")
+    }
+
     private fun onTransportDisconnected(reason: String?) {
         Log.d("BLE", "Transport disconnected: ${reason ?: "normal"}")
         connectionStateListeners.forEach { it(false) }
@@ -229,6 +259,79 @@ class GlmBleManager(context: Context) {
         timeoutPending = false
         sendThread = null
         protocolState = ProtocolState.SLAVE_LISTENING
+
+        // Перезапускаем автоподключение (как в MO: onConnectionStateNone → setReconnect(true))
+        if (autoConnectRunning && lastKnownDeviceMac != null) {
+            Log.d("BLE", "Auto-reconnect triggered after disconnect")
+            restartAutoConnect()
+        }
+    }
+
+    // ==================== AUTO CONNECT (как AutoConnectThread в MM/MO) ====================
+
+    /**
+     * Запустить автоподключение — каждые 2 сек попытка подключиться.
+     */
+    fun startAutoConnect(macAddress: String, deviceName: String? = null) {
+        Log.d("BLE", "startAutoConnect: $macAddress ($deviceName)")
+        lastKnownDeviceMac = macAddress
+        lastKnownDeviceName = deviceName
+        stopAutoConnect()
+        autoConnectRunning = true
+
+        autoConnectThread = Thread {
+            Log.d("BLE", "AutoConnectThread started")
+            while (autoConnectRunning && !Thread.interrupted()) {
+                try {
+                    if (isConnected) {
+                        Thread.sleep(autoConnectDelayMs)
+                    } else {
+                        Log.w("BLE", "AutoConnect: trying to connect $macAddress")
+                        connectionManager.connect(macAddress)
+                        Thread.sleep(autoConnectDelayMs)
+                    }
+                } catch (e: InterruptedException) {
+                    Log.d("BLE", "AutoConnectThread interrupted")
+                    return@Thread
+                }
+            }
+            Log.d("BLE", "AutoConnectThread stopped")
+        }.apply {
+            priority = Thread.MIN_PRIORITY
+            start()
+        }
+    }
+
+    /** Остановить автоподключение */
+    fun stopAutoConnect() {
+        autoConnectRunning = false
+        autoConnectThread?.interrupt()
+        try { autoConnectThread?.join(500) } catch (_: Exception) {}
+        autoConnectThread = null
+        Log.d("BLE", "AutoConnect stopped")
+    }
+
+    /** Перезапустить автоподключение */
+    private fun restartAutoConnect() {
+        val mac = lastKnownDeviceMac ?: return
+        val name = lastKnownDeviceName
+        Log.d("BLE", "Restarting auto-connect to $mac")
+        startAutoConnect(mac, name)
+    }
+
+    /**
+     * Переключиться на другое устройство
+     */
+    fun connectAndAutoConnect(macAddress: String, deviceName: String? = null) {
+        Log.d("BLE", "connectAndAutoConnect: $macAddress ($deviceName)")
+        stopAutoConnect()
+        if (isConnected) {
+            disconnect()
+        }
+        lastKnownDeviceMac = macAddress
+        lastKnownDeviceName = deviceName
+        connect(macAddress)
+        startAutoConnect(macAddress, deviceName)
     }
 
     // ==================== PACKET RECEIVED ====================
@@ -251,6 +354,29 @@ class GlmBleManager(context: Context) {
         if (receivedCrc != calculatedCrc) {
             Log.w("BLE", "⚠️ CRC mismatch: expected=$receivedCrc, got=$calculatedCrc, packet discarded")
             return
+        }
+
+        // Извлекаем refEdge и devMode из КАЖДОГО пакета (байт 3: [refEdge:2][devMode:6])
+        if (fullPacket.size >= 4) {
+            val devModeRef = fullPacket[3].toInt() and 0xFF
+            val refEdge = devModeRef and 0x03
+            val devMode = (devModeRef shr 2) and 0x3F
+
+            // Обновляем состояние refEdge из КАЖДОГО пакета
+            if (currentRefEdge != refEdge) {
+                currentRefEdge = refEdge
+                Log.d("BLE", "📐 refEdge changed → $refEdge")
+                onRefEdgeChanged?.invoke(refEdge)
+            }
+
+            // Обновляем тип измерения (игнорируем служебные devMode=0,60,62)
+            if (devMode != 0 && devMode != 60 && devMode != 62) {
+                if (currentMeasurementType != devMode) {
+                    currentMeasurementType = devMode
+                    Log.d("BLE", "📏 measurementType changed → $devMode")
+                    onMeasurementTypeChanged?.invoke(devMode)
+                }
+            }
         }
 
         // Heartbeat или измерение?
