@@ -2,9 +2,14 @@ package com.glmreader.android.ble
 
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
 import android.util.Log
 import com.glmreader.android.protocol.BlePacketParser
 import java.util.concurrent.CopyOnWriteArrayList
@@ -17,15 +22,50 @@ import java.util.concurrent.LinkedBlockingDeque
  * Архитектура:
  * - BleConnectionManager: сокеты, чтение/запись, буфер (потоко-безопасный)
  * - GlmBleManager: state machine, очередь команд, CRC, парсинг
+ * - BroadcastReceiver: реакция на системные события BT (как в MM)
  *
  * Observer pattern (как в MM/MO) — подписчики НЕ затирают друг друга.
  */
-class GlmBleManager(context: Context) {
+class GlmBleManager(private val context: Context) {
 
     // Транспорт
     private val connectionManager = BleConnectionManager(context)
     private val bluetoothManager = context.getSystemService(Context.BLUETOOTH_SERVICE) as android.bluetooth.BluetoothManager
     private val bluetoothAdapter = bluetoothManager.adapter
+
+    // BroadcastReceiver — как в MM BTDeviceManagerImpl (реакция на системные события BT)
+    private val btReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when (intent?.action) {
+                BluetoothDevice.ACTION_ACL_DISCONNECTED -> {
+                    val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+                    Log.d("BLE_BT", "ACL_DISCONNECTED: ${device?.address}")
+                    // Если отключилось наше устройство — перезапускаем автоподключение
+                    if (device?.address == lastKnownDeviceMac) {
+                        Log.d("BLE_BT", "Our device disconnected, will reconnect in 2s")
+                    }
+                }
+                BluetoothAdapter.ACTION_STATE_CHANGED -> {
+                    val state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR)
+                    Log.d("BLE_BT", "Bluetooth state changed: $state")
+                    if (state == BluetoothAdapter.STATE_ON && autoConnectRunning && lastKnownDeviceMac != null) {
+                        Log.d("BLE_BT", "Bluetooth turned ON, restarting auto-connect")
+                        startAutoConnect(lastKnownDeviceMac!!, lastKnownDeviceName)
+                    }
+                }
+                BluetoothDevice.ACTION_BOND_STATE_CHANGED -> {
+                    val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+                    val bondState = intent.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, BluetoothDevice.ERROR)
+                    // Как в MM: если спаривание завершено — автоматически подключаемся
+                    if (bondState == BluetoothDevice.BOND_BONDED && device?.address == lastKnownDeviceMac) {
+                        Log.d("BLE_BT", "Bonded to our device, connecting...")
+                        device?.address?.let { connect(it) }
+                    }
+                }
+            }
+        }
+    }
+    private var btReceiverRegistered = false
 
     // Очередь команд (как в MO/MM SendThread)
     private val commandQueue = LinkedBlockingDeque<QueuedCommand>()
@@ -67,6 +107,49 @@ class GlmBleManager(context: Context) {
     private val stateChangeListeners = CopyOnWriteArrayList<(ProtocolState) -> Unit>()
     private val rawTxListeners = CopyOnWriteArrayList<(String, String) -> Unit>()
     private val rawChunkListeners = CopyOnWriteArrayList<(ByteArray, Int) -> Unit>()
+
+    /**
+     * Зарегистрировать BroadcastReceiver для системных событий BT.
+     * Вызывается автоматически в init блоке.
+     */
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
+    fun registerBtReceiver() {
+        if (btReceiverRegistered) return
+        try {
+            val filter = IntentFilter().apply {
+                addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED)
+                addAction(BluetoothAdapter.ACTION_STATE_CHANGED)
+                addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED)
+                addAction(BluetoothDevice.ACTION_ACL_CONNECTED)
+            }
+            val appContext = context.applicationContext ?: context
+            // Для Android 13+ нужно явно указывать флаг экспорта для системных бродкастов
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                appContext.registerReceiver(btReceiver, filter, Context.RECEIVER_EXPORTED)
+            } else {
+                appContext.registerReceiver(btReceiver, filter)
+            }
+            btReceiverRegistered = true
+            Log.d("BLE_BT", "BroadcastReceiver registered")
+        } catch (e: Exception) {
+            Log.e("BLE_BT", "Failed to register BroadcastReceiver: ${e.message}")
+        }
+    }
+
+    /**
+     * От unregister BroadcastReceiver.
+     * Вызывать из Activity.onPause() или Application.onTerminate().
+     */
+    fun unregisterBtReceiver() {
+        if (!btReceiverRegistered) return
+        try {
+            context.unregisterReceiver(btReceiver)
+            btReceiverRegistered = false
+            Log.d("BLE_BT", "BroadcastReceiver unregistered")
+        } catch (e: Exception) {
+            Log.e("BLE_BT", "Failed to unregister BroadcastReceiver: ${e.message}")
+        }
+    }
 
     // Состояние рулетки (обновляется из ответов devMode=60, 62)
     @Volatile var currentRefEdge = 0
@@ -174,6 +257,9 @@ class GlmBleManager(context: Context) {
         connectionManager.onRawChunk = { chunk, total ->
             rawChunkListeners.forEach { it(chunk, total) }
         }
+
+        // Регистрируем BroadcastReceiver для системных событий BT (как в MM)
+        registerBtReceiver()
     }
 
     // ==================== SCANNING ====================
@@ -210,12 +296,34 @@ class GlmBleManager(context: Context) {
 
     // ==================== CONNECTION ====================
 
+    /**
+     * Подключение к устройству.
+     * Как в MM BTDeviceManagerImpl.connect():
+     * 1. Сохраняем MAC ДО попытки подключения
+     * 2. Останавливаем autoConnect на время попытки
+     * 3. Если через 5 сек не подключились — перезапускаем autoConnect
+     */
     @SuppressLint("MissingPermission")
-    fun connect(macAddress: String) {
+    fun connect(macAddress: String, deviceName: String? = null) {
         Log.d("BLE", "=== Connecting to $macAddress (INSECURE RFCOMM, no bonding) ===")
+
+        // Как в MM: сохраняем адрес ДО попытки подключения
+        lastKnownDeviceMac = macAddress
+        lastKnownDeviceName = deviceName
+
         stopScan()
         stopAutoConnect()
+
+        // Запускаем попытку подключения
         connectionManager.connect(macAddress)
+
+        // Как в MM: если через 5 сек не подключились — перезапускаем autoConnect
+        android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+            if (!isConnected && lastKnownDeviceMac != null) {
+                Log.w("BLE", "Connection failed after 5s, restarting auto-connect")
+                startAutoConnect(lastKnownDeviceMac!!, lastKnownDeviceName)
+            }
+        }, 5000L)
     }
 
     /** Транспорт подключился — начинаем инициализацию протокола */
@@ -228,18 +336,12 @@ class GlmBleManager(context: Context) {
         transitionTo(ProtocolState.MASTER_READY)
 
         // Init — AutoSync ON (как turnAutoSyncOn() в MO/MM)
+        // В MM заголовок EDC формируется так: (devMode << 2) | (keypadBypass << 1) | syncControl
+        // devMode=0, syncControl=1 => Байт = 0x01.
+        // (Раньше было 0x40, что означало devMode=16 — отсюда и глючило!)
         enqueueCommand(
-            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0x40.toByte(), 0x00.toByte()),
-            "Init"
-        )
-
-        // Пауза между командами
-        Thread.sleep(100)
-
-        // Get Settings
-        enqueueCommand(
-            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0x3B.toByte(), 0x00.toByte()),
-            "Get Settings"
+            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0x01.toByte(), 0x00.toByte()),
+            "Init (AutoSync ON)"
         )
     }
 
@@ -260,10 +362,12 @@ class GlmBleManager(context: Context) {
         sendThread = null
         protocolState = ProtocolState.SLAVE_LISTENING
 
-        // Перезапускаем автоподключение (как в MO: onConnectionStateNone → setReconnect(true))
-        if (autoConnectRunning && lastKnownDeviceMac != null) {
-            Log.d("BLE", "Auto-reconnect triggered after disconnect")
-            restartAutoConnect()
+        // Как в MM: ПРИ ОСТАНОВКЕ потока autoConnect — перезапускаем его
+        // (поток может "залипнуть" в isConnected=true после закрытия сокета)
+        if (lastKnownDeviceMac != null) {
+            Log.d("BLE_AUTO", "Device disconnected, RESTARTING auto-connect to $lastKnownDeviceMac")
+            stopAutoConnect()  // Убиваем "залипший" поток
+            startAutoConnect(lastKnownDeviceMac!!, lastKnownDeviceName)  // Запускаем новый
         }
     }
 
@@ -271,31 +375,40 @@ class GlmBleManager(context: Context) {
 
     /**
      * Запустить автоподключение — каждые 2 сек попытка подключиться.
+     * Как в MM: AutoConnectThread — ОДИН поток, НЕ перезапускается при disconnect.
      */
     fun startAutoConnect(macAddress: String, deviceName: String? = null) {
-        Log.d("BLE", "startAutoConnect: $macAddress ($deviceName)")
+        Log.d("BLE_AUTO", "startAutoConnect: $macAddress ($deviceName)")
         lastKnownDeviceMac = macAddress
         lastKnownDeviceName = deviceName
-        stopAutoConnect()
+
+        // Если поток уже запущен — просто обновляем данные и возвращаемся
+        if (autoConnectRunning) {
+            Log.d("BLE_AUTO", "AutoConnect already running (thread alive=${autoConnectThread?.isAlive}), just updating device info")
+            return
+        }
+
         autoConnectRunning = true
 
         autoConnectThread = Thread {
-            Log.d("BLE", "AutoConnectThread started")
+            Log.d("BLE_AUTO", "AutoConnectThread started loop")
             while (autoConnectRunning && !Thread.interrupted()) {
                 try {
-                    if (isConnected) {
+                    if (connectionManager.isConnected) {
+                        Log.d("BLE_AUTO", "Already connected, sleeping...")
                         Thread.sleep(autoConnectDelayMs)
                     } else {
-                        Log.w("BLE", "AutoConnect: trying to connect $macAddress")
+                        Log.d("BLE_AUTO", "Not connected, trying to connect $macAddress")
                         connectionManager.connect(macAddress)
+                        Log.d("BLE_AUTO", "connect() returned, sleeping...")
                         Thread.sleep(autoConnectDelayMs)
                     }
                 } catch (e: InterruptedException) {
-                    Log.d("BLE", "AutoConnectThread interrupted")
+                    Log.d("BLE_AUTO", "AutoConnectThread interrupted")
                     return@Thread
                 }
             }
-            Log.d("BLE", "AutoConnectThread stopped")
+            Log.d("BLE_AUTO", "AutoConnectThread stopped")
         }.apply {
             priority = Thread.MIN_PRIORITY
             start()
@@ -308,30 +421,17 @@ class GlmBleManager(context: Context) {
         autoConnectThread?.interrupt()
         try { autoConnectThread?.join(500) } catch (_: Exception) {}
         autoConnectThread = null
-        Log.d("BLE", "AutoConnect stopped")
-    }
-
-    /** Перезапустить автоподключение */
-    private fun restartAutoConnect() {
-        val mac = lastKnownDeviceMac ?: return
-        val name = lastKnownDeviceName
-        Log.d("BLE", "Restarting auto-connect to $mac")
-        startAutoConnect(mac, name)
+        Log.d("BLE_AUTO", "AutoConnect stopped")
     }
 
     /**
      * Переключиться на другое устройство
      */
     fun connectAndAutoConnect(macAddress: String, deviceName: String? = null) {
-        Log.d("BLE", "connectAndAutoConnect: $macAddress ($deviceName)")
-        stopAutoConnect()
-        if (isConnected) {
-            disconnect()
-        }
+        Log.d("BLE_AUTO", "connectAndAutoConnect: $macAddress ($deviceName)")
         lastKnownDeviceMac = macAddress
         lastKnownDeviceName = deviceName
-        connect(macAddress)
-        startAutoConnect(macAddress, deviceName)
+        connect(macAddress, deviceName)
     }
 
     // ==================== PACKET RECEIVED ====================
@@ -500,44 +600,61 @@ class GlmBleManager(context: Context) {
 
     // ==================== PUBLIC COMMANDS ====================
 
+    /**
+     * Сформировать байт заголовка EDC (как в MM EDCFrameFactory).
+     * Структура: [devMode:6][keypadBypass:1][syncControl:1]
+     * Формула: (devMode << 2) | (keypadBypass << 1) | syncControl
+     */
+    private fun makeEdcHeader(devMode: Int, keypadBypass: Int = 0, syncControl: Int = 1): Byte {
+        return ((devMode shl 2) or (keypadBypass shl 1) or syncControl).toByte()
+    }
+
     fun sendInit() {
+        // devMode=0, syncControl=1 -> header 0x01 (Раньше было 0x40!)
         enqueueCommand(
-            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0x40.toByte(), 0x00.toByte()),
+            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), makeEdcHeader(0), 0x00.toByte()),
             "Init"
         )
     }
 
     fun sendGetSettings() {
+        // В MM такого нет, но пусть будет devMode=0, sync=0
         enqueueCommand(
-            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0x3B.toByte(), 0x00.toByte()),
+            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), makeEdcHeader(0, 0, 0), 0x00.toByte()),
             "Get Settings"
         )
     }
 
     fun sendTrigger() {
+        // В MM это просто кнопка, devMode=0, sync=1
         enqueueCommand(
-            byteArrayOf(0xC0.toByte(), 0x56.toByte(), 0x01.toByte(), 0x00.toByte()),
+            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), makeEdcHeader(0), 0x00.toByte()),
             "Trigger"
         )
     }
 
     fun sendSyncHistory(index: Int) {
+        // devMode=58 (MODE_GET_LIST_ITEM), sync=1
         enqueueCommand(
-            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0xBA.toByte(), index.toByte()),
+            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), makeEdcHeader(58), index.toByte()),
             "Sync History $index"
         )
     }
 
     fun setMeasurementType(mode: Int) {
+        // devMode=60 (MODE_SET_DEV_MODE), sync=1
+        Log.d("BLE_CMD", "🎯 Set Measurement Type: mode=$mode")
         enqueueCommand(
-            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0xBC.toByte(), mode.toByte()),
+            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), makeEdcHeader(60), mode.toByte()),
             "Set Mode $mode"
         )
     }
 
     fun setReferencePoint(ref: Int) {
+        // devMode=62 (MODE_SET_DISTANCE_REFERENCE), sync=1
+        Log.d("BLE_CMD", "📍 Set Reference Point: ref=$ref")
         enqueueCommand(
-            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), 0xBE.toByte(), ref.toByte()),
+            byteArrayOf(0xC0.toByte(), 0x55.toByte(), 0x02.toByte(), makeEdcHeader(62), ref.toByte()),
             "Set Ref $ref"
         )
     }

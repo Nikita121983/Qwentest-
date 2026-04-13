@@ -1,0 +1,48 @@
+package com.graphbuilder.curve;
+
+/* loaded from: classes.dex */
+public abstract class Curve {
+    protected boolean connect = false;
+    protected ControlPath cp;
+    protected GroupIterator gi;
+
+    public abstract void appendTo(MultiPath multiPath);
+
+    public Curve(ControlPath cp, GroupIterator gi) {
+        setControlPath(cp);
+        setGroupIterator(gi);
+    }
+
+    public ControlPath getControlPath() {
+        return this.cp;
+    }
+
+    public void setControlPath(ControlPath cp) {
+        if (cp == null) {
+            throw new IllegalArgumentException("ControlPath cannot be null.");
+        }
+        this.cp = cp;
+    }
+
+    public GroupIterator getGroupIterator() {
+        return this.gi;
+    }
+
+    public void setGroupIterator(GroupIterator gi) {
+        if (gi == null) {
+            throw new IllegalArgumentException("GroupIterator cannot be null.");
+        }
+        this.gi = gi;
+    }
+
+    public boolean getConnect() {
+        return this.connect;
+    }
+
+    public void setConnect(boolean b) {
+        this.connect = b;
+    }
+
+    public void resetMemory() {
+    }
+}

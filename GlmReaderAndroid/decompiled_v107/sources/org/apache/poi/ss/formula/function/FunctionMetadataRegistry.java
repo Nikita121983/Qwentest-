@@ -1,0 +1,74 @@
+package org.apache.poi.ss.formula.function;
+
+import java.util.Map;
+import java.util.Set;
+
+/* loaded from: classes10.dex */
+public final class FunctionMetadataRegistry {
+    public static final int FUNCTION_INDEX_CHOOSE = 100;
+    public static final short FUNCTION_INDEX_EXTERNAL = 255;
+    public static final int FUNCTION_INDEX_IF = 1;
+    public static final short FUNCTION_INDEX_INDIRECT = 148;
+    public static final short FUNCTION_INDEX_SUM = 4;
+    public static final String FUNCTION_NAME_IF = "IF";
+    private static FunctionMetadataRegistry _instance;
+    private static FunctionMetadataRegistry _instanceCetab;
+    private final FunctionMetadata[] _functionDataByIndex;
+    private final Map<String, FunctionMetadata> _functionDataByName;
+
+    private static FunctionMetadataRegistry getInstance() {
+        if (_instance == null) {
+            _instance = FunctionMetadataReader.createRegistry();
+        }
+        return _instance;
+    }
+
+    private static FunctionMetadataRegistry getInstanceCetab() {
+        if (_instanceCetab == null) {
+            _instanceCetab = FunctionMetadataReader.createRegistryCetab();
+        }
+        return _instanceCetab;
+    }
+
+    /* JADX INFO: Access modifiers changed from: package-private */
+    public FunctionMetadataRegistry(FunctionMetadata[] functionDataByIndex, Map<String, FunctionMetadata> functionDataByName) {
+        this._functionDataByIndex = functionDataByIndex == null ? null : (FunctionMetadata[]) functionDataByIndex.clone();
+        this._functionDataByName = functionDataByName;
+    }
+
+    Set<String> getAllFunctionNames() {
+        return this._functionDataByName.keySet();
+    }
+
+    public static FunctionMetadata getFunctionByIndex(int index) {
+        return getInstance().getFunctionByIndexInternal(index);
+    }
+
+    public static FunctionMetadata getCetabFunctionByIndex(int index) {
+        return getInstanceCetab().getFunctionByIndexInternal(index);
+    }
+
+    private FunctionMetadata getFunctionByIndexInternal(int index) {
+        return this._functionDataByIndex[index];
+    }
+
+    public static short lookupIndexByName(String name) {
+        FunctionMetadata fd = getInstance().getFunctionByNameInternal(name);
+        if (fd == null && (fd = getInstanceCetab().getFunctionByNameInternal(name)) == null) {
+            return (short) -1;
+        }
+        return (short) fd.getIndex();
+    }
+
+    private FunctionMetadata getFunctionByNameInternal(String name) {
+        return this._functionDataByName.get(name);
+    }
+
+    public static FunctionMetadata getFunctionByName(String name) {
+        FunctionMetadata fm = getInstance().getFunctionByNameInternal(name);
+        if (fm == null) {
+            return getInstanceCetab().getFunctionByNameInternal(name);
+        }
+        return fm;
+    }
+}

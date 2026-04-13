@@ -180,9 +180,10 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvVersion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Версия 1.0.0"
+                        android:text="Версия"
                         android:textColor="@color/text_secondary"
                         android:layout_marginTop="4dp" />
 

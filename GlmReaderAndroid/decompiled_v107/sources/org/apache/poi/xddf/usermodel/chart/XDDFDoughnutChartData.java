@@ -1,0 +1,212 @@
+package org.apache.poi.xddf.usermodel.chart;
+
+import java.util.List;
+import org.apache.poi.ooxml.util.POIXMLUnits;
+import org.apache.poi.util.Internal;
+import org.apache.poi.xddf.usermodel.XDDFShapeProperties;
+import org.apache.poi.xddf.usermodel.chart.XDDFChartData;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTAxDataSource;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTDPt;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTDoughnutChart;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTNumDataSource;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTPieSer;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTSerTx;
+
+/* loaded from: classes10.dex */
+public class XDDFDoughnutChartData extends XDDFChartData {
+    private CTDoughnutChart chart;
+
+    /* JADX INFO: Access modifiers changed from: protected */
+    @Internal
+    public XDDFDoughnutChartData(XDDFChart parent, CTDoughnutChart chart) {
+        super(parent);
+        this.chart = chart;
+        for (CTPieSer series : chart.getSerList()) {
+            this.series.add(new Series(series, series.getCat(), series.getVal()));
+        }
+    }
+
+    @Override // org.apache.poi.xddf.usermodel.chart.XDDFChartData
+    @Internal
+    protected void removeCTSeries(int n) {
+        this.chart.removeSer(n);
+    }
+
+    @Override // org.apache.poi.xddf.usermodel.chart.XDDFChartData
+    public void setVaryColors(Boolean varyColors) {
+        if (varyColors == null) {
+            if (this.chart.isSetVaryColors()) {
+                this.chart.unsetVaryColors();
+            }
+        } else if (this.chart.isSetVaryColors()) {
+            this.chart.getVaryColors().setVal(varyColors.booleanValue());
+        } else {
+            this.chart.addNewVaryColors().setVal(varyColors.booleanValue());
+        }
+    }
+
+    public Integer getFirstSliceAngle() {
+        if (this.chart.isSetFirstSliceAng()) {
+            return Integer.valueOf(this.chart.getFirstSliceAng().getVal());
+        }
+        return null;
+    }
+
+    public void setFirstSliceAngle(Integer angle) {
+        if (angle == null) {
+            if (this.chart.isSetFirstSliceAng()) {
+                this.chart.unsetFirstSliceAng();
+            }
+        } else {
+            if (angle.intValue() < 0 || 360 < angle.intValue()) {
+                throw new IllegalArgumentException("Value of angle must be between 0 and 360, both inclusive.");
+            }
+            if (this.chart.isSetFirstSliceAng()) {
+                this.chart.getFirstSliceAng().setVal(angle.intValue());
+            } else {
+                this.chart.addNewFirstSliceAng().setVal(angle.intValue());
+            }
+        }
+    }
+
+    public Integer getHoleSize() {
+        if (this.chart.isSetHoleSize()) {
+            return Integer.valueOf(POIXMLUnits.parsePercent(this.chart.getHoleSize().xgetVal()));
+        }
+        return null;
+    }
+
+    public void setHoleSize(Integer holeSize) {
+        if (holeSize == null) {
+            if (this.chart.isSetHoleSize()) {
+                this.chart.unsetHoleSize();
+            }
+        } else {
+            if (holeSize.intValue() < 10 || holeSize.intValue() > 90) {
+                throw new IllegalArgumentException("Value of holeSize must be between 10 and 90, both inclusive.");
+            }
+            if (this.chart.isSetHoleSize()) {
+                this.chart.getHoleSize().setVal(holeSize);
+            } else {
+                this.chart.addNewHoleSize().setVal(holeSize);
+            }
+        }
+    }
+
+    @Override // org.apache.poi.xddf.usermodel.chart.XDDFChartData
+    public XDDFChartData.Series addSeries(XDDFDataSource<?> category, XDDFNumericalDataSource<? extends Number> values) {
+        long index = this.parent.incrementSeriesCount();
+        CTPieSer ctSer = this.chart.addNewSer();
+        ctSer.addNewCat();
+        ctSer.addNewVal();
+        ctSer.addNewIdx().setVal(index);
+        ctSer.addNewOrder().setVal(index);
+        Series added = new Series(ctSer, category, values);
+        this.series.add(added);
+        return added;
+    }
+
+    /* loaded from: classes10.dex */
+    public class Series extends XDDFChartData.Series {
+        private CTPieSer series;
+
+        protected Series(CTPieSer series, XDDFDataSource<?> category, XDDFNumericalDataSource<? extends Number> values) {
+            super(category, values);
+            this.series = series;
+        }
+
+        protected Series(CTPieSer series, CTAxDataSource category, CTNumDataSource values) {
+            super(XDDFDataSourcesFactory.fromDataSource(category), XDDFDataSourcesFactory.fromDataSource(values));
+            this.series = series;
+        }
+
+        public CTPieSer getCTPieSer() {
+            return this.series;
+        }
+
+        @Override // org.apache.poi.xddf.usermodel.chart.XDDFChartData.Series
+        protected CTSerTx getSeriesText() {
+            if (this.series.isSetTx()) {
+                return this.series.getTx();
+            }
+            return this.series.addNewTx();
+        }
+
+        @Override // org.apache.poi.xddf.usermodel.chart.XDDFChartData.Series
+        public void setShowLeaderLines(boolean showLeaderLines) {
+            if (!this.series.isSetDLbls()) {
+                this.series.addNewDLbls();
+            }
+            if (this.series.getDLbls().isSetShowLeaderLines()) {
+                this.series.getDLbls().getShowLeaderLines().setVal(showLeaderLines);
+            } else {
+                this.series.getDLbls().addNewShowLeaderLines().setVal(showLeaderLines);
+            }
+        }
+
+        @Override // org.apache.poi.xddf.usermodel.chart.XDDFChartData.Series
+        public XDDFShapeProperties getShapeProperties() {
+            if (this.series.isSetSpPr()) {
+                return new XDDFShapeProperties(this.series.getSpPr());
+            }
+            return null;
+        }
+
+        @Override // org.apache.poi.xddf.usermodel.chart.XDDFChartData.Series
+        public void setShapeProperties(XDDFShapeProperties properties) {
+            if (properties == null) {
+                if (this.series.isSetSpPr()) {
+                    this.series.unsetSpPr();
+                }
+            } else if (this.series.isSetSpPr()) {
+                this.series.setSpPr(properties.getXmlObject());
+            } else {
+                this.series.addNewSpPr().set(properties.getXmlObject());
+            }
+        }
+
+        public Long getExplosion() {
+            if (this.series.isSetExplosion()) {
+                return Long.valueOf(this.series.getExplosion().getVal());
+            }
+            return null;
+        }
+
+        public void setExplosion(Long explosion) {
+            if (explosion == null) {
+                if (this.series.isSetExplosion()) {
+                    this.series.unsetExplosion();
+                }
+            } else if (this.series.isSetExplosion()) {
+                this.series.getExplosion().setVal(explosion.longValue());
+            } else {
+                this.series.addNewExplosion().setVal(explosion.longValue());
+            }
+        }
+
+        @Override // org.apache.poi.xddf.usermodel.chart.XDDFChartData.Series
+        protected CTAxDataSource getAxDS() {
+            return this.series.getCat();
+        }
+
+        @Override // org.apache.poi.xddf.usermodel.chart.XDDFChartData.Series
+        protected CTNumDataSource getNumDS() {
+            return this.series.getVal();
+        }
+
+        @Override // org.apache.poi.xddf.usermodel.chart.XDDFChartData.Series
+        protected void setIndex(long val) {
+            this.series.getIdx().setVal(val);
+        }
+
+        @Override // org.apache.poi.xddf.usermodel.chart.XDDFChartData.Series
+        protected void setOrder(long val) {
+            this.series.getOrder().setVal(val);
+        }
+
+        @Override // org.apache.poi.xddf.usermodel.chart.XDDFChartData.Series
+        protected List<CTDPt> getDPtList() {
+            return this.series.getDPtList();
+        }
+    }
+}

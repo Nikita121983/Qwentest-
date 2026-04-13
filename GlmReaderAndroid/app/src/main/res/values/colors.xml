@@ -32,4 +32,24 @@
     <color name="icon_tint">#2B5878</color>
     <color name="icon_type">#0091EA</color>
     <color name="icon_trash">#2B5878</color>
+
+    <!-- Toolbar по точке отсчёта -->
+    <color name="toolbar_rear">#1565c0</color>
+    <color name="toolbar_front">#2e7d32</color>
+    <color name="toolbar_tripod">#c62828</color>
+    <color name="toolbar_pin">#FF9800</color>
+
+    <!-- Фон списка по типу измерения -->
+    <color name="bg_direct">#FFFFFF</color>
+    <color name="bg_continuous">#FFFFFF</color>
+    <color name="bg_minmax">#FFF8E1</color>
+    <color name="bg_indirect">#FFF9C4</color>
+    <color name="bg_double_indirect">#FFF176</color>
+    <color name="bg_area">#F3E5F5</color>
+    <color name="bg_wall">#FFEBEE</color>
+    <color name="bg_volume">#FFCDD2</color>
+    <color name="bg_angle">#E1F5FE</color>
+    <color name="bg_stakeout">#E8F5E9</color>
+    <color name="bg_trapezoid">#F3E5F5</color>
+    <color name="bg_unknown">#F5F5F5</color>
 </resources>

@@ -1,0 +1,44 @@
+package org.openxmlformats.schemas.spreadsheetml.x2006.main;
+
+import java.util.List;
+import org.apache.poi.schemas.ooxml.system.ooxml.TypeSystemHolder;
+import org.apache.xmlbeans.SchemaType;
+import org.apache.xmlbeans.XmlObject;
+import org.apache.xmlbeans.XmlUnsignedInt;
+import org.apache.xmlbeans.impl.schema.DocumentFactory;
+
+/* loaded from: classes12.dex */
+public interface CTColFields extends XmlObject {
+    public static final DocumentFactory<CTColFields> Factory = new DocumentFactory<>(TypeSystemHolder.typeSystem, "ctcolfields9ab8type");
+    public static final SchemaType type = Factory.getType();
+
+    CTField addNewField();
+
+    long getCount();
+
+    CTField getFieldArray(int i);
+
+    CTField[] getFieldArray();
+
+    List<CTField> getFieldList();
+
+    CTField insertNewField(int i);
+
+    boolean isSetCount();
+
+    void removeField(int i);
+
+    void setCount(long j);
+
+    void setFieldArray(int i, CTField cTField);
+
+    void setFieldArray(CTField[] cTFieldArr);
+
+    int sizeOfFieldArray();
+
+    void unsetCount();
+
+    XmlUnsignedInt xgetCount();
+
+    void xsetCount(XmlUnsignedInt xmlUnsignedInt);
+}

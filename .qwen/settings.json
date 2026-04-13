@@ -74,7 +74,15 @@
       "Bash(ccr *)",
       "Bash(claude *)",
       "Bash(node *)",
-      "Bash(git log *)"
+      "Bash(git log *)",
+      "Bash(.\\gradlew *)",
+      "Bash(bdui *)",
+      "Read(C:\\Users\\Nik\\.qwen\\projects\\c--users-nik-syncthingserviceacct-qwentest\\chats/**)",
+      "Bash(netstat *)",
+      "Bash(c:\\users\\nik\\appdata\\local\\android\\sdk\\platform-tools\\adb.exe *)",
+      "Bash(xcopy *)",
+      "Bash(jadx *)",
+      "Bash(choco *)"
     ]
   },
   "$version": 3,

@@ -1,0 +1,43 @@
+package org.apache.poi.ss.formula;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/* JADX INFO: Access modifiers changed from: package-private */
+/* loaded from: classes10.dex */
+public final class FormulaCellCache {
+    private final Map<Object, FormulaCellCacheEntry> _formulaEntriesByCell = new HashMap();
+
+    /* loaded from: classes10.dex */
+    interface IEntryOperation {
+        void processEntry(FormulaCellCacheEntry formulaCellCacheEntry);
+    }
+
+    public CellCacheEntry[] getCacheEntries() {
+        FormulaCellCacheEntry[] result = new FormulaCellCacheEntry[this._formulaEntriesByCell.size()];
+        this._formulaEntriesByCell.values().toArray(result);
+        return result;
+    }
+
+    public void clear() {
+        this._formulaEntriesByCell.clear();
+    }
+
+    public FormulaCellCacheEntry get(EvaluationCell cell) {
+        return this._formulaEntriesByCell.get(cell.getIdentityKey());
+    }
+
+    public void put(EvaluationCell cell, FormulaCellCacheEntry entry) {
+        this._formulaEntriesByCell.put(cell.getIdentityKey(), entry);
+    }
+
+    public FormulaCellCacheEntry remove(EvaluationCell cell) {
+        return this._formulaEntriesByCell.remove(cell.getIdentityKey());
+    }
+
+    public void applyOperation(IEntryOperation operation) {
+        for (FormulaCellCacheEntry formulaCellCacheEntry : this._formulaEntriesByCell.values()) {
+            operation.processEntry(formulaCellCacheEntry);
+        }
+    }
+}

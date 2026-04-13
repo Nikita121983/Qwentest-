@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlmReaderAndroid — UI v21 (Обратная связь, яркие цвета)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; justify-content: center; font-family: 'Roboto', sans-serif; padding: 20px; gap: 30px; flex-wrap: wrap; }
+  .layout-group { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .layout-label { font-size: 12px; color: #aaa; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
+
+  .phone { width: 393px; height: 852px; background: #fff; position: relative; overflow: hidden; border-radius: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); display: flex; flex-direction: column; }
+  .status-bar { height: 28px; background: #000; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #fff; font-size: 11px; flex-shrink: 0; }
+
+  /* Toolbar */
+  .toolbar {
+    height: 56px; display: flex; align-items: center;
+    padding: 0 8px 0 12px; color: #fff; transition: background 0.4s ease; flex-shrink: 0;
+  }
+  .toolbar.rear   { background: #2B5878; }
+  .toolbar.front  { background: #2e7d32; }
+  .toolbar.tripod { background: #c62828; }
+  .toolbar .burger { font-size: 22px; cursor: pointer; padding: 8px; margin-right: 8px; }
+  .toolbar .title { font-size: 20px; font-weight: 400; flex: 1; text-align: center; margin-right: 32px; }
+  .toolbar .bt-icon { margin-right: 12px; padding: 8px; cursor: pointer; }
+  .toolbar .dots { font-size: 20px; letter-spacing: 2px; padding: 8px; cursor: pointer; }
+
+  /* Полоска */
+  .panel-toggle-strip {
+    height: 24px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0; transition: background 0.4s;
+  }
+  .panel-toggle-strip.rear   { background: #2B5878; }
+  .panel-toggle-strip.front  { background: #2e7d32; }
+  .panel-toggle-strip.tripod { background: #c62828; }
+  .panel-toggle-strip .arrow { color: #fff; font-size: 12px; }
+
+  /* Панель */
+  .remote-panel { background: #fff; transition: max-height 0.3s ease; overflow: hidden; flex-shrink: 0; }
+  .remote-panel.expanded { max-height: 500px; }
+  .remote-panel.collapsed { max-height: 0; }
+  .remote-body { padding: 16px; }
+
+  /* Кубики */
+  .cube-wrapper { display: flex; justify-content: space-around; align-items: center; margin-bottom: 16px; }
+  .flip-cube {
+    width: 22%; aspect-ratio: 1/1; max-width: 80px; min-width: 60px;
+    perspective: 400px; cursor: pointer; position: relative;
+  }
+  .flip-cube-inner {
+    width: 100%; height: 100%; position: relative; transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.4, 0.2, 0.2, 1);
+  }
+  .flip-face {
+    position: absolute; width: 100%; height: 100%; background: #fff; border: 2px solid #e0e0e0;
+    border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    backface-visibility: hidden;
+  }
+  .flip-face .face-icon { width: 45%; aspect-ratio: 1/1; max-height: 40%; }
+  .flip-face .face-label { font-size: 8px; color: #666; margin-top: 4px; font-weight: 500; text-align: center; line-height: 1.1; }
+  .flip-face.front { transform: rotateY(0deg) translateZ(40px); }
+  .flip-face.back { transform: rotateY(90deg) translateZ(40px); }
+
+  /* Кнопка Включить */
+  .btn-enable {
+    display: flex; margin: 0 auto; padding: 12px 48px; background: linear-gradient(180deg, #1a6fb5, #0d4f8a);
+    color: #fff; font-size: 17px; font-weight: 400; border: none; border-radius: 6px; cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15); align-items: center; justify-content: center; gap: 10px;
+  }
+
+  /* List Header — фон по типу, header прозрачный */
+  .list-header { padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.08); flex-shrink: 0; }
+  .list-header .title { color: #888; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 400; }
+  .list-header .dl-icon { font-size: 22px; color: #2B5878; cursor: pointer; padding: 4px; }
+
+  /* Measurement List — фон на ВЕСЬ экран, цвет по типу */
+  .list-container { flex: 1; overflow-y: auto; position: relative; }
+  .measurement-list {
+    padding-bottom: 40px; transition: background 0.3s ease;
+    min-height: 100%;
+  }
+
+  /* Яркие фоны по типу (не пастельные) */
+  .measurement-list.bg-direct    { background: #FFFFFF; }
+  .measurement-list.bg-minmax    { background: #FFE082; }
+  .measurement-list.bg-indirect  { background: #FFEE58; }
+  .measurement-list.bg-double    { background: #FDD835; }
+  .measurement-list.bg-area      { background: #CE93D8; }
+  .measurement-list.bg-volume    { background: #EF9A9A; }
+  .measurement-list.bg-angle     { background: #81D4FA; }
+  .measurement-list.bg-wall      { background: #EF9A9A; }
+
+  /* Строка замера — подпись на белом фоне, значение без фона */
+  .measurement-row {
+    display: flex; flex-direction: column; padding: 12px 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .measurement-row:last-child { border-bottom: none; }
+  .measurement-row:active { background: rgba(255,255,255,0.5); }
+
+  /* Белый блок для подписи (всегда белый независимо от фона) */
+  .measurement-row .name-card {
+    background: rgba(255,255,255,0.85);
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin: -4px -8px 4px -8px;
+  }
+  .measurement-row .name { color: #1A3A5C; font-size: 15px; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .measurement-row .datetime { color: #777; font-size: 11px; font-weight: 400; }
+
+  .measurement-row .top-line { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+  .measurement-row .right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .measurement-row .value { color: #0091EA; font-size: 17px; font-weight: 500; white-space: nowrap; }
+
+  /* Иконка типа рядом со значением */
+  .type-icon { width: 20px; height: 24px; flex-shrink: 0; }
+
+  .nav-bar { height: 48px; background: #000; display: flex; justify-content: center; align-items: center; flex-shrink: 0; }
+  .nav-bar .gesture-bar { width: 120px; height: 4px; background: #555; border-radius: 2px; }
+
+  /* Легенда */
+  .legend { position: fixed; bottom: 12px; left: 12px; background: #111; padding: 10px 14px; border-radius: 8px; font-size: 11px; color: #aaa; max-width: 400px; line-height: 1.5; }
+  .legend b { color: #fff; }
+  .legend .swatch { display: inline-block; width: 16px; height: 16px; border-radius: 3px; vertical-align: middle; margin-right: 4px; border: 1px solid rgba(255,255,255,0.2); }
+</style>
+<script type="text/javascript" src="mockup_ui_v22_files/multi-find-element.js"></script><script type="text/javascript" src="mockup_ui_v22_files/inspector.js"></script><input type="hidden" id="_o_dbjbempljhcmhlfpfacalomonjpalpko"></head>
+<body>
+
+<!-- ====== ① Задняя грань — Прямое измерение (белый фон) ====== -->
+<div class="layout-group">
+  <div class="layout-label">① Задняя грань — Прямое<br><span style="color:#2B5878">▬ Toolbar</span> | <span style="color:#fff">▬ Фон: белый</span></div>
+  <div class="phone">
+    <div class="status-bar"><span>18:06</span><span>🔋 26%</span></div>
+
+    <div class="toolbar rear">
+      <span class="burger">☰</span>
+      <span class="title">Список измерений</span>
+      <span class="bt-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="7 7 17 17 12 22 12 2 17 7 7 17"></polyline>
+          <path d="M19 5 Q21 8 19 11" stroke-width="1.2"></path>
+          <path d="M21 3 Q24 8 21 13" stroke-width="1.2"></path>
+          <path d="M23 1 Q27 8 23 15" stroke-width="1.2"></path>
+        </svg>
+      </span>
+      <span class="dots">⋮</span>
+    </div>
+
+    <div class="panel-toggle-strip rear"><span class="arrow">▼</span></div>
+
+    <div class="remote-panel collapsed">
+      <div class="remote-body">
+        <div class="cube-wrapper">
+          <div style="text-align:center;">
+            <div class="flip-cube">
+              <div class="flip-cube-inner">
+                <div class="flip-face front">
+                  <svg class="face-icon" viewBox="0 0 32 32"><rect x="4" y="8" width="11" height="14" fill="#888" rx="1"></rect><rect x="5" y="9" width="6" height="5" fill="#fff"></rect><line x1="20" y1="20" x2="20" y2="6" stroke="#d32f2f" stroke-width="2.5" stroke-linecap="round"></line><polygon points="20,3 16,10 24,10" fill="#d32f2f"></polygon></svg>
+                  <span class="face-label">Задняя</span>
+                </div>
+                <div class="flip-face back"></div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center;">
+            <div class="flip-cube">
+              <div class="flip-cube-inner">
+                <div class="flip-face front">
+                  <svg class="face-icon" viewBox="0 0 32 32"><line x1="16" y1="26" x2="16" y2="6" stroke="#d32f2f" stroke-width="2.5" stroke-linecap="round"></line><polygon points="16,3 12,10 20,10" fill="#d32f2f"></polygon><line x1="12" y1="26" x2="20" y2="26" stroke="#42a5f5" stroke-width="2" stroke-linecap="round"></line></svg>
+                  <span class="face-label">Прямой</span>
+                </div>
+                <div class="flip-face back"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-enable">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="9" cy="9" r="6.5"></circle><line x1="9" y1="2.5" x2="9" y2="15.5"></line><line x1="2.5" y1="9" x2="15.5" y2="9"></line><circle cx="9" cy="9" r="1.5" fill="#fff"></circle></svg>
+          Включить
+        </button>
+      </div>
+    </div>
+
+    <div class="list-header">
+      <span class="title">Измерения</span>
+      <span class="dl-icon">⬇</span>
+    </div>
+
+    <div class="list-container">
+      <div class="measurement-list bg-direct">
+        <div class="measurement-row">
+          <div class="name-card">
+            <div class="name">Д-11 П3.2.1-2.Кл7</div>
+            <span class="datetime">25.03.2026 20:56</span>
+          </div>
+          <div class="top-line">
+            <span></span>
+            <div class="right">
+              <svg class="type-icon" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"></line><polygon points="10,2 7,8 13,8" fill="#d32f2f"></polygon><line x1="7" y1="22" x2="13" y2="22" stroke="#42a5f5" stroke-width="1.2"></line></svg>
+              <span class="value">1033,1 мм</span>
+            </div>
+          </div>
+        </div>
+        <div class="measurement-row">
+          <div class="name-card">
+            <div class="name">Измерение</div>
+            <span class="datetime">25.03.2026 20:55</span>
+          </div>
+          <div class="top-line">
+            <span></span>
+            <div class="right">
+              <svg class="type-icon" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"></line><polygon points="10,2 7,8 13,8" fill="#d32f2f"></polygon><line x1="7" y1="22" x2="13" y2="22" stroke="#42a5f5" stroke-width="1.2"></line></svg>
+              <span class="value">2350,6 мм</span>
+            </div>
+          </div>
+        </div>
+        <div class="measurement-row">
+          <div class="name-card">
+            <div class="name">8Л Пр Сн Шт+</div>
+            <span class="datetime">25.03.2026 20:54</span>
+          </div>
+          <div class="top-line">
+            <span></span>
+            <div class="right">
+              <svg class="type-icon" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"></line><polygon points="10,2 7,8 13,8" fill="#d32f2f"></polygon><line x1="7" y1="22" x2="13" y2="22" stroke="#42a5f5" stroke-width="1.2"></line></svg>
+              <span class="value">1314,4 мм</span>
+            </div>
+          </div>
+        </div>
+        <div class="measurement-row">
+          <div class="name-card">
+            <div class="name">Дчпзп</div>
+            <span class="datetime">25.03.2026 20:53</span>
+          </div>
+          <div class="top-line">
+            <span></span>
+            <div class="right">
+              <svg class="type-icon" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"></line><polygon points="10,2 7,8 13,8" fill="#d32f2f"></polygon><line x1="7" y1="22" x2="13" y2="22" stroke="#42a5f5" stroke-width="1.2"></line></svg>
+              <span class="value">2205,8 мм</span>
+            </div>
+          </div>
+        </div>
+        <div class="measurement-row">
+          <div class="name-card">
+            <div class="name">Измерение</div>
+            <span class="datetime">25.03.2026 20:52</span>
+          </div>
+          <div class="top-line">
+            <span></span>
+            <div class="right">
+              <svg class="type-icon" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"></line><polygon points="10,2 7,8 13,8" fill="#d32f2f"></polygon><line x1="7" y1="22" x2="13" y2="22" stroke="#42a5f5" stroke-width="1.2"></line></svg>
+              <span class="value">2205,3 мм</span>
+            </div>
+          </div>
+        </div>
+        <div class="measurement-row">
+          <div class="name-card">
+            <div class="name">Косв. высота</div>
+            <span class="datetime">25.03.2026 20:51</span>
+          </div>
+          <div class="top-line">
+            <span></span>
+            <div class="right">
+              <svg class="type-icon" viewBox="0 0 20 24"><line x1="10" y1="26" x2="10" y2="6" stroke="#d32f2f" stroke-width="2"></line><polygon points="10,3 7,10 13,10" fill="#d32f2f"></polygon><line x1="18" y1="6" x2="18" y2="22" stroke="#42a5f5" stroke-width="2"></line><line x1="15" y1="6" x2="21" y2="6" stroke="#42a5f5" stroke-width="1.5"></line></svg>
+              <span class="value">4850,2 мм</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-bar"><div class="gesture-bar"></div></div>
+  </div>
+</div>
+
+<!-- ====== ② Передняя грань — Косвенная (жёлтый фон) ====== -->
+<div class="layout-group">
+  <div class="layout-label">② Передняя грань — Косвенная высота<br><span style="color:#2e7d32">▬ Toolbar</span> | <span style="color:#FFEE58">▬ Фон: #FFEE58</span></div>
+  <div class="phone">
+    <div class="status-bar"><span>18:06</span><span>🔋 26%</span></div>
+
+    <div class="toolbar front">
+      <span class="burger">☰</span>
+      <span class="title">Список измерений</span>
+      <span class="bt-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="7 7 17 17 12 22 12 2 17 7 7 17"></polyline>
+          <path d="M19 5 Q21 8 19 11" stroke-width="1.2"></path>
+          <path d="M21 3 Q24 8 21 13" stroke-width="1.2"></path>
+          <path d="M23 1 Q27 8 23 15" stroke-width="1.2"></path>
+        </svg>
+      </span>
+      <span class="dots">⋮</span>
+    </div>
+
+    <div class="panel-toggle-strip front"><span class="arrow">▼</span></div>
+
+    <div class="remote-panel collapsed">
+      <div class="remote-body">
+        <div class="cube-wrapper">
+          <div style="text-align:center;">
+            <div class="flip-cube">
+              <div class="flip-cube-inner">
+                <div class="flip-face front">
+                  <svg class="face-icon" viewBox="0 0 32 32"><rect x="11" y="8" width="11" height="14" fill="#888" rx="1"></rect><rect x="12" y="9" width="6" height="5" fill="#fff"></rect><line x1="6" y1="20" x2="6" y2="6" stroke="#d32f2f" stroke-width="2.5" stroke-linecap="round"></line><polygon points="6,3 2,10 10,10" fill="#d32f2f"></polygon></svg>
+                  <span class="face-label">Передняя</span>
+                </div>
+                <div class="flip-face back"></div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center;">
+            <div class="flip-cube">
+              <div class="flip-cube-inner">
+                <div class="flip-face front">
+                  <svg class="face-icon" viewBox="0 0 32 32"><line x1="10" y1="26" x2="10" y2="6" stroke="#d32f2f" stroke-width="2"></line><polygon points="10,3 7,10 13,10" fill="#d32f2f"></polygon><line x1="20" y1="6" x2="20" y2="24" stroke="#42a5f5" stroke-width="2.5"></line><line x1="17" y1="6" x2="23" y2="6" stroke="#42a5f5" stroke-width="2"></line></svg>
+                  <span class="face-label">Косв. выс.</span>
+                </div>
+                <div class="flip-face back"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-enable">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="9" cy="9" r="6.5"></circle><line x1="9" y1="2.5" x2="9" y2="15.5"></line><line x1="2.5" y1="9" x2="15.5" y2="9"></line><circle cx="9" cy="9" r="1.5" fill="#fff"></circle></svg>
+          Выключить
+        </button>
+      </div>
+    </div>
+
+    <div class="list-header">
+      <span class="title">Измерения</span>
+      <span class="dl-icon">⬇</span>
+    </div>
+
+    <div class="list-container">
+      <div class="measurement-list bg-indirect">
+        <div class="measurement-row">
+          <div class="name-card">
+            <div class="name">Высота столба A</div>
+            <span class="datetime">25.03.2026 21:10</span>
+          </div>
+          <div class="top-line">
+            <span></span>
+            <div class="right">
+              <svg class="type-icon" viewBox="0 0 20 24"><line x1="10" y1="26" x2="10" y2="6" stroke="#d32f2f" stroke-width="2"></line><polygon points="10,3 7,10 13,10" fill="#d32f2f"></polygon><line x1="18" y1="6" x2="18" y2="22" stroke="#42a5f5" stroke-width="2"></line></svg>
+              <span class="value">4850,2 мм</span>
+            </div>
+          </div>
+        </div>
+        <div class="measurement-row">
+          <div class="name-card">
+            <div class="name">Высота окна</div>
+            <span class="datetime">25.03.2026 21:08</span>
+          </div>
+          <div class="top-line">
+            <span></span>
+            <div class="right">
+              <svg class="type-icon" viewBox="0 0 20 24"><line x1="10" y1="26" x2="10" y2="6" stroke="#d32f2f" stroke-width="2"></line><polygon points="10,3 7,10 13,10" fill="#d32f2f"></polygon><line x1="18" y1="6" x2="18" y2="22" stroke="#42a5f5" stroke-width="2"></line></svg>
+              <span class="value">1520,8 мм</span>
+            </div>
+          </div>
+        </div>
+        <div class="measurement-row">
+          <div class="name-card">
+            <div class="name">Косвенная</div>
+            <span class="datetime">25.03.2026 21:05</span>
+          </div>
+          <div class="top-line">
+            <span></span>
+            <div class="right">
+              <svg class="type-icon" viewBox="0 0 20 24"><line x1="10" y1="26" x2="10" y2="6" stroke="#d32f2f" stroke-width="2"></line><polygon points="10,3 7,10 13,10" fill="#d32f2f"></polygon><line x1="18" y1="6" x2="18" y2="22" stroke="#42a5f5" stroke-width="2"></line></svg>
+              <span class="value">3200,0 мм</span>
+            </div>
+          </div>
+        </div>
+        <div class="measurement-row">
+          <div class="name-card">
+            <div class="name">Прямое</div>
+            <span class="datetime">25.03.2026 21:03</span>
+          </div>
+          <div class="top-line">
+            <span></span>
+            <div class="right">
+              <svg class="type-icon" viewBox="0 0 20 24"><line x1="10" y1="22" x2="10" y2="4" stroke="#d32f2f" stroke-width="1.5"></line><polygon points="10,2 7,8 13,8" fill="#d32f2f"></polygon><line x1="7" y1="22" x2="13" y2="22" stroke="#42a5f5" stroke-width="1.2"></line></svg>
+              <span class="value">2100,5 мм</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-bar"><div class="gesture-bar"></div></div>
+  </div>
+</div>
+
+<!-- ====== ③ Штатив — Площадь (фиолетовый фон) ====== -->
+<div class="layout-group">
+  <div class="layout-label">③ Штатив — Площадь<br><span style="color:#c62828">▬ Toolbar</span> | <span style="color:#CE93D8">▬ Фон: #CE93D8</span></div>
+  <div class="phone">
+    <div class="status-bar"><span>18:06</span><span>🔋 26%</span></div>
+
+    <div class="toolbar tripod">
+      <span class="burger">☰</span>
+      <span class="title">Список измерений</span>
+      <span class="bt-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="7 7 17 17 12 22 12 2 17 7 7 17"></polyline>
+          <path d="M19 5 Q21 8 19 11" stroke-width="1.2"></path>
+          <path d="M21 3 Q24 8 21 13" stroke-width="1.2"></path>
+          <path d="M23 1 Q27 8 23 15" stroke-width="1.2"></path>
+        </svg>
+      </span>
+      <span class="dots">⋮</span>
+    </div>
+
+    <div class="panel-toggle-strip tripod"><span class="arrow">▼</span></div>
+
+    <div class="remote-panel collapsed">
+      <div class="remote-body">
+        <div class="cube-wrapper">
+          <div style="text-align:center;">
+            <div class="flip-cube">
+              <div class="flip-cube-inner">
+                <div class="flip-face front">
+                  <svg class="face-icon" viewBox="0 0 32 32"><rect x="8" y="8" width="10" height="14" fill="#888" rx="1"></rect><rect x="9" y="9" width="8" height="5" fill="#fff"></rect><line x1="13" y1="20" x2="13" y2="6" stroke="#d32f2f" stroke-width="2.5" stroke-linecap="round"></line><polygon points="13,3 9,10 17,10" fill="#d32f2f"></polygon></svg>
+                  <span class="face-label">Штатив</span>
+                </div>
+                <div class="flip-face back"></div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center;">
+            <div class="flip-cube">
+              <div class="flip-cube-inner">
+                <div class="flip-face front">
+                  <svg class="face-icon" viewBox="0 0 32 32"><rect x="7" y="7" width="18" height="18" fill="none" stroke="#42a5f5" stroke-width="2.5" rx="2"></rect><text x="16" y="20" text-anchor="middle" fill="#42a5f5" font-size="11" font-weight="bold">m²</text></svg>
+                  <span class="face-label">Площадь</span>
+                </div>
+                <div class="flip-face back"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-enable">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="9" cy="9" r="6.5"></circle><line x1="9" y1="2.5" x2="9" y2="15.5"></line><line x1="2.5" y1="9" x2="15.5" y2="9"></line><circle cx="9" cy="9" r="1.5" fill="#fff"></circle></svg>
+          Выключить
+        </button>
+      </div>
+    </div>
+
+    <div class="list-header">
+      <span class="title">Измерения</span>
+      <span class="dl-icon">⬇</span>
+    </div>
+
+    <div class="list-container">
+      <div class="measurement-list bg-area">
+        <div class="measurement-row">
+          <div class="name-card">
+            <div class="name">Комната 1</div>
+            <span class="datetime">25.03.2026 21:30</span>
+          </div>
+          <div class="top-line">
+            <span></span>
+            <div class="right">
+              <svg class="type-icon" viewBox="0 0 20 24"><rect x="2" y="2" width="16" height="16" fill="none" stroke="#42a5f5" stroke-width="2" rx="1"></rect><text x="10" y="15" text-anchor="middle" fill="#42a5f5" font-size="8" font-weight="bold">m²</text></svg>
+              <span class="value">18,5 м²</span>
+            </div>
+          </div>
+        </div>
+        <div class="measurement-row">
+          <div class="name-card">
+            <div class="name">Кухня</div>
+            <span class="datetime">25.03.2026 21:28</span>
+          </div>
+          <div class="top-line">
+            <span></span>
+            <div class="right">
+              <svg class="type-icon" viewBox="0 0 20 24"><rect x="2" y="2" width="16" height="16" fill="none" stroke="#42a5f5" stroke-width="2" rx="1"></rect><text x="10" y="15" text-anchor="middle" fill="#42a5f5" font-size="8" font-weight="bold">m²</text></svg>
+              <span class="value">12,3 м²</span>
+            </div>
+          </div>
+        </div>
+        <div class="measurement-row">
+          <div class="name-card">
+            <div class="name">Коридор</div>
+            <span class="datetime">25.03.2026 21:25</span>
+          </div>
+          <div class="top-line">
+            <span></span>
+            <div class="right">
+              <svg class="type-icon" viewBox="0 0 20 24"><rect x="2" y="2" width="16" height="16" fill="none" stroke="#42a5f5" stroke-width="2" rx="1"></rect><text x="10" y="15" text-anchor="middle" fill="#42a5f5" font-size="8" font-weight="bold">m²</text></svg>
+              <span class="value">8,7 м²</span>
+            </div>
+          </div>
+        </div>
+        <div class="measurement-row">
+          <div class="name-card">
+            <div class="name">Угол комнаты</div>
+            <span class="datetime">25.03.2026 21:20</span>
+          </div>
+          <div class="top-line">
+            <span></span>
+            <div class="right">
+              <svg class="type-icon" viewBox="0 0 20 24"><path d="M4 20 L4 8 Q4 4 8 4 L16 4" fill="none" stroke="#42a5f5" stroke-width="1.5"></path><text x="8" y="17" fill="#42a5f5" font-size="9" font-weight="bold">°</text></svg>
+              <span class="value">90,0°</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-bar"><div class="gesture-bar"></div></div>
+  </div>
+</div>
+
+<div class="legend">
+  <b style="color:#fff;">Toolbar по точке отсчёта:</b><br>
+  <span class="swatch" style="background:#2B5878"></span> Задняя
+  <span class="swatch" style="background:#2e7d32;margin-left:10px"></span> Передняя
+  <span class="swatch" style="background:#c62828;margin-left:10px"></span> Штатив<br><br>
+  <b style="color:#fff;">Фон списка (яркий):</b><br>
+  <span class="swatch" style="background:#FFFFFF"></span> Прямой
+  <span class="swatch" style="background:#FFEE58;margin-left:6px"></span> Косвенная
+  <span class="swatch" style="background:#FDD835;margin-left:6px"></span> Двойная<br>
+  <span class="swatch" style="background:#CE93D8;margin-left:6px"></span> Площадь
+  <span class="swatch" style="background:#EF9A9A;margin-left:6px"></span> Объём
+  <span class="swatch" style="background:#81D4FA;margin-left:6px"></span> Угол<br><br>
+  <b style="color:#fff;">Подпись:</b> всегда на белом полупрозрачном фоне<br>
+  <b style="color:#fff;">Иконка типа:</b> рядом со значением справа
+</div>
+
+
+<div class="multi-find-menu-container" style="width: 400px; inset: 0px 18px auto auto; position: fixed; height: 0px; display: flex; align-items: start; justify-content: space-between; z-index: 999998; max-height: 100vh; color-scheme: auto; overflow: visible;"><iframe title="advanced search" width="100%" height="100%" style="position: static; z-index: 1000000; border: 0px;" frameborder="none" name="multi-find-menu"></iframe></div><div></div></body></html>

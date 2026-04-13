@@ -35,7 +35,7 @@
 | 005 | 2026-04-06 | Обновление зависимостей до актуальных версий | [SUMMARY](005_2026-04-06_dependency-updates_SUMMARY.md) |
 | 006 | 2026-04-06 | Фикс UI проблем и подготовка к новой сессии | [SUMMARY](006_2026-04-06_fix-issues_SUMMARY.md) |
 | 007 | 2026-04-06 | Дистанционное управление и RFCOMM отладка | [SUMMARY](007_2026-04-06_rfcomm-data-debug_SUMMARY.md) |
-| 008 | 2026-04-12 | Анализ BLE реализации — сборная солянка | [Анализ](../25_BLE_IMPLEMENTATION_ANALYSIS.md), [Процесс](../CORRECT_IMPLEMENTATION_PROCESS.md) |
+| 008 | 2026-04-12 | BLE v25 — анализ, план, задачи Beads | [SUMMARY](008_2026-04-12_ble-v25-planning_SUMMARY.md) |
 
 ---
 

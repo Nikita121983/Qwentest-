@@ -1,0 +1,63 @@
+package org.apache.poi.xslf.usermodel;
+
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.poi.sl.usermodel.AutoShape;
+import org.apache.poi.xddf.usermodel.text.XDDFTextBody;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTNonVisualDrawingProps;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTPresetGeometry2D;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTShapeProperties;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTTextBody;
+import org.openxmlformats.schemas.drawingml.x2006.main.STShapeType;
+import org.openxmlformats.schemas.presentationml.x2006.main.CTShape;
+import org.openxmlformats.schemas.presentationml.x2006.main.CTShapeNonVisual;
+
+/* loaded from: classes10.dex */
+public class XSLFAutoShape extends XSLFTextShape implements AutoShape<XSLFShape, XSLFTextParagraph> {
+    /* JADX INFO: Access modifiers changed from: package-private */
+    public XSLFAutoShape(CTShape shape, XSLFSheet sheet) {
+        super(shape, sheet);
+    }
+
+    /* JADX INFO: Access modifiers changed from: package-private */
+    public static XSLFAutoShape create(CTShape shape, XSLFSheet sheet) {
+        if (shape.getSpPr().isSetCustGeom()) {
+            return new XSLFFreeformShape(shape, sheet);
+        }
+        if (shape.getNvSpPr().getCNvSpPr().isSetTxBox()) {
+            return new XSLFTextBox(shape, sheet);
+        }
+        return new XSLFAutoShape(shape, sheet);
+    }
+
+    /* JADX INFO: Access modifiers changed from: package-private */
+    public static CTShape prototype(int shapeId) {
+        CTShape ct = CTShape.Factory.newInstance();
+        CTShapeNonVisual nvSpPr = ct.addNewNvSpPr();
+        CTNonVisualDrawingProps cnv = nvSpPr.addNewCNvPr();
+        cnv.setName("AutoShape " + shapeId);
+        cnv.setId(shapeId);
+        nvSpPr.addNewCNvSpPr();
+        nvSpPr.addNewNvPr();
+        CTShapeProperties spPr = ct.addNewSpPr();
+        CTPresetGeometry2D prst = spPr.addNewPrstGeom();
+        prst.setPrst(STShapeType.RECT);
+        prst.addNewAvLst();
+        return ct;
+    }
+
+    @Override // org.apache.poi.xslf.usermodel.XSLFTextShape
+    protected CTTextBody getTextBody(boolean create) {
+        CTShape shape = (CTShape) getXmlObject();
+        CTTextBody txBody = shape.getTxBody();
+        if (txBody == null && create) {
+            XDDFTextBody body = new XDDFTextBody(this);
+            shape.setTxBody(body.getXmlObject());
+            return shape.getTxBody();
+        }
+        return txBody;
+    }
+
+    public String toString() {
+        return CollectionUtils.DEFAULT_TOSTRING_PREFIX + getClass().getSimpleName() + "] " + getShapeName();
+    }
+}

@@ -49,6 +49,8 @@ class BleConnectionManager(private val context: Context) {
     // Состояние
     @Volatile var isConnected = false
         private set
+    @Volatile var isConnecting = false
+        private set
     var connectedDeviceName: String? = null
         private set
     var connectedDeviceMac: String? = null
@@ -63,14 +65,22 @@ class BleConnectionManager(private val context: Context) {
     /**
      * Подключение к устройству по MAC-адресу.
      * Использует createInsecureRfcommSocketToServiceRecord — БЕЗ bonding.
+     * Как в MM: BTDeviceManagerImpl.connect() — проверяет isConnected перед подключением.
      */
     @SuppressLint("MissingPermission")
+    @Synchronized
     fun connect(macAddress: String) {
+        Log.d("BleConn", "connect() called for $macAddress. isConnected=$isConnected, isConnecting=$isConnecting")
         if (isConnected) {
-            Log.w("BleConn", "Already connected, disconnecting first")
-            disconnect()
+            Log.w("BleConn", "Already connected")
+            return
+        }
+        if (isConnecting) {
+            Log.w("BleConn", "Already connecting, skipping duplicate call")
+            return
         }
 
+        isConnecting = true
         Thread {
             try {
                 val bluetoothManager = context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
@@ -87,6 +97,7 @@ class BleConnectionManager(private val context: Context) {
 
                 // Инициализация
                 isConnected = true
+                isConnecting = false
                 connectedDeviceName = device.name
                 connectedDeviceMac = macAddress
                 inputStream = rfcommSocket?.inputStream
@@ -104,6 +115,7 @@ class BleConnectionManager(private val context: Context) {
             } catch (e: Exception) {
                 Log.e("BleConn", "❌ Connection failed: ${e.message}")
                 isConnected = false
+                isConnecting = false
                 onDisconnected?.invoke(e.message)
             }
         }.start()
@@ -161,7 +173,12 @@ class BleConnectionManager(private val context: Context) {
         } catch (e: Exception) {
             Log.e("BleConn", "Read error: ${e.message}")
         } finally {
+            // ВАЖНО: При выходе из цикла (ошибка или EOF) обновляем статус,
+            // иначе AutoConnectThread будет думать, что мы подключены, и спать вечно.
             if (isConnected) {
+                isConnected = false
+                isConnecting = false
+                Log.w("BleConn", "ReadLoop finished, disconnected.")
                 onDisconnected?.invoke("Stream error")
             }
         }

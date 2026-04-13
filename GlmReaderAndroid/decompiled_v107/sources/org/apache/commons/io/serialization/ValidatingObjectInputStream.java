@@ -1,0 +1,163 @@
+package org.apache.commons.io.serialization;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InvalidClassException;
+import java.io.ObjectInputStream;
+import java.io.ObjectStreamClass;
+import java.util.regex.Pattern;
+import org.apache.commons.io.build.AbstractStreamBuilder;
+
+/* loaded from: classes9.dex */
+public class ValidatingObjectInputStream extends ObjectInputStream {
+    private final ObjectStreamClassPredicate predicate;
+
+    /* loaded from: classes9.dex */
+    public static class Builder extends AbstractStreamBuilder<ValidatingObjectInputStream, Builder> {
+        private ObjectStreamClassPredicate predicate = new ObjectStreamClassPredicate();
+
+        @Deprecated
+        public Builder() {
+        }
+
+        public Builder accept(Class<?>... classes) {
+            this.predicate.accept(classes);
+            return this;
+        }
+
+        public Builder accept(ClassNameMatcher matcher) {
+            this.predicate.accept(matcher);
+            return this;
+        }
+
+        public Builder accept(Pattern pattern) {
+            this.predicate.accept(pattern);
+            return this;
+        }
+
+        public Builder accept(String... patterns) {
+            this.predicate.accept(patterns);
+            return this;
+        }
+
+        @Override // org.apache.commons.io.function.IOSupplier
+        public ValidatingObjectInputStream get() throws IOException {
+            return new ValidatingObjectInputStream(this);
+        }
+
+        public ObjectStreamClassPredicate getPredicate() {
+            return this.predicate;
+        }
+
+        public Builder reject(Class<?>... classes) {
+            this.predicate.reject(classes);
+            return this;
+        }
+
+        public Builder reject(ClassNameMatcher matcher) {
+            this.predicate.reject(matcher);
+            return this;
+        }
+
+        public Builder reject(Pattern pattern) {
+            this.predicate.reject(pattern);
+            return this;
+        }
+
+        public Builder reject(String... patterns) {
+            this.predicate.reject(patterns);
+            return this;
+        }
+
+        public Builder setPredicate(ObjectStreamClassPredicate predicate) {
+            this.predicate = predicate != null ? predicate : new ObjectStreamClassPredicate();
+            return this;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    private ValidatingObjectInputStream(Builder builder) throws IOException {
+        this(builder.getInputStream(), builder.predicate);
+    }
+
+    @Deprecated
+    public ValidatingObjectInputStream(InputStream input) throws IOException {
+        this(input, new ObjectStreamClassPredicate());
+    }
+
+    private ValidatingObjectInputStream(InputStream input, ObjectStreamClassPredicate predicate) throws IOException {
+        super(input);
+        this.predicate = predicate;
+    }
+
+    public ValidatingObjectInputStream accept(Class<?>... classes) {
+        this.predicate.accept(classes);
+        return this;
+    }
+
+    public ValidatingObjectInputStream accept(ClassNameMatcher matcher) {
+        this.predicate.accept(matcher);
+        return this;
+    }
+
+    public ValidatingObjectInputStream accept(Pattern pattern) {
+        this.predicate.accept(pattern);
+        return this;
+    }
+
+    public ValidatingObjectInputStream accept(String... patterns) {
+        this.predicate.accept(patterns);
+        return this;
+    }
+
+    private void checkClassName(String name) throws InvalidClassException {
+        if (!this.predicate.test(name)) {
+            invalidClassNameFound(name);
+        }
+    }
+
+    protected void invalidClassNameFound(String className) throws InvalidClassException {
+        throw new InvalidClassException("Class name not accepted: " + className);
+    }
+
+    public <T> T readObjectCast() throws ClassNotFoundException, IOException {
+        return (T) super.readObject();
+    }
+
+    public ValidatingObjectInputStream reject(Class<?>... classes) {
+        this.predicate.reject(classes);
+        return this;
+    }
+
+    public ValidatingObjectInputStream reject(ClassNameMatcher matcher) {
+        this.predicate.reject(matcher);
+        return this;
+    }
+
+    public ValidatingObjectInputStream reject(Pattern pattern) {
+        this.predicate.reject(pattern);
+        return this;
+    }
+
+    public ValidatingObjectInputStream reject(String... patterns) {
+        this.predicate.reject(patterns);
+        return this;
+    }
+
+    @Override // java.io.ObjectInputStream
+    protected Class<?> resolveClass(ObjectStreamClass osc) throws IOException, ClassNotFoundException {
+        checkClassName(osc.getName());
+        return super.resolveClass(osc);
+    }
+
+    @Override // java.io.ObjectInputStream
+    protected Class<?> resolveProxyClass(String[] interfaces) throws IOException, ClassNotFoundException {
+        for (String interfaceName : interfaces) {
+            checkClassName(interfaceName);
+        }
+        return super.resolveProxyClass(interfaces);
+    }
+}

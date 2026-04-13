@@ -1,0 +1,18 @@
+package com.microsoft.schemas.office.office.impl;
+
+import com.microsoft.schemas.office.office.STInsetMode;
+import org.apache.xmlbeans.SchemaType;
+import org.apache.xmlbeans.impl.values.JavaStringEnumerationHolderEx;
+
+/* loaded from: classes.dex */
+public class STInsetModeImpl extends JavaStringEnumerationHolderEx implements STInsetMode {
+    private static final long serialVersionUID = 1;
+
+    public STInsetModeImpl(SchemaType sType) {
+        super(sType, false);
+    }
+
+    protected STInsetModeImpl(SchemaType sType, boolean b) {
+        super(sType, b);
+    }
+}

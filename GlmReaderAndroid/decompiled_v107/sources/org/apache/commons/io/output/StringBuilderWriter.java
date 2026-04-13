@@ -1,0 +1,72 @@
+package org.apache.commons.io.output;
+
+import java.io.Serializable;
+import java.io.Writer;
+import org.apache.commons.io.IOUtils;
+
+/* loaded from: classes9.dex */
+public class StringBuilderWriter extends Writer implements Serializable {
+    private static final long serialVersionUID = -146927496096066153L;
+    private final StringBuilder builder;
+
+    public StringBuilderWriter() {
+        this.builder = new StringBuilder();
+    }
+
+    public StringBuilderWriter(int capacity) {
+        this.builder = new StringBuilder(capacity);
+    }
+
+    public StringBuilderWriter(StringBuilder builder) {
+        this.builder = builder != null ? builder : new StringBuilder();
+    }
+
+    @Override // java.io.Writer, java.lang.Appendable
+    public Writer append(char value) {
+        this.builder.append(value);
+        return this;
+    }
+
+    @Override // java.io.Writer, java.lang.Appendable
+    public Writer append(CharSequence value) {
+        this.builder.append(value);
+        return this;
+    }
+
+    @Override // java.io.Writer, java.lang.Appendable
+    public Writer append(CharSequence value, int start, int end) {
+        this.builder.append(value, start, end);
+        return this;
+    }
+
+    @Override // java.io.Writer, java.io.Closeable, java.lang.AutoCloseable
+    public void close() {
+    }
+
+    @Override // java.io.Writer, java.io.Flushable
+    public void flush() {
+    }
+
+    public StringBuilder getBuilder() {
+        return this.builder;
+    }
+
+    public String toString() {
+        return this.builder.toString();
+    }
+
+    @Override // java.io.Writer
+    public void write(char[] value, int offset, int length) {
+        if (value != null) {
+            IOUtils.checkFromIndexSize(value, offset, length);
+            this.builder.append(value, offset, length);
+        }
+    }
+
+    @Override // java.io.Writer
+    public void write(String value) {
+        if (value != null) {
+            this.builder.append(value);
+        }
+    }
+}

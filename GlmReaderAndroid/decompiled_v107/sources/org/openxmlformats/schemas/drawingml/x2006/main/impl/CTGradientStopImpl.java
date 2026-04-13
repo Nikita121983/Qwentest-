@@ -1,0 +1,337 @@
+package org.openxmlformats.schemas.drawingml.x2006.main.impl;
+
+import javax.xml.namespace.QName;
+import org.apache.poi.xssf.usermodel.XSSFRelation;
+import org.apache.xmlbeans.SchemaType;
+import org.apache.xmlbeans.SimpleValue;
+import org.apache.xmlbeans.impl.values.XmlComplexContentImpl;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTHslColor;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTPresetColor;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTSRgbColor;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTScRgbColor;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTSchemeColor;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTSystemColor;
+import org.openxmlformats.schemas.drawingml.x2006.main.STPositiveFixedPercentage;
+
+/* loaded from: classes11.dex */
+public class CTGradientStopImpl extends XmlComplexContentImpl implements CTGradientStop {
+    private static final QName[] PROPERTY_QNAME = {new QName(XSSFRelation.NS_DRAWINGML, "scrgbClr"), new QName(XSSFRelation.NS_DRAWINGML, "srgbClr"), new QName(XSSFRelation.NS_DRAWINGML, "hslClr"), new QName(XSSFRelation.NS_DRAWINGML, "sysClr"), new QName(XSSFRelation.NS_DRAWINGML, "schemeClr"), new QName(XSSFRelation.NS_DRAWINGML, "prstClr"), new QName("", "pos")};
+    private static final long serialVersionUID = 1;
+
+    public CTGradientStopImpl(SchemaType sType) {
+        super(sType);
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public CTScRgbColor getScrgbClr() {
+        CTScRgbColor cTScRgbColor;
+        synchronized (monitor()) {
+            check_orphaned();
+            CTScRgbColor target = (CTScRgbColor) get_store().find_element_user(PROPERTY_QNAME[0], 0);
+            cTScRgbColor = target == null ? null : target;
+        }
+        return cTScRgbColor;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public boolean isSetScrgbClr() {
+        boolean z;
+        synchronized (monitor()) {
+            check_orphaned();
+            z = get_store().count_elements(PROPERTY_QNAME[0]) != 0;
+        }
+        return z;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public void setScrgbClr(CTScRgbColor scrgbClr) {
+        generatedSetterHelperImpl(scrgbClr, PROPERTY_QNAME[0], 0, (short) 1);
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public CTScRgbColor addNewScrgbClr() {
+        CTScRgbColor target;
+        synchronized (monitor()) {
+            check_orphaned();
+            target = (CTScRgbColor) get_store().add_element_user(PROPERTY_QNAME[0]);
+        }
+        return target;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public void unsetScrgbClr() {
+        synchronized (monitor()) {
+            check_orphaned();
+            get_store().remove_element(PROPERTY_QNAME[0], 0);
+        }
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public CTSRgbColor getSrgbClr() {
+        CTSRgbColor cTSRgbColor;
+        synchronized (monitor()) {
+            check_orphaned();
+            CTSRgbColor target = (CTSRgbColor) get_store().find_element_user(PROPERTY_QNAME[1], 0);
+            cTSRgbColor = target == null ? null : target;
+        }
+        return cTSRgbColor;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public boolean isSetSrgbClr() {
+        boolean z;
+        synchronized (monitor()) {
+            check_orphaned();
+            z = true;
+            if (get_store().count_elements(PROPERTY_QNAME[1]) == 0) {
+                z = false;
+            }
+        }
+        return z;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public void setSrgbClr(CTSRgbColor srgbClr) {
+        generatedSetterHelperImpl(srgbClr, PROPERTY_QNAME[1], 0, (short) 1);
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public CTSRgbColor addNewSrgbClr() {
+        CTSRgbColor target;
+        synchronized (monitor()) {
+            check_orphaned();
+            target = (CTSRgbColor) get_store().add_element_user(PROPERTY_QNAME[1]);
+        }
+        return target;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public void unsetSrgbClr() {
+        synchronized (monitor()) {
+            check_orphaned();
+            get_store().remove_element(PROPERTY_QNAME[1], 0);
+        }
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public CTHslColor getHslClr() {
+        CTHslColor cTHslColor;
+        synchronized (monitor()) {
+            check_orphaned();
+            CTHslColor target = (CTHslColor) get_store().find_element_user(PROPERTY_QNAME[2], 0);
+            cTHslColor = target == null ? null : target;
+        }
+        return cTHslColor;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public boolean isSetHslClr() {
+        boolean z;
+        synchronized (monitor()) {
+            check_orphaned();
+            z = get_store().count_elements(PROPERTY_QNAME[2]) != 0;
+        }
+        return z;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public void setHslClr(CTHslColor hslClr) {
+        generatedSetterHelperImpl(hslClr, PROPERTY_QNAME[2], 0, (short) 1);
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public CTHslColor addNewHslClr() {
+        CTHslColor target;
+        synchronized (monitor()) {
+            check_orphaned();
+            target = (CTHslColor) get_store().add_element_user(PROPERTY_QNAME[2]);
+        }
+        return target;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public void unsetHslClr() {
+        synchronized (monitor()) {
+            check_orphaned();
+            get_store().remove_element(PROPERTY_QNAME[2], 0);
+        }
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public CTSystemColor getSysClr() {
+        CTSystemColor cTSystemColor;
+        synchronized (monitor()) {
+            check_orphaned();
+            CTSystemColor target = (CTSystemColor) get_store().find_element_user(PROPERTY_QNAME[3], 0);
+            cTSystemColor = target == null ? null : target;
+        }
+        return cTSystemColor;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public boolean isSetSysClr() {
+        boolean z;
+        synchronized (monitor()) {
+            check_orphaned();
+            z = get_store().count_elements(PROPERTY_QNAME[3]) != 0;
+        }
+        return z;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public void setSysClr(CTSystemColor sysClr) {
+        generatedSetterHelperImpl(sysClr, PROPERTY_QNAME[3], 0, (short) 1);
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public CTSystemColor addNewSysClr() {
+        CTSystemColor target;
+        synchronized (monitor()) {
+            check_orphaned();
+            target = (CTSystemColor) get_store().add_element_user(PROPERTY_QNAME[3]);
+        }
+        return target;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public void unsetSysClr() {
+        synchronized (monitor()) {
+            check_orphaned();
+            get_store().remove_element(PROPERTY_QNAME[3], 0);
+        }
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public CTSchemeColor getSchemeClr() {
+        CTSchemeColor cTSchemeColor;
+        synchronized (monitor()) {
+            check_orphaned();
+            CTSchemeColor target = (CTSchemeColor) get_store().find_element_user(PROPERTY_QNAME[4], 0);
+            cTSchemeColor = target == null ? null : target;
+        }
+        return cTSchemeColor;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public boolean isSetSchemeClr() {
+        boolean z;
+        synchronized (monitor()) {
+            check_orphaned();
+            z = get_store().count_elements(PROPERTY_QNAME[4]) != 0;
+        }
+        return z;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public void setSchemeClr(CTSchemeColor schemeClr) {
+        generatedSetterHelperImpl(schemeClr, PROPERTY_QNAME[4], 0, (short) 1);
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public CTSchemeColor addNewSchemeClr() {
+        CTSchemeColor target;
+        synchronized (monitor()) {
+            check_orphaned();
+            target = (CTSchemeColor) get_store().add_element_user(PROPERTY_QNAME[4]);
+        }
+        return target;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public void unsetSchemeClr() {
+        synchronized (monitor()) {
+            check_orphaned();
+            get_store().remove_element(PROPERTY_QNAME[4], 0);
+        }
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public CTPresetColor getPrstClr() {
+        CTPresetColor cTPresetColor;
+        synchronized (monitor()) {
+            check_orphaned();
+            CTPresetColor target = (CTPresetColor) get_store().find_element_user(PROPERTY_QNAME[5], 0);
+            cTPresetColor = target == null ? null : target;
+        }
+        return cTPresetColor;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public boolean isSetPrstClr() {
+        boolean z;
+        synchronized (monitor()) {
+            check_orphaned();
+            z = get_store().count_elements(PROPERTY_QNAME[5]) != 0;
+        }
+        return z;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public void setPrstClr(CTPresetColor prstClr) {
+        generatedSetterHelperImpl(prstClr, PROPERTY_QNAME[5], 0, (short) 1);
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public CTPresetColor addNewPrstClr() {
+        CTPresetColor target;
+        synchronized (monitor()) {
+            check_orphaned();
+            target = (CTPresetColor) get_store().add_element_user(PROPERTY_QNAME[5]);
+        }
+        return target;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public void unsetPrstClr() {
+        synchronized (monitor()) {
+            check_orphaned();
+            get_store().remove_element(PROPERTY_QNAME[5], 0);
+        }
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public Object getPos() {
+        Object objectValue;
+        synchronized (monitor()) {
+            check_orphaned();
+            SimpleValue target = (SimpleValue) get_store().find_attribute_user(PROPERTY_QNAME[6]);
+            objectValue = target == null ? null : target.getObjectValue();
+        }
+        return objectValue;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public STPositiveFixedPercentage xgetPos() {
+        STPositiveFixedPercentage target;
+        synchronized (monitor()) {
+            check_orphaned();
+            target = (STPositiveFixedPercentage) get_store().find_attribute_user(PROPERTY_QNAME[6]);
+        }
+        return target;
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public void setPos(Object pos) {
+        synchronized (monitor()) {
+            check_orphaned();
+            SimpleValue target = (SimpleValue) get_store().find_attribute_user(PROPERTY_QNAME[6]);
+            if (target == null) {
+                target = (SimpleValue) get_store().add_attribute_user(PROPERTY_QNAME[6]);
+            }
+            target.setObjectValue(pos);
+        }
+    }
+
+    @Override // org.openxmlformats.schemas.drawingml.x2006.main.CTGradientStop
+    public void xsetPos(STPositiveFixedPercentage pos) {
+        synchronized (monitor()) {
+            check_orphaned();
+            STPositiveFixedPercentage target = (STPositiveFixedPercentage) get_store().find_attribute_user(PROPERTY_QNAME[6]);
+            if (target == null) {
+                target = (STPositiveFixedPercentage) get_store().add_attribute_user(PROPERTY_QNAME[6]);
+            }
+            target.set(pos);
+        }
+    }
+}

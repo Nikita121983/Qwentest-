@@ -100,12 +100,20 @@ class MeasurementListActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        // Начальный цвет toolbar (по умолчанию — Задняя грань)
-        updateToolbarColor(0)
-
         currentProjectId = intent.getStringExtra("project_uuid")
         currentProjectName = intent.getStringExtra("project_name") ?: "Все замеры"
         supportActionBar?.title = currentProjectName
+
+        // Версия приложения (единый источник — build.gradle.kts через PackageManager)
+        val verName = try {
+            packageManager.getPackageInfo(packageName, 0).versionName ?: "?"
+        } catch (e: Exception) { "?" }
+
+        supportActionBar?.apply {
+            title = currentProjectName
+            subtitle = verName
+            setDisplayShowTitleEnabled(true)
+        }
 
         recyclerView = findViewById(R.id.recyclerView)
         tvEmpty = TextView(this).apply {
@@ -142,6 +150,9 @@ class MeasurementListActivity : AppCompatActivity() {
 
         // FAB
         fabScrollTop = findViewById(R.id.fabScrollTop)
+
+        // Начальный цвет toolbar (по умолчанию — Задняя грань)
+        updateToolbarColor(0)
 
         // Toggle Panel
         btnTogglePanel.setOnClickListener {

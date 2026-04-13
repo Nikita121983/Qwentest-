@@ -64,7 +64,7 @@ class MeasurementAdapter(
             selectionMode.clear()
         }
         notifyDataSetChanged()
-        onSelectionChanged?.invoke(if (enabled) emptySet() else emptySet())
+        // НЕ вызываем onSelectionChanged — это вызывает бесконечный цикл
     }
 
     private fun toggleSelection(position: Int, holder: ViewHolder) {

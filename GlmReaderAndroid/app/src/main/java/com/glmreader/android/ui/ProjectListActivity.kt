@@ -90,7 +90,20 @@ class ProjectListActivity : AppCompatActivity() {
         bleManager = app.getOrCreateBleManager(this)
         setupBleStatus()
         checkBlePermissions()
+
+        // BroadcastReceiver регистрируется автоматически в GlmBleManager.init()
+
+        // Автоподключение к сохранённому устройству (как в MM/MO)
+        startAutoConnectIfSaved()
     }
+
+    override fun onResume() {
+        super.onResume()
+        // Убедимся, что ресивер зарегистрирован (на случай если приложение было убито)
+        bleManager.registerBtReceiver()
+    }
+
+    // НЕ вызываем unregisterBtReceiver здесь, чтобы автоподключение работало в фоне
 
     private fun showCreateProjectDialog() {
         val editText = EditText(this).apply {
@@ -175,4 +188,23 @@ class ProjectListActivity : AppCompatActivity() {
     private fun showBleDialog() {
         BleDialogHelper.show(this, bleManager)
     }
+
+    // ==================== AUTO CONNECT ====================
+
+    /**
+     * Автоподключение к сохранённому устройству при старте (как в MM/MO).
+     */
+    private fun startAutoConnectIfSaved() {
+        val prefs = getSharedPreferences("ble_prefs", MODE_PRIVATE)
+        val savedMac = prefs.getString("last_device_mac", null)
+        val savedName = prefs.getString("last_device_name", null)
+
+        if (savedMac != null) {
+            android.util.Log.d("ProjectList", "Auto-connecting to saved device: $savedMac ($savedName)")
+            bleManager.startAutoConnect(savedMac, savedName)
+        } else {
+            android.util.Log.d("ProjectList", "No saved device — auto-connect not started")
+        }
+    }
+    // НЕ останавливаем автоподключение в onDestroy — пусть работает в фоне
 }

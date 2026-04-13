@@ -1,0 +1,12 @@
+package com.microsoft.schemas.office.x2006.digsig;
+
+import org.apache.poi.schemas.ooxml.system.ooxml.TypeSystemHolder;
+import org.apache.xmlbeans.SchemaType;
+import org.apache.xmlbeans.XmlInt;
+import org.apache.xmlbeans.impl.schema.SimpleTypeFactory;
+
+/* loaded from: classes.dex */
+public interface STSignatureType extends XmlInt {
+    public static final SimpleTypeFactory<STSignatureType> Factory = new SimpleTypeFactory<>(TypeSystemHolder.typeSystem, "stsignaturetypeae80type");
+    public static final SchemaType type = Factory.getType();
+}

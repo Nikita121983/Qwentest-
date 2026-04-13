@@ -1,0 +1,31 @@
+package org.apache.poi.xddf.usermodel.chart;
+
+import java.util.HashMap;
+import org.openxmlformats.schemas.drawingml.x2006.chart.STErrValType;
+
+/* loaded from: classes10.dex */
+public enum ErrorValueType {
+    CUSTOM(STErrValType.CUST),
+    FIXED_VALUE(STErrValType.FIXED_VAL),
+    PERCENTAGE(STErrValType.PERCENTAGE),
+    STANDARD_DEVIATION(STErrValType.STD_DEV),
+    STANDARD_ERROR(STErrValType.STD_ERR);
+
+    private static final HashMap<STErrValType.Enum, ErrorValueType> reverse = new HashMap<>();
+    final STErrValType.Enum underlying;
+
+    static {
+        for (ErrorValueType value : values()) {
+            reverse.put(value.underlying, value);
+        }
+    }
+
+    ErrorValueType(STErrValType.Enum valueType) {
+        this.underlying = valueType;
+    }
+
+    /* JADX INFO: Access modifiers changed from: package-private */
+    public static ErrorValueType valueOf(STErrValType.Enum valueType) {
+        return reverse.get(valueType);
+    }
+}

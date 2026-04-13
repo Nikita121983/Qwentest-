@@ -1,0 +1,61 @@
+package org.apache.logging.log4j.util;
+
+import org.apache.commons.lang3.SystemProperties;
+
+/* loaded from: classes10.dex */
+public final class Constants {
+    public static final byte[] EMPTY_BYTE_ARRAY;
+    public static final Object[] EMPTY_OBJECT_ARRAY;
+    public static final boolean ENABLE_THREADLOCALS;
+    public static final boolean IS_WEB_APP;
+    public static final int JAVA_MAJOR_VERSION;
+    public static final String LOG4J2_DEBUG = "log4j2.debug";
+    public static final int MAX_REUSABLE_MESSAGE_SIZE;
+
+    static {
+        IS_WEB_APP = PropertiesUtil.getProperties().getBooleanProperty("log4j2.is.webapp", isClassAvailable("javax.servlet.Servlet") || isClassAvailable("jakarta.servlet.Servlet"));
+        ENABLE_THREADLOCALS = PropertiesUtil.getProperties().getBooleanProperty("log4j2.enable.threadlocals", !IS_WEB_APP);
+        JAVA_MAJOR_VERSION = getMajorVersion();
+        MAX_REUSABLE_MESSAGE_SIZE = size("log4j.maxReusableMsgSize", 518);
+        EMPTY_OBJECT_ARRAY = new Object[0];
+        EMPTY_BYTE_ARRAY = new byte[0];
+    }
+
+    private static int size(final String property, final int defaultValue) {
+        return PropertiesUtil.getProperties().getIntegerProperty(property, defaultValue);
+    }
+
+    private static boolean isClassAvailable(final String className) {
+        try {
+            return LoaderUtil.loadClass(className) != null;
+        } catch (Throwable th) {
+            return false;
+        }
+    }
+
+    private Constants() {
+    }
+
+    private static int getMajorVersion() {
+        return getMajorVersion(System.getProperty(SystemProperties.JAVA_VERSION));
+    }
+
+    static int getMajorVersion(final String version) {
+        boolean isJEP223;
+        String[] parts = version.split("-|\\.", 3);
+        try {
+            int token = Integer.parseInt(parts[0]);
+            if (token == 1) {
+                isJEP223 = false;
+            } else {
+                isJEP223 = true;
+            }
+            if (isJEP223) {
+                return token;
+            }
+            return Integer.parseInt(parts[1]);
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+}

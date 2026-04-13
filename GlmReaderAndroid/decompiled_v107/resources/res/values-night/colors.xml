@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#121212</color>
+    <color name="black">#ffffffff</color>
+    <color name="card_background">#2c2c2c</color>
+    <color name="divider">#424242</color>
+    <color name="icon_tint">#bdbdbd</color>
+    <color name="icon_type">#5dade2</color>
+    <color name="popup_background">#2c2c2c</color>
+    <color name="selection_highlight">#1a3a5c</color>
+    <color name="status_error">#ef5350</color>
+    <color name="status_info">#5dade2</color>
+    <color name="status_success">#66bb6a</color>
+    <color name="surface">#1e1e1e</color>
+    <color name="text_heading">#5dade2</color>
+    <color name="text_primary">#e0e0e0</color>
+    <color name="text_secondary">#9e9e9e</color>
+    <color name="text_value">#5dade2</color>
+    <color name="white">#ff000000</color>
+</resources>

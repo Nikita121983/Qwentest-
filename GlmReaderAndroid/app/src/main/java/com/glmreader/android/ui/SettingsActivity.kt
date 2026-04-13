@@ -38,6 +38,14 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
+        // Версия приложения (единый источник — build.gradle.kts через PackageManager)
+        try {
+            val verName = packageManager.getPackageInfo(packageName, 0).versionName ?: "?"
+            findViewById<TextView>(R.id.tvVersion).text = "Версия $verName"
+        } catch (e: Exception) {
+            findViewById<TextView>(R.id.tvVersion).text = "Версия ?"
+        }
+
         tvThresholdValue = findViewById(R.id.tvThresholdValue)
         seekBarThreshold = findViewById(R.id.seekBarThreshold)
         switchAutoSwitch = findViewById(R.id.switchAutoSwitch)
