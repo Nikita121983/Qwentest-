@@ -24,6 +24,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var tvThresholdValue: TextView
     private lateinit var seekBarThreshold: SeekBar
     private lateinit var switchAutoSwitch: SwitchMaterial
+    private lateinit var switchShowPin: SwitchMaterial
     private lateinit var radioGroupTheme: android.widget.RadioGroup
 
     // Флаг для предотвращения зацикливания при смене темы
@@ -49,7 +50,15 @@ class SettingsActivity : AppCompatActivity() {
         tvThresholdValue = findViewById(R.id.tvThresholdValue)
         seekBarThreshold = findViewById(R.id.seekBarThreshold)
         switchAutoSwitch = findViewById(R.id.switchAutoSwitch)
+        switchShowPin = findViewById(R.id.switchShowPin)
         radioGroupTheme = findViewById(R.id.radioGroupTheme)
+
+        // Настройки Pin
+        val prefs = getSharedPreferences("settings", MODE_PRIVATE)
+        switchShowPin.isChecked = prefs.getBoolean("show_pin_ref", false)
+        switchShowPin.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("show_pin_ref", isChecked).apply()
+        }
 
         // Наблюдаем за настройками
         lifecycleScope.launch {

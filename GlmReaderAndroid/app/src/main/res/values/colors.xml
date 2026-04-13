@@ -44,7 +44,10 @@
     <color name="bg_continuous">#FFFFFF</color>
     <color name="bg_minmax">#FFF8E1</color>
     <color name="bg_indirect">#FFF9C4</color>
+    <color name="bg_indirect_height">#FFF9C4</color>
+    <color name="bg_indirect_length">#FFF59D</color>
     <color name="bg_double_indirect">#FFF176</color>
+    <color name="bg_partial_area">#F3E5F5</color>
     <color name="bg_area">#F3E5F5</color>
     <color name="bg_wall">#FFEBEE</color>
     <color name="bg_volume">#FFCDD2</color>

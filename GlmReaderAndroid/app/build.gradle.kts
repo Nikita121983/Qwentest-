@@ -13,8 +13,8 @@ android {
         applicationId = "com.glmreader.android"
         minSdk = 26
         targetSdk = 35
-        versionCode = 17
-        versionName = "1.0.17"
+        versionCode = 22
+        versionName = "1.0.22"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
