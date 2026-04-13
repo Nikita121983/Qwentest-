@@ -74,6 +74,18 @@ class MeasurementListActivity : AppCompatActivity() {
     private var currentTypeIndex = 0
     private var isPanelExpanded = true
 
+    // Toolbar и фон списка
+    private lateinit var toolbar: androidx.appcompat.widget.Toolbar
+
+    // Цвета toolbar по refEdge (из colors.xml)
+    private val toolbarRefEdgeColors = intArrayOf(
+        R.color.toolbar_rear,     // 0 — Задняя
+        R.color.toolbar_front,    // 1 — Передняя
+        R.color.toolbar_tripod,   // 2 — Штатив
+        R.color.toolbar_pin       // 3 — Pin
+    )
+    private var currentToolbarColor = 0 // индекс текущего цвета
+
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -84,7 +96,12 @@ class MeasurementListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_measurement_list)
-        setSupportActionBar(findViewById(R.id.toolbar))
+
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        // Начальный цвет toolbar (по умолчанию — Задняя грань)
+        updateToolbarColor(0)
 
         currentProjectId = intent.getStringExtra("project_uuid")
         currentProjectName = intent.getStringExtra("project_name") ?: "Все замеры"
@@ -297,13 +314,25 @@ class MeasurementListActivity : AppCompatActivity() {
     }
 
     private fun setupBleCallbacks() {
-        bleManager.observeConnectionState { connected ->
+        bleManager.onConnectionStateChanged = { connected ->
             runOnUiThread {
-                panelRemote.visibility = if (connected) View.VISIBLE else View.GONE
+                // Панель ВСЕГДА видна, кнопки активны/неактивны по подключению
+                panelRemote.visibility = View.VISIBLE
+                btnEnableLaser.isEnabled = connected
+                refCubeContainer.isEnabled = connected
+                typeCubeContainer.isEnabled = connected
             }
         }
 
-        bleManager.observeDataReceived { bytes ->
+        // Подписка на смену точки отсчёта (из пакетов от рулетки)
+        bleManager.onRefEdgeChanged = { refEdge ->
+            runOnUiThread {
+                updateToolbarColor(refEdge)
+                updateRefCube(refEdge)
+            }
+        }
+
+        bleManager.onDataReceived = { bytes ->
             // Try parsing
             val parsed = BlePacketParser.parse(bytes)
             if (parsed != null) {
@@ -380,5 +409,44 @@ class MeasurementListActivity : AppCompatActivity() {
     // BLE Dialog — делегируем helper'у
     private fun showBleDialog() {
         BleDialogHelper.show(this, bleManager)
+    }
+
+    // ==================== TOOLBAR COLOR ====================
+
+    /**
+     * Обновить цвет toolbar по точке отсчёта (refEdge 0-3).
+     * Анимация ObjectAnimator.ofArgb 0.4s.
+     */
+    private fun updateToolbarColor(refEdge: Int) {
+        val colorRes = toolbarRefEdgeColors.getOrElse(refEdge) { toolbarRefEdgeColors[0] }
+        val newColor = ContextCompat.getColor(this, colorRes)
+        currentToolbarColor = refEdge
+
+        ObjectAnimator.ofArgb(toolbar, "backgroundColor", newColor).apply {
+            duration = 400
+            start()
+        }
+
+        // Полоска сворачивания — тот же цвет
+        ObjectAnimator.ofArgb(btnTogglePanel, "backgroundColor", newColor).apply {
+            duration = 400
+            start()
+        }
+    }
+
+    /**
+     * Обновить кубик точки отсчёта из данных рулетки (без flip).
+     */
+    private fun updateRefCube(refEdge: Int) {
+        val refNames = arrayOf("Задняя", "Передняя", "Штатив", "Pin")
+        val refIcons = arrayOf(
+            R.drawable.ic_ref_rear,
+            R.drawable.ic_ref_front,
+            R.drawable.ic_ref_tripod,
+            R.drawable.ic_ref_pin
+        )
+        currentRefIndex = refEdge.coerceIn(0, refNames.size - 1)
+        ivRefIcon.setImageResource(refIcons[currentRefIndex])
+        tvRefLabel.text = refNames[currentRefIndex]
     }
 }
