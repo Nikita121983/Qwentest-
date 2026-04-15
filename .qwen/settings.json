@@ -90,7 +90,8 @@
       "WebFetch(www.thebedroomcoder.co.uk)",
       "Bash(@git *)",
       "Bash(rm *)",
-      "Bash(rmdir *)"
+      "Bash(rmdir *)",
+      "Bash(ls *)"
     ]
   },
   "$version": 3,
