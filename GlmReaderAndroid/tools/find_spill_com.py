@@ -1,13 +1,14 @@
 """Находим ВСЕ spill-формулы через Excel COM"""
+
 import win32com.client as win32
 import pythoncom
 import time
 import os
 
-PROCESS_FILE = r'c:\Users\Nik\SyncthingServiceAcct\0 Работа\Юнтолово 4 корпус\8 корпус\Обработка.xlsx'
+PROCESS_FILE = r"c:\Users\Nik\SyncthingServiceAcct\0 Работа\Юнтолово 4 корпус\8 корпус\Обработка.xlsx"
 
 pythoncom.CoInitialize()
-e = win32.Dispatch('Excel.Application')
+e = win32.Dispatch("Excel.Application")
 e.Visible = False
 e.DisplayAlerts = False
 e.ScreenUpdating = False
@@ -23,7 +24,7 @@ spill_formulas = []
 for i in range(1, wb.Sheets.Count + 1):
     ws = wb.Sheets(i)
     ws_name = ws.Name
-    
+
     # Ищем spill-ячейки через SpecialCells
     try:
         # xlCellTypeSameValidation = -4174, но нам нужны spill
@@ -31,7 +32,7 @@ for i in range(1, wb.Sheets.Count + 1):
         used = ws.UsedRange
         max_r = min(used.Row + used.Rows.Count - 1, 500)
         max_c = min(used.Column + used.Columns.Count - 1, 225)
-        
+
         for row in range(1, max_r + 1):
             for col in range(1, max_c + 1):
                 cell = ws.Cells(row, col)
@@ -43,13 +44,15 @@ for i in range(1, wb.Sheets.Count + 1):
                         spill_range = sr.Address
                     except:
                         pass
-                    spill_formulas.append({
-                        'sheet': ws_name,
-                        'cell': cell.Address,
-                        'formula': formula,
-                        'spill_to': spill_range,
-                    })
-    except Exception as ex:
+                    spill_formulas.append(
+                        {
+                            "sheet": ws_name,
+                            "cell": cell.Address,
+                            "formula": formula,
+                            "spill_to": spill_range,
+                        }
+                    )
+    except Exception:
         pass
 
 wb.Close(False)
@@ -74,7 +77,9 @@ if not spill_formulas:
             for col in range(1, 225):
                 cell = ws.Cells(row, col)
                 f = str(cell.Formula)
-                if any(kw in f for kw in ['СОРТ', 'УНИК', 'ФИЛЬТР', 'СЖПРОБЕЛЫ', 'ДВССЫЛ']):
+                if any(
+                    kw in f for kw in ["СОРТ", "УНИК", "ФИЛЬТР", "СЖПРОБЕЛЫ", "ДВССЫЛ"]
+                ):
                     print(f"{ws.Name}!{cell.Address}: {f[:150]}")
     wb.Close(False)
     e.Quit()
