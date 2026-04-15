@@ -633,6 +633,18 @@ class GlmBleManager(private val context: Context) {
         )
     }
 
+    /**
+     * Включить/выключить лазер (как кнопка на рулетке).
+     * По MM: C0 56 01 00 [CRC8] — команда Remote Trigger Button
+     */
+    fun sendLaserButton() {
+        // C0 56 01 00 — Remote Trigger Button (buttonNumber=0 = EN_BUTTON_MEASURE)
+        enqueueCommand(
+            byteArrayOf(0xC0.toByte(), 0x56.toByte(), 0x01.toByte(), 0x00.toByte()),
+            "Laser Button"
+        )
+    }
+
     fun sendSyncHistory(index: Int) {
         // devMode=58 (MODE_GET_LIST_ITEM), sync=1
         enqueueCommand(

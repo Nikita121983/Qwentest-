@@ -60,38 +60,74 @@ object BlePacketParser {
         )
     }
 
-    /** Типы измерений по devMode */
-    enum class MeasurementType(val devMode: Int, val displayName: String) {
-        DIRECT(1, "Измерение"),
-        CONTINUOUS(2, "Непрерывный"),
-        MIN_MAX(3, "Min/Max"),
-        ADD_SUB(4, "Сложить/Вычесть"),
-        AREA(5, "Площадь"),
-        VOLUME(6, "Объём"),
-        INDIRECT_HEIGHT(10, "Косвенная высота"),
-        INDIRECT_LENGTH(11, "Косвенная длина"),
-        DOUBLE_INDIRECT(12, "Двойная косвенная"),
-        PARTIAL_AREA(13, "Частичная площадь"),
-        STAKE_OUT(14, "Разбивка"),
-        ANGLE(15, "Угол"),
-        UNKNOWN(-1, "Неизвестный");
+    /**
+     * SyncMode — то, что MM показывает в UI.
+     * Конвертация EDCMode → SyncMode по MM turnEDCModeToSyncMode().
+     */
+    fun edcModeToSyncMode(edcMode: Int): Int = when (edcMode) {
+        1, 16, 17 -> 1        // Distance
+        2 -> 6                // Continuous / MinMax
+        3, 4, 18, 19 -> 2     // Area
+        5, 6, 7, 20, 21 -> 3  // Volume
+        8, 9 -> 4             // Angle
+        10 -> 7               // Indirect Height
+        11 -> 8               // Indirect Length
+        12, 13 -> 9           // Double Indirect
+        14, 15 -> 10          // Wall Area
+        24, 25, 26 -> 14      // Trapezoid
+        else -> 0             // Unknown
+    }
+
+    /** Название SyncMode для UI */
+    fun syncModeName(syncMode: Int): String = when (syncMode) {
+        1 -> "Прямой"
+        2 -> "Площадь"
+        3 -> "Объём"
+        4 -> "Угол"
+        6 -> "Непрерывный"
+        7 -> "Косв. высота"
+        8 -> "Косв. длина"
+        9 -> "Двойная косв."
+        10 -> "Стена"
+        14 -> "Трапеция"
+        else -> "Неизвестный"
+    }
+
+    /**
+     * Типы измерений (SyncMode) — для совместимости с existing кодом.
+     * Это НЕ devMode, это SyncMode который MM показывает в UI.
+     */
+    enum class MeasurementType(val syncMode: Int, val displayName: String) {
+        DIRECT(1, "Прямой"),
+        AREA(2, "Площадь"),
+        AREA_FINAL(2, "Площадь"),  // Alias для совместимости
+        VOLUME(3, "Объём"),
+        VOLUME_FINAL(3, "Объём"),   // Alias для совместимости
+        ANGLE(4, "Угол"),
+        CONTINUOUS(6, "Непрерывный"),
+        INDIRECT_HEIGHT(7, "Косв. высота"),
+        INDIRECT_LENGTH(8, "Косв. длина"),
+        DOUBLE_INDIRECT(9, "Двойная косв."),
+        WALL_AREA(10, "Стена"),
+        TRAPEZOID(14, "Трапеция"),
+        UNKNOWN(0, "Неизвестный");
 
         companion object {
-            fun fromDevMode(devMode: Int): MeasurementType =
-                values().find { it.devMode == devMode } ?: UNKNOWN
+            fun fromSyncMode(syncMode: Int): MeasurementType =
+                values().find { it.syncMode == syncMode } ?: UNKNOWN
         }
     }
 
     /** Точка отсчёта */
     enum class RefEdge(val value: Int, val displayName: String) {
-        REAR(0, "Задняя грань"),
-        TRIPOD(1, "Ось штатива"),
-        FRONT(2, "Передняя грань"),
-        PIN(3, "Pin");
+        FRONT(0, "Передняя грань"),    // REF_EDGE_DISTANCE_FRONT = 0
+        TRIPOD(1, "Ось штатива"),      // REF_EDGE_DISTANCE_TRIPOD = 1
+        REAR(2, "Задняя грань"),       // REF_EDGE_DISTANCE_REAR = 2
+        PIN(3, "Pin");                 // REF_EDGE_DISTANCE_PIN = 3
 
         companion object {
             fun fromValue(value: Int): RefEdge =
-                values().find { it.value == value } ?: REAR
+                values().find { it.value == value } ?: FRONT
         }
     }
 
@@ -225,8 +261,8 @@ object BlePacketParser {
     /** Форматирование результата для отображения */
     fun formatResult(value: Double, type: MeasurementType): String {
         return when (type) {
-            MeasurementType.AREA -> "%.2f м²".format(value)
-            MeasurementType.VOLUME -> "%.2f м³".format(value)
+            MeasurementType.AREA_FINAL -> "%.2f м²".format(value)
+            MeasurementType.VOLUME_FINAL -> "%.2f м³".format(value)
             else -> "%.3f м".format(value)
         }
     }

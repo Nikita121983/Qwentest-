@@ -124,8 +124,8 @@ object InclinoLogic {
             MeasurementType.DIRECT -> "\uD83D\uDCCF" // 📏
             MeasurementType.INDIRECT_HEIGHT -> "\uD83D\uDCC8" // 📈 (замена 📐↑)
             MeasurementType.INDIRECT_LENGTH -> "\uD83D\uDCC9" // 📉 (замена 📐→)
-            MeasurementType.AREA -> "\uD83D\uDFE6" // 🟦
-            MeasurementType.VOLUME -> "\uD83E\uDFCA" // 🧊
+            MeasurementType.AREA_FINAL -> "\uD83D\uDFE6" // 🟦
+            MeasurementType.VOLUME_FINAL -> "\uD83E\uDFCA" // 🧊
             else -> "\uD83D\uDCCF"
         }
     }

@@ -94,7 +94,7 @@ class MeasurementAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val m = measurements[position]
-        val type = BlePacketParser.MeasurementType.fromDevMode(m.measurementType)
+        val type = BlePacketParser.MeasurementType.fromSyncMode(m.measurementType)
         val inclino = InclinoLogic.determineType(m.angleDeg, m.resultValue)
 
         // Название замера

@@ -77,14 +77,15 @@ class MeasurementListActivity : AppCompatActivity() {
     // Toolbar и фон списка
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
-    // Цвета toolbar по refEdge (из colors.xml)
+    // Цвета toolbar по refEdge (MM: 0=Front, 1=Tripod, 2=Rear, 3=Pin)
+    // Пользователь: Задняя=синий, Передняя=зелёный, Штатив=красный
     private val toolbarRefEdgeColors = intArrayOf(
-        R.color.toolbar_rear,     // 0 — Задняя
-        R.color.toolbar_front,    // 1 — Передняя
-        R.color.toolbar_tripod,   // 2 — Штатив
-        R.color.toolbar_pin       // 3 — Pin
+        R.color.toolbar_front,    // refEdge 0 — Передняя (зелёный)
+        R.color.toolbar_tripod,   // refEdge 1 — Штатив (красный)
+        R.color.toolbar_rear,     // refEdge 2 — Задняя (синий)
+        R.color.toolbar_pin       // refEdge 3 — Pin (оранжевый)
     )
-    private var currentToolbarColor = 0 // индекс текущего цвета
+    private var currentToolbarColor = 2 // по умолчанию Задняя (refEdge=2)
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -174,11 +175,17 @@ class MeasurementListActivity : AppCompatActivity() {
             flipTypeCube()
         }
 
-        // Enable Laser
+        // Enable Laser — тумблер как в MM
         btnEnableLaser.setOnClickListener {
-            val isOn = btnEnableLaser.text.toString().contains("Включить")
-            btnEnableLaser.text = if (isOn) "Выключить" else "Включить"
-            // TODO: Send laser command
+            val isOn = btnEnableLaser.text.toString().contains("Выключить")
+            if (bleManager.isConnected) {
+                // MM отправляет C0 56 01 00 — Remote Trigger Button
+                bleManager.sendLaserButton()
+                btnEnableLaser.text = if (isOn) "Включить" else "Выключить"
+                Log.d("BLE_LASER", "Laser button clicked, new state: ${btnEnableLaser.text}")
+            } else {
+                Toast.makeText(this, "Нет подключения", Toast.LENGTH_SHORT).show()
+            }
         }
 
         // Selection Mode Buttons
@@ -254,11 +261,20 @@ class MeasurementListActivity : AppCompatActivity() {
     }
 
     private fun flipRefCube() {
-        val refNames = arrayOf("Задняя", "Передняя", "Штатив")
+        val prefs = getSharedPreferences("settings", MODE_PRIVATE)
+        val showPin = prefs.getBoolean("show_pin_ref", false)
+
+        // UI порядок: 0=Задняя, 1=Передняя, 2=Штатив, 3=Pin(если включён)
+        val refNames = if (showPin) {
+            arrayOf("Задняя", "Передняя", "Штатив", "Pin")
+        } else {
+            arrayOf("Задняя", "Передняя", "Штатив")
+        }
         val refIcons = arrayOf(
-            R.drawable.ic_ref_rear,
-            R.drawable.ic_ref_front,
-            R.drawable.ic_ref_tripod
+            R.drawable.ic_ref_rear,     // UI 0
+            R.drawable.ic_ref_front,    // UI 1
+            R.drawable.ic_ref_tripod,   // UI 2
+            R.drawable.ic_ref_pin       // UI 3
         )
         currentRefIndex = (currentRefIndex + 1) % refNames.size
 
@@ -280,23 +296,37 @@ class MeasurementListActivity : AppCompatActivity() {
         }
         animOut.start()
 
-        // Send command
+        // Send command — маппинг UI index → refEdge (MM: 0=Front, 1=Tripod, 2=Rear, 3=Pin)
+        // UI 0 (Задняя) = refEdge 2, UI 1 (Передняя) = refEdge 0, UI 2 (Штатив) = refEdge 1, UI 3 (Pin) = refEdge 3
+        val uiToRefEdge = arrayOf(2, 0, 1, 3)
         if (bleManager.isConnected) {
-            bleManager.setReferencePoint(currentRefIndex)
+            bleManager.setReferencePoint(uiToRefEdge[currentRefIndex])
         }
     }
 
     private fun flipTypeCube() {
+        // UI SyncMode → EDCMode (по MM turnSyncModeToEDCMode)
         val typeNames = arrayOf(
-            "Прямой", "Непрерыв.", "Косв. выс.", "Косв. длина",
-            "Двойная", "Мин/Макс", "Угол", "Площадь", "Стена", "Объём", "Разбивка", "Трапеция"
+            "Прямой",       // SyncMode 1 → EDC 1
+            "Площадь",      // SyncMode 2 → EDC 4
+            "Объём",        // SyncMode 3 → EDC 7
+            "Угол",         // SyncMode 4 → EDC 8
+            "Непрерыв.",    // SyncMode 6 → EDC 2
+            "Косв. выс.",   // SyncMode 7 → EDC 10
+            "Косв. длина",  // SyncMode 8 → EDC 11
+            "Двойная",      // SyncMode 9 → EDC 13
+            "Стена",        // SyncMode 10 → EDC 15
+            "Трапеция"      // SyncMode 14 → EDC 26
         )
         val typeIcons = arrayOf(
-            R.drawable.ic_distance, R.drawable.ic_continuous, R.drawable.ic_indirect_height,
-            R.drawable.ic_indirect_length, R.drawable.ic_double_indirect, R.drawable.ic_minmax,
-            R.drawable.ic_angle, R.drawable.ic_area, R.drawable.ic_wall, R.drawable.ic_volume,
-            R.drawable.ic_stakeout, R.drawable.ic_trapezoid
+            R.drawable.ic_distance, R.drawable.ic_area, R.drawable.ic_volume,
+            R.drawable.ic_angle, R.drawable.ic_continuous, R.drawable.ic_indirect_height,
+            R.drawable.ic_indirect_length, R.drawable.ic_double_indirect, R.drawable.ic_wall,
+            R.drawable.ic_trapezoid
         )
+        // EDCMode по MM turnSyncModeToEDCMode
+        val edcModeValues = arrayOf(1, 4, 7, 8, 2, 10, 11, 13, 15, 26)
+
         currentTypeIndex = (currentTypeIndex + 1) % typeNames.size
 
         // Animation
@@ -319,9 +349,43 @@ class MeasurementListActivity : AppCompatActivity() {
 
         // Send command
         if (bleManager.isConnected) {
-            val modeValues = arrayOf(1, 2, 10, 11, 12, 3, 8, 4, 14, 7, 15, 26)
-            bleManager.setMeasurementType(modeValues[currentTypeIndex])
+            bleManager.setMeasurementType(edcModeValues[currentTypeIndex])
         }
+    }
+
+    /**
+     * Обновить кубик типа из данных рулетки (без анимации).
+     * Принимает SyncMode (после конвертации EDCMode → SyncMode).
+     */
+    private fun updateTypeCubeFromDevice(syncMode: Int) {
+        // SyncMode → UI index
+        val uiIndex = when (syncMode) {
+            1 -> 0   // Прямой
+            2 -> 1   // Площадь
+            3 -> 2   // Объём
+            4 -> 3   // Угол
+            6 -> 4   // Непрерывный
+            7 -> 5   // Косв. выс.
+            8 -> 6   // Косв. длина
+            9 -> 7   // Двойная
+            10 -> 8  // Стена
+            14 -> 9  // Трапеция
+            else -> 0
+        }
+        val typeNames = arrayOf(
+            "Прямой", "Площадь", "Объём", "Угол", "Непрерыв.",
+            "Косв. выс.", "Косв. длина", "Двойная", "Стена", "Трапеция"
+        )
+        val typeIcons = arrayOf(
+            R.drawable.ic_distance, R.drawable.ic_area, R.drawable.ic_volume,
+            R.drawable.ic_angle, R.drawable.ic_continuous, R.drawable.ic_indirect_height,
+            R.drawable.ic_indirect_length, R.drawable.ic_double_indirect, R.drawable.ic_wall,
+            R.drawable.ic_trapezoid
+        )
+
+        currentTypeIndex = uiIndex
+        ivTypeIcon.setImageResource(typeIcons[uiIndex])
+        tvTypeLabel.text = typeNames[uiIndex]
     }
 
     private fun setupBleCallbacks() {
@@ -340,6 +404,17 @@ class MeasurementListActivity : AppCompatActivity() {
             runOnUiThread {
                 updateToolbarColor(refEdge)
                 updateRefCube(refEdge)
+            }
+        }
+
+        // Подписка на смену типа измерения (из пакетов от рулетки)
+        bleManager.onMeasurementTypeChanged = { edcMode ->
+            runOnUiThread {
+                val syncMode = BlePacketParser.edcModeToSyncMode(edcMode)
+                val typeName = BlePacketParser.syncModeName(syncMode)
+                Log.d("BLE_TYPE", "EDCMode $edcMode → SyncMode $syncMode → $typeName")
+                // Обновляем кубик типа
+                updateTypeCubeFromDevice(syncMode)
             }
         }
 
@@ -447,17 +522,38 @@ class MeasurementListActivity : AppCompatActivity() {
 
     /**
      * Обновить кубик точки отсчёта из данных рулетки (без flip).
+     * refEdge из пакета: 0=Front, 1=Tripod, 2=Rear, 3=Pin (по MM EDCInputMessage)
      */
     private fun updateRefCube(refEdge: Int) {
-        val refNames = arrayOf("Задняя", "Передняя", "Штатив", "Pin")
+        val prefs = getSharedPreferences("settings", MODE_PRIVATE)
+        val showPin = prefs.getBoolean("show_pin_ref", false)
+
+        // Pin игнорируем если настройка выключена
+        if (refEdge == 3 && !showPin) return
+
+        // Маппинг refEdge → UI имя
+        val uiIndex = when (refEdge) {
+            0 -> 1  // Front → UI 1 (Передняя)
+            1 -> 2  // Tripod → UI 2 (Штатив)
+            2 -> 0  // Rear → UI 0 (Задняя)
+            3 -> 3  // Pin → UI 3 (Pin)
+            else -> 0
+        }
+
+        val refNames = if (showPin) {
+            arrayOf("Задняя", "Передняя", "Штатив", "Pin")
+        } else {
+            arrayOf("Задняя", "Передняя", "Штатив")
+        }
         val refIcons = arrayOf(
-            R.drawable.ic_ref_rear,
-            R.drawable.ic_ref_front,
-            R.drawable.ic_ref_tripod,
-            R.drawable.ic_ref_pin
+            R.drawable.ic_ref_rear,     // UI 0
+            R.drawable.ic_ref_front,    // UI 1
+            R.drawable.ic_ref_tripod,   // UI 2
+            R.drawable.ic_ref_pin       // UI 3
         )
-        currentRefIndex = refEdge.coerceIn(0, refNames.size - 1)
-        ivRefIcon.setImageResource(refIcons[currentRefIndex])
-        tvRefLabel.text = refNames[currentRefIndex]
+
+        currentRefIndex = uiIndex
+        ivRefIcon.setImageResource(refIcons[uiIndex])
+        tvRefLabel.text = refNames[uiIndex]
     }
 }

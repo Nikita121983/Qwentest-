@@ -42,7 +42,7 @@ class XlsxExporter(private val context: Context) {
             // Данные
             measurements.forEachIndexed { index, m ->
                 val row = sheet.createRow(index + 1)
-                val type = BlePacketParser.MeasurementType.fromDevMode(m.measurementType)
+                val type = BlePacketParser.MeasurementType.fromSyncMode(m.measurementType)
                 val refEdge = BlePacketParser.RefEdge.fromValue(m.refEdge)
 
                 row.createCell(0).setCellValue((index + 1).toDouble())
@@ -82,8 +82,8 @@ class XlsxExporter(private val context: Context) {
 
     private fun formatValue(m: MeasurementEntity, type: BlePacketParser.MeasurementType): String {
         return when (type) {
-            BlePacketParser.MeasurementType.AREA -> "%.2f м²".format(m.resultValue)
-            BlePacketParser.MeasurementType.VOLUME -> "%.2f м³".format(m.resultValue)
+            BlePacketParser.MeasurementType.AREA_FINAL -> "%.2f м²".format(m.resultValue)
+            BlePacketParser.MeasurementType.VOLUME_FINAL -> "%.2f м³".format(m.resultValue)
             BlePacketParser.MeasurementType.ANGLE -> "%.1f°".format(m.angleDeg)
             else -> "%.3f м".format(m.resultValue)
         }
