@@ -1,8 +1,0 @@
-package org.apache.poi.ss.formula.ptg;
-
-/* loaded from: classes10.dex */
-public interface Pxg3D extends Pxg {
-    String getLastSheetName();
-
-    void setLastSheetName(String str);
-}

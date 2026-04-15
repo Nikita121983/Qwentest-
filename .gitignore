@@ -52,14 +52,25 @@ bld/
 *.aab
 *.dex
 *.class
-Android/MeasuringAssistant/app/build/
-Android/MeasuringAssistant/build/
-Android/MeasuringAssistant/.gradle/
-Android/MeasuringAssistant/local.properties
-Android/MeasuringAssistant/.idea/
-Android/.gitignore-files/
+GlmReaderAndroid/app/build/
+GlmReaderAndroid/build/
+GlmReaderAndroid/.gradle/
+GlmReaderAndroid/.idea/
+GlmReaderAndroid/.kotlin/
+GlmReaderAndroid/local.properties
 *.jks
 *.keystore
+
+# Releases (local APK copies)
+GlmReaderAndroid/releases/
+python/releases/
+csharp/releases/
+
+# Reference (large decompiled files, not our code)
+GlmReaderAndroid/reference/
+
+# Old Android paths (deprecated)
+Android/
 
 # IDE
 .vscode/

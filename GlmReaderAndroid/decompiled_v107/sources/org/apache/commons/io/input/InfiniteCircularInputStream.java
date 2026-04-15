@@ -1,8 +1,0 @@
-package org.apache.commons.io.input;
-
-/* loaded from: classes9.dex */
-public class InfiniteCircularInputStream extends CircularInputStream {
-    public InfiniteCircularInputStream(byte[] repeatContent) {
-        super(repeatContent, -1L);
-    }
-}

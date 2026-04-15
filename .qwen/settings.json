@@ -82,7 +82,15 @@
       "Bash(c:\\users\\nik\\appdata\\local\\android\\sdk\\platform-tools\\adb.exe *)",
       "Bash(xcopy *)",
       "Bash(jadx *)",
-      "Bash(choco *)"
+      "Bash(choco *)",
+      "WebFetch(ipixel.com.sg)",
+      "WebFetch(ahmad118128.medium.com)",
+      "WebFetch(dasroot.net)",
+      "WebFetch(medium.com)",
+      "WebFetch(www.thebedroomcoder.co.uk)",
+      "Bash(@git *)",
+      "Bash(rm *)",
+      "Bash(rmdir *)"
     ]
   },
   "$version": 3,
